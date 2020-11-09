@@ -1,4 +1,4 @@
-package com.negeso.module.webshop.entity;
+package com.negeso.module.webshop.entity.modern;
 
 
 import javax.persistence.*;
@@ -25,9 +25,6 @@ public class ECustomer implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "billing_contact", referencedColumnName = "id")
     private EContact billingContact;
-
-   /* @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "customer")
-    List<CustomerDetails> customerDetails = new ArrayList<>();*/
 
     @Column(name = "price_group_id")
     private String priceGroupId;
@@ -98,17 +95,8 @@ public class ECustomer implements Serializable {
         return shippingContact;
     }
 
-   /* public List<CustomerDetails> getCustomerDetails() {
-        return customerDetails;
-    }*/
-
     public void setBillingContact(EContact billingContact) {
         this.billingContact = billingContact;
     }
-
-    /*public void setCustomerDetails(List<CustomerDetails> customerDetails) {
-        this.customerDetails = customerDetails;
-    }
-*/
 
 }

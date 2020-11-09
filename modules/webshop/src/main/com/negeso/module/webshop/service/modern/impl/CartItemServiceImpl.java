@@ -1,11 +1,11 @@
-package com.negeso.module.webshop.service;
+package com.negeso.module.webshop.service.modern.impl;
 
 import com.negeso.module.webshop.dto.CartItemDto;
 import com.negeso.module.webshop.dto.ProductDto;
-import com.negeso.module.webshop.entity.ECartItem;
+import com.negeso.module.webshop.entity.modern.ECartItem;
 import com.negeso.module.webshop.repository.ECartItemRepository;
-import com.negeso.module.webshop.service.interfaces.CartItemService;
-import com.negeso.module.webshop.service.interfaces.IamProductService;
+import com.negeso.module.webshop.service.modern.CartItemService;
+import com.negeso.module.webshop.service.modern.ProductService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Service
 public class CartItemServiceImpl implements CartItemService {
 
-    @Autowired private IamProductService productService;
+    @Autowired private ProductService productService;
 
     @Autowired private ECartItemRepository cartItemRepository;
 

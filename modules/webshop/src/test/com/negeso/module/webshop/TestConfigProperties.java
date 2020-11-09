@@ -10,10 +10,10 @@ import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
 import javax.sql.DataSource;
 import java.util.Properties;
 
-@Configuration
+/*@Configuration*/
 public class TestConfigProperties {
 
-    @Bean(name = "apiSessionFactory")
+    /*@Bean(name = "apiSessionFactory")
     public LocalSessionFactoryBean sessionFactory() {
 
         AnnotationSessionFactoryBean annotationSessionFactoryBean = new AnnotationSessionFactoryBean();
@@ -48,5 +48,5 @@ public class TestConfigProperties {
                 "hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 
         return hibernateProperties;
-    }
+    }*/
 }

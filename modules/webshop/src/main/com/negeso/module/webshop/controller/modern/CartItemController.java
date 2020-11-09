@@ -1,8 +1,7 @@
-package com.negeso.module.webshop.controller;
+package com.negeso.module.webshop.controller.modern;
 
-import com.negeso.framework.domain.User;
 import com.negeso.framework.util.spring.interceptor.Unsecured;
-import com.negeso.module.webshop.service.interfaces.CartItemService;
+import com.negeso.module.webshop.service.modern.CartItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

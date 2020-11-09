@@ -1,14 +1,13 @@
 package com.negeso.module.webshop;
 
-import com.negeso.module.webshop.entity.*;
-import org.apache.poi.hpsf.HPSFRuntimeException;
+import com.negeso.module.webshop.entity.modern.ECustomerDetails;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 
 public class EntityObjectFactory {
 
-    public static IamUser getIamUser () {
+   /* public static IamUser getIamUser () {
         IamUser iamUser = new IamUser();
 
         iamUser.setId(987654);
@@ -77,65 +76,65 @@ public class EntityObjectFactory {
         return iamContact;
     }
 
-    public static CustomerDetails getCustomerDetails (){
-        CustomerDetails customerDetails = new CustomerDetails();
+    public static ECustomerDetails getCustomerDetails (){
+        ECustomerDetails ECustomerDetails = new ECustomerDetails();
 
-        customerDetails.setId(98765432);
+        ECustomerDetails.setId(98765432);
 
-        customerDetails.setBatchId(987);
-        customerDetails.setName("test@name");
-        customerDetails.setSurname("test@surname");
-        customerDetails.setPhone("test@phone");
-        customerDetails.setEmail("test@email");
-        customerDetails.setGender(3);
-        customerDetails.setAge(19);
-        customerDetails.setBirth("test@birth");
-        customerDetails.setSkinCondition(19);
-        customerDetails.setAddress("test@addres");
-        customerDetails.setCity("test@city");
-        customerDetails.setState("test@state");
-        customerDetails.setCountryCode("ua");
-        customerDetails.setDate("test@date");
-        customerDetails.setTime("test@time");
-        customerDetails.setLatitude(0.019f);
-        customerDetails.setLongitude(0.019f);
-        customerDetails.setTemperature(36);
-        customerDetails.setHumidity(19);
-        customerDetails.setUvIndex(19);
-        customerDetails.setCapturingZoneCode(18);
-        customerDetails.setScalpHydrationRawValue(0.0019d);
-        customerDetails.setScalpHydrationValue(19);
-        customerDetails.setScalpHydrationLevel(19);
-        customerDetails.setScalpHydrationDesc("test@scalpHydrationDesc");
-        customerDetails.setScalpHydrationOrgUrl("test@scalpHydrationOrgUrl");
-        customerDetails.setScalpHydrationRstUrl("test@scalpHydrationRstUrl");
-        customerDetails.setScalpSebumRawValue(0.0019d);
-        customerDetails.setScalpSebumValue(19);
-        customerDetails.setScalpSebumLevel(19);
-        customerDetails.setScalpSebumDesc("test@scalpSebumDesc");
-        customerDetails.setScalpSebumOrgUrl("test@scalpSebumOrgUrl");
-        customerDetails.setScalpSebumRstUrl("test@scalpSebumRstUrl");
-        customerDetails.setHairDensityRawValue(1.0019d);
-        customerDetails.setHairDensityValue(1);
-        customerDetails.setHairDensityLevel(2);
-        customerDetails.setHairDensityDesc("test@hairDensityDesc");
-        customerDetails.setHairDensityOrgUrl("test@hairDensityOrgUrl");
-        customerDetails.setHairDensityRstUrl("test@hairDensityRstUrl");
-        customerDetails.setDeadSkinCellsRawValue(2.0019d);
-        customerDetails.setDeadSkinCellsValue(2);
-        customerDetails.setDeadSkinCellsLevel(3);
-        customerDetails.setDeadSkinCellsDesc("test@deadSkinCellsDesc");
-        customerDetails.setDeadSkinCellsOrgUrl("test@deadSkinCellsOrgUrl");
-        customerDetails.setDeadSkinCellsRstValue("test@deadSkinCellsRstUrl");
-        customerDetails.setScalpImpuritiesRawValue(3.0019d);
-        customerDetails.setScalpImpuritiesValue(3);
-        customerDetails.setScalpImpuritiesLevel(4);
-        customerDetails.setScalpImpuritiesDesc("test@ScalpImpuritiesDesc");
-        customerDetails.setScalpImpuritiesOrgUrl("test@scalpImpuritiesOrgUrl");
-        customerDetails.setScalpImpuritiesRstUrl("test@scalpImpuritiesRstUrl");
-        customerDetails.setComments("test@comments");
+        ECustomerDetails.setBatchId(987);
+        ECustomerDetails.setName("test@name");
+        ECustomerDetails.setSurname("test@surname");
+        ECustomerDetails.setPhone("test@phone");
+        ECustomerDetails.setEmail("test@email");
+        ECustomerDetails.setGender(3);
+        ECustomerDetails.setAge(19);
+        ECustomerDetails.setBirth("test@birth");
+        ECustomerDetails.setSkinCondition(19);
+        ECustomerDetails.setAddress("test@addres");
+        ECustomerDetails.setCity("test@city");
+        ECustomerDetails.setState("test@state");
+        ECustomerDetails.setCountryCode("ua");
+        ECustomerDetails.setDate("test@date");
+        ECustomerDetails.setTime("test@time");
+        ECustomerDetails.setLatitude(0.019f);
+        ECustomerDetails.setLongitude(0.019f);
+        ECustomerDetails.setTemperature(36);
+        ECustomerDetails.setHumidity(19);
+        ECustomerDetails.setUvIndex(19);
+        ECustomerDetails.setCapturingZoneCode(18);
+        ECustomerDetails.setScalpHydrationRawValue(0.0019d);
+        ECustomerDetails.setScalpHydrationValue(19);
+        ECustomerDetails.setScalpHydrationLevel(19);
+        ECustomerDetails.setScalpHydrationDesc("test@scalpHydrationDesc");
+        ECustomerDetails.setScalpHydrationOrgUrl("test@scalpHydrationOrgUrl");
+        ECustomerDetails.setScalpHydrationRstUrl("test@scalpHydrationRstUrl");
+        ECustomerDetails.setScalpSebumRawValue(0.0019d);
+        ECustomerDetails.setScalpSebumValue(19);
+        ECustomerDetails.setScalpSebumLevel(19);
+        ECustomerDetails.setScalpSebumDesc("test@scalpSebumDesc");
+        ECustomerDetails.setScalpSebumOrgUrl("test@scalpSebumOrgUrl");
+        ECustomerDetails.setScalpSebumRstUrl("test@scalpSebumRstUrl");
+        ECustomerDetails.setHairDensityRawValue(1.0019d);
+        ECustomerDetails.setHairDensityValue(1);
+        ECustomerDetails.setHairDensityLevel(2);
+        ECustomerDetails.setHairDensityDesc("test@hairDensityDesc");
+        ECustomerDetails.setHairDensityOrgUrl("test@hairDensityOrgUrl");
+        ECustomerDetails.setHairDensityRstUrl("test@hairDensityRstUrl");
+        ECustomerDetails.setDeadSkinCellsRawValue(2.0019d);
+        ECustomerDetails.setDeadSkinCellsValue(2);
+        ECustomerDetails.setDeadSkinCellsLevel(3);
+        ECustomerDetails.setDeadSkinCellsDesc("test@deadSkinCellsDesc");
+        ECustomerDetails.setDeadSkinCellsOrgUrl("test@deadSkinCellsOrgUrl");
+        ECustomerDetails.setDeadSkinCellsRstValue("test@deadSkinCellsRstUrl");
+        ECustomerDetails.setScalpImpuritiesRawValue(3.0019d);
+        ECustomerDetails.setScalpImpuritiesValue(3);
+        ECustomerDetails.setScalpImpuritiesLevel(4);
+        ECustomerDetails.setScalpImpuritiesDesc("test@ScalpImpuritiesDesc");
+        ECustomerDetails.setScalpImpuritiesOrgUrl("test@scalpImpuritiesOrgUrl");
+        ECustomerDetails.setScalpImpuritiesRstUrl("test@scalpImpuritiesRstUrl");
+        ECustomerDetails.setComments("test@comments");
 
-        return customerDetails;
+        return ECustomerDetails;
     }
 
     public static IamHairdresser getIamHeirdresser (){
@@ -206,5 +205,5 @@ public class EntityObjectFactory {
         iamOrder.setVatPrice(1.31);
 
         return iamOrder;
-    }
+    }*/
 }

@@ -1,18 +1,18 @@
-package com.negeso.module.webshop.service;
+package com.negeso.module.webshop.service.modern.impl;
 
 import com.negeso.module.webshop.converter.impl.internal.GenericConverter;
 import com.negeso.module.webshop.dto.ProductDto;
-import com.negeso.module.webshop.entity.EProduct;
+import com.negeso.module.webshop.entity.modern.EProduct;
 import com.negeso.module.webshop.exception.service.ProductRetrievingException;
 import com.negeso.module.webshop.repository.EProductRepository;
-import com.negeso.module.webshop.service.interfaces.IamProductService;
+import com.negeso.module.webshop.service.modern.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class IamProductServiceImpl implements IamProductService {
+public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private EProductRepository productRepository;

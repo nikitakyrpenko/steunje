@@ -1,6 +1,6 @@
 package com.negeso.module.webshop.repository;
 
-import com.negeso.module.webshop.entity.EProduct;
+import com.negeso.module.webshop.entity.modern.EProduct;
 
 import java.util.List;
 import java.util.Optional;

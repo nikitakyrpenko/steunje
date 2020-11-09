@@ -1,6 +1,6 @@
 package com.negeso.module.webshop.repository.impl;
 
-import com.negeso.module.webshop.entity.EProduct;
+import com.negeso.module.webshop.entity.modern.EProduct;
 import com.negeso.module.webshop.exception.RetrieveException;
 import com.negeso.module.webshop.repository.EProductRepository;
 import org.hibernate.Query;

@@ -1,6 +1,6 @@
 package com.negeso.module.webshop.repository;
 
-import com.negeso.module.webshop.entity.ECartItem;
+import com.negeso.module.webshop.entity.modern.ECartItem;
 
 import java.util.Collection;
 import java.util.List;

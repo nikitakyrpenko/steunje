@@ -1,10 +1,10 @@
-package com.negeso.module.webshop.entity;
+package com.negeso.module.webshop.entity.modern;
 
 import javax.persistence.*;
 
-@Entity(name = "CustomerDetails")
+@Entity
 @Table(name = "ws_customer_details")
-public class CustomerDetails {
+public class ECustomerDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

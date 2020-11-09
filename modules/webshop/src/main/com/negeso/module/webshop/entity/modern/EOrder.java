@@ -1,4 +1,4 @@
-package com.negeso.module.webshop.entity;
+package com.negeso.module.webshop.entity.modern;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -52,10 +52,10 @@ public class EOrder {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_details_id", referencedColumnName = "id")
-    private CustomerDetails customerDetails;
+    private ECustomerDetails ECustomerDetails;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "order")
-    private List<IamOrderItem> orderItems = new ArrayList<>();
+    private List<EOrderItem> orderItems = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -153,23 +153,23 @@ public class EOrder {
         this.vatPrice = vatPrice;
     }
 
-    public List<IamOrderItem> getOrderItems() {
+    public List<EOrderItem> getOrderItems() {
         return orderItems;
     }
 
-    public void setOrderItems(List<IamOrderItem> orderItems) {
+    public void setOrderItems(List<EOrderItem> orderItems) {
         this.orderItems = orderItems;
     }
 
-    public CustomerDetails getCustomerDetails() {
-        return customerDetails;
+    public ECustomerDetails getECustomerDetails() {
+        return ECustomerDetails;
     }
 
-    public void setCustomerDetails(CustomerDetails customerDetails) {
-        this.customerDetails = customerDetails;
+    public void setECustomerDetails(ECustomerDetails ECustomerDetails) {
+        this.ECustomerDetails = ECustomerDetails;
     }
 
-    public void addOrderItem(IamOrderItem orderItem){
+    public void addOrderItem(EOrderItem orderItem){
         orderItem.setOrder(this.getId());
         this.getOrderItems().add(orderItem);
     }

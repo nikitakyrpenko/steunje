@@ -1,4 +1,4 @@
-package com.negeso.module.webshop.service.interfaces;
+package com.negeso.module.webshop.service.modern;
 
 import com.negeso.module.webshop.dto.CartItemDto;
 

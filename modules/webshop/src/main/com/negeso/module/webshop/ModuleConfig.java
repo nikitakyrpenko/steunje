@@ -116,7 +116,7 @@ public class ModuleConfig extends WebMvcConfigurerAdapter {
 		AnnotationSessionFactoryBean annotationSessionFactoryBean = new AnnotationSessionFactoryBean();
 		annotationSessionFactoryBean.setDataSource(dataSource);
 		annotationSessionFactoryBean.setHibernateProperties(hibernateProperties());
-		annotationSessionFactoryBean.setPackagesToScan("com.negeso.module.webshop.entity");
+		annotationSessionFactoryBean.setPackagesToScan("com.negeso.module.webshop.entity.modern");
 
 		return annotationSessionFactoryBean;
 	}
@@ -129,7 +129,7 @@ public class ModuleConfig extends WebMvcConfigurerAdapter {
 		hibernateProperties.setProperty(
 				"hibernate.use_sql_comments", "true");
 		hibernateProperties.setProperty(
-				"hibernate.hbm2ddl.auto", "update");
+				"hibernate.hbm2ddl.auto", "none");
 		hibernateProperties.setProperty(
 				"hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 		hibernateProperties.setProperty(

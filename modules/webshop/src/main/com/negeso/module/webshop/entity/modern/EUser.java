@@ -1,4 +1,4 @@
-package com.negeso.module.webshop.entity;
+package com.negeso.module.webshop.entity.modern;
 
 import javax.persistence.*;
 import java.sql.Date;

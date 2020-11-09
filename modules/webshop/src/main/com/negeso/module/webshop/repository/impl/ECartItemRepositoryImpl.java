@@ -1,6 +1,6 @@
 package com.negeso.module.webshop.repository.impl;
 
-import com.negeso.module.webshop.entity.ECartItem;
+import com.negeso.module.webshop.entity.modern.ECartItem;
 import com.negeso.module.webshop.exception.DeleteException;
 import com.negeso.module.webshop.exception.RetrieveException;
 import com.negeso.module.webshop.repository.ECartItemRepository;
