@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+  <class name="com.negeso.module.google_shop.bo.GoogleMerchant" table="gm_google_merchant">
+    <id name="id" type="long">
+        <generator class="sequence">
+             <param name="sequence">gm_google_merchant_id_seq</param>
+        </generator>            
+    </id>
+    <property name="hostName" column="host_name" />
+    <property name="langCode" column="language_code" />
+    <property name="countryCode" column="country_code"/>    
+    <property name="enabled" type="boolean"/>    
+    <property name="currencyCode" column="currency_code"/>    
+    <property name="merchantId" column="merchant_id"/>    
+    <property name="adwordsId" column="adwords_id"/>    
+    <property name="notes"/>    
+    <property name="defaultBrand" column="default_brand"/>    
+    <property name="defaultCondition" column="default_condition"/>    
+    <property name="defaultAvailability" column="default_availability"/>    
+    <property name="defaultGoogleProductCategory" column="default_google_product_category"/>    
+    <property name="defaultGoogleProductType" column="default_google_product_type"/>    
+  </class>
+</hibernate-mapping>

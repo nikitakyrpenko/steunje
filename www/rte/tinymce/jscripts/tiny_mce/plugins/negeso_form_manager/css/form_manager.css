@@ -1,0 +1,70 @@
+.mceImageList {
+	width: 280px;
+}
+
+.mceActionPanel {
+	margin-top: 7px;
+}
+
+.alignPreview {
+	border: 1px solid black;
+	width: 140px;
+	height: 140px;
+	overflow: hidden;
+	padding: 5px;
+}
+
+.checkbox {
+	border: 0;
+	width: 16px;
+	height: 16px;
+}
+
+.panel_wrapper div.current {
+	height: 165px;
+}
+
+#prev {
+	margin: 0;
+	border: 1px
+	solid black;
+	width: 99%;
+	height: 150px;
+	overflow: auto;
+}
+
+#align, #classlist {
+	width: 150px;
+}
+
+#width, #height {
+	vertical-align: middle;
+	width: 50px;
+	text-align: center;
+}
+
+#vspace, #hspace, #border {
+	vertical-align: middle;
+	width: 30px;
+	text-align: center;
+}
+
+#classlist {
+	width: 180px;
+}
+
+input, select, textarea {
+	width: 280px;
+}
+
+#constrain, #onmousemovecheck {
+	width: auto;
+}
+
+#id, #dir, #lang, #usemap, #longdesc {
+	width: 200px;
+}
+/*New part*/
+.my_textarea {
+	height: 70px;
+}

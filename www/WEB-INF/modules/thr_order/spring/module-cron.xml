@@ -1,0 +1,33 @@
+<beans xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-2.0.xsd"
+    xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx">
+    
+    
+    <!--<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">-->
+        <!--<property name="triggers">-->
+            <!--<list>-->
+				<!--<ref bean="newOrdersSenderCronTrigger"/>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!---->
+    <!--<bean name="newOrdersSenderCronJob" class="org.springframework.scheduling.quartz.JobDetailBean">-->
+        <!--<property name="jobClass" value="com.negeso.module.thr.cron.NewOrdersSenderCron" />-->
+        <!--<property name="jobDataAsMap">-->
+            <!--<map>-->
+            	<!--<entry key="sessionTemplate" 		value-ref="sessionTemplate" />-->
+                <!--<entry key="thrOrderService" 		value-ref="thrOrderService" />-->
+            <!--</map>-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!---->
+    <!--<bean id="newOrdersSenderCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">-->
+        <!--<property name="jobDetail" ref="newOrdersSenderCronJob" />-->
+        <!--<property name="cronExpression" value="0 0 6 * * ?" />-->
+    <!--</bean>-->
+</beans>

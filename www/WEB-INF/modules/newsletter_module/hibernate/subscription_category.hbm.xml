@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+  <class name="com.negeso.module.newsletter.bo.SubscriptionCategory" table="nl_subscription_category">
+  
+  	<id name="id" type="long">
+	    <generator class="sequence">
+    	     <param name="sequence">nl_subscription_category_id_seq</param>
+        </generator>            
+	</id>
+	
+	<property name="title"/>
+	<property name="orderNumber" column="order_number"/>
+	
+	<bag name="publications" inverse="true" table="nl_publication" cascade="all" order-by="publish_date desc">
+		<key column="category_id"/>
+		<one-to-many class="com.negeso.module.newsletter.bo.Publication"/>
+	</bag>
+	
+  	</class>
+  
+  	<query name="SubscriptionCategory.listAll"><![CDATA[
+        from SubscriptionCategory category order by order_number asc
+    ]]></query>
+  
+  	<query name="SubscriptionCategory.findByTitle"><![CDATA[
+        from SubscriptionCategory category where category.title = ?
+    ]]></query>
+
+	<query name="SubscriptionCategory.countAll"><![CDATA[
+        select count(category) from SubscriptionCategory category
+    ]]></query>
+    
+    
+</hibernate-mapping>

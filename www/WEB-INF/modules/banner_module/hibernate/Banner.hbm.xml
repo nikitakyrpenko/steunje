@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.negeso.module.banner_module.bo.Banner" table="bm_banner">
+        <id name="id"  type="long" >
+          <generator class="sequence">
+            <param name="sequence">bm_banner_id_seq</param>
+          </generator>
+        </id>
+        <property name="title"/>
+        <property name="categoryId" column="category_id"/>
+        <property name="bannerTypeId" column="type_id"/>
+        <property name="imageUrl" column="image_url"/>
+        <property name="priority"/>
+        <property name="url"/>
+        <property name="inNewWindow" column="new_window" type="boolean"/>
+        <property name="maxClicks" column="max_clicks"/>
+        <property name="maxViews" column="max_views"/>
+        <property name="activated"/>
+        <property name="publishDate" column="publish_date"/>
+        <property name="expiredDate" column="expired_date"/>
+        <property name="imageType" column="image_type" />
+    </class>
+    
+    <query name="Banner.listAllBanners"><![CDATA[
+        from Banner b order by title asc
+    ]]></query>
+	
+    <query name="Banner.listBannersByParentId"><![CDATA[
+        from Banner b where b.categoryId = ? order by title asc
+    
+    ]]></query>
+    <query name="Banner.listBannersByTypeId"><![CDATA[
+        from Banner b where b.bannerTypeId = ? order by title asc
+    ]]></query>
+    
+</hibernate-mapping>

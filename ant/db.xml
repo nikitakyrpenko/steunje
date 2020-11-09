@@ -1,0 +1,536 @@
+<!--
+  @(#)$$Id: $$
+ 
+  Copyright (c) 2007 Negeso Ukraine
+ 
+  This software is the confidential and proprietary information of Negeso
+  ("Confidential Information").  You shall not disclose such Confidential 
+  Information and shall use it only in accordance with the terms of the 
+  license agreement you entered into with Negeso.
+
+  
+  @author       Anatoliy Pererva
+  @version      $$Revision: $$
+-->
+
+<project name="WebCMS-db" basedir=".." default="help">
+
+    <property name="build-db-dir" value="build/db"/>
+    <property name="data-dir" value="data"/>
+    
+    <property name="schemas-dump" value="schemas.sql"/>
+    <property name="functions-dump" value="functions.sql"/>
+    <property name="init-data-dump" value="init-data.sql"/>
+    <property name="demo-data-dump" value="demo-data.sql"/>
+    <property name="common-header-data-dump" value="common-header-data.sql"/>
+    <property name="common-footer-data-dump" value="common-footer-data.sql"/>
+    <property name="init-dump" value="webcms_init.sql"/>
+    <property name="demo-dump" value="wcms_demo.sql"/>
+    <property name="drop-tables" value="wcms_drop.sql"/>
+
+    <target name="clean">
+        <delete dir="${build-db-dir}"/>
+        <mkdir dir="${build-db-dir}"/>
+    </target>
+    
+    <target name="join-schemas" depends="clean">
+        <concat destfile="${build-db-dir}/${schemas-dump}"
+            append="true"
+            fixlastline="yes"
+            eol="crlf"
+            encoding="utf-8">
+            <header filtering="no" trimleading="yes">
+                
+                /* =================================== */
+                /*              SCHEMAS                */
+                /* =================================== */
+                
+            </header>
+            <filelist dir="${data-dir}/schema">
+                <file name="language.sql" />
+                <file name="contact.sql" />
+                <file name="roles.sql" />
+                <file name="site.sql"/>
+                <file name="site_url.sql"/>
+                <file name="user_list.sql"/>
+                <file name="containers.sql"/>
+                <file name="groups.sql"/>
+                <file name="permissions.sql"/>
+                <file name="members.sql"/>
+                <file name="string_resource.sql"/>
+                <file name="module.sql"/>
+                <file name="article.sql"/>
+                <file name="page.sql"/>
+                <file name="page_component.sql"/>
+                <file name="page_component_params.sql"/>
+                <file name="xslt_template.sql"/>
+                <file name="news_archive.sql"/>
+                <file name="menu.sql"/>
+                <file name="menu_item.sql"/>
+                <file name="list_item.sql"/>
+                <file name="list.sql"/>
+                <file name="pm_product_type.sql"/>
+                <file name="pm_attribute_type.sql"/>
+                <file name="pm_tax.sql"/>
+                <file name="pm_category.sql"/>
+                <file name="pm_cat2lang_presence.sql"/>
+                <file name="pm_featured_category.sql"/>
+                <file name="pm_product.sql"/>
+                <file name="pm_prod2lang_presence.sql"/>
+                <file name="pm_featured_product.sql"/>
+                <file name="pm_attribute_value.sql"/>
+                <file name="pm_currency.sql"/>
+                <file name="pm_customer.sql"/>
+                <file name="pm_order_status.sql"/>              
+                <file name="pm_payment_status.sql"/>
+                <file name="pm_payment_kind.sql"/>
+                <file name="pm_delivery_method.sql"/>               
+                <file name="pm_order.sql"/>
+                <file name="pm_predefined_values.sql"/>
+                <file name="pm_review.sql"/>
+                <file name="pm_global_discount.sql"/>
+                <file name="pm_product_status.sql"/>
+                <file name="pm_ideal_payment.sql"/>
+                <file name="pm_product2order.sql"/>
+                <file name="job_applications.sql"/>
+                <file name="job_departments.sql"/>
+                <file name="job_strings.sql"/>
+                <file name="job_vacancies.sql"/>
+                <file name="job_field_types.sql"/>
+                <file name="job_field_options.sql"/>
+                <file name="job_templates.sql"/>
+                <file name="job_extra_fields.sql"/>
+                <file name="job_dva.sql"/>
+                <file name="job_application_field_values.sql"/>
+                <file name="guestbook_enumerator.sql"/>
+                <file name="guestbook.sql"/>
+                <file name="forms.sql"/>
+                <file name="cb_group.sql"/>
+                <file name="cb_cont_group.sql"/>
+                <file name="mc_folder.sql"/>
+                <file name="images_set.sql"/>
+                <file name="wcms_attr_type.sql"/>
+                <file name="wcms_attr_template.sql"/>
+                <file name="image.sql"/>
+                <file name="wcms_attribute_set.sql"/>
+                <file name="wcms_attribute.sql"/>
+                <file name="d_alphabet.sql"/>
+                <file name="d_category.sql"/>
+                <file name="d_words.sql"/>
+                <file name="d_cat_word.sql"/>
+                <file name="sl_city.sql"/>
+                <file name="sl_zipcode.sql"/>
+                <file name="sl_location2zip.sql"/>
+                <file name="event_category.sql"/>
+                <file name="event_subscriber.sql"/>
+                <file name="event_subscription.sql"/>
+                <file name="event_calendar.sql"/>
+                <file name="photo_album.sql"/>
+                <file name="webpoll.sql"/>
+                <file name="webpoll_voter.sql"/>
+                <file name="inq_questionnaire.sql"/>
+                <file name="inq_user.sql"/>
+                <file name="inq_question.sql"/>
+                <file name="inq_option.sql"/>
+                <file name="inq_respondent.sql"/>
+                <file name="inq_answer_question.sql"/>
+                <file name="inq_answer_option.sql"/>
+                <file name="inq_section.sql"/>
+                <file name="dc_category.sql"/>
+                <file name="dc_document.sql"/>
+                <file name="stat_counter.sql"/>
+                <file name="stat_statistics.sql"/>
+                <file name="superusers_log.sql"/>
+                <file name="core_field.sql"/>
+                <file name="core_field_details.sql"/>
+                <file name="core_field_set.sql"/>
+                <file name="core_field2sets.sql"/>
+                <file name="em_category.sql"/>
+                <file name="em_category_details.sql"/>
+                <file name="em_event.sql"/>
+                <file name="em_event_details.sql"/>
+                <file name="em_subscription.sql"/>
+                <file name="core_property.sql"/>
+                <file name="dic_custom_const.sql"/>
+                <file name="core_reference_type.sql"/>
+                <file name="core_reference.sql"/>
+                <file name="dic_custom_translation.sql"/>
+                <file name="pm_list_attribute2product_type.sql"/>
+                <file name="pm_filter.sql"/>
+                <file name="pm_filter2category.sql"/>
+                <file name="pm_filter_attribute.sql"/>
+                <file name="pm_filter_attr2product_attr.sql"/>
+                <file name="pm_predefined_filter_attribute.sql"/>               
+                <file name="pl_parametrized_link.sql"/>
+                <file name="interface_language.sql"/>
+                <file name="dictionary_file.sql"/>
+                <file name="dictionary.sql"/>
+                <file name="import_group2cat.sql"/>
+                <file name="core_systemlog.sql"/>
+                <file name="wcms_attr_view.sql"/>               
+                <file name="core_entity2entity.sql"/>
+                <file name="users_cookies.sql"/>              
+                <file name="pm_all_wizard_pages.sql"/>               	
+                <file name="pm_checkout_wizard_pages.sql"/>
+                <file name="mentrix_config.sql"/>
+            	<file name="bm_type.sql"/>
+            	<file name="bm_category.sql"/>
+            	<file name="bm_image_type.sql"/>
+            	<file name="bm_banner.sql"/>
+            	<file name="bm_banner2page.sql"/>
+            	<file name="bm_banner2group.sql"/>
+            	<file name="bm_statistics.sql"/>
+            	<file name="stat_archive.sql"/>
+            	<file name="pm_category_articles.sql"/>
+            	<file name="nl_publication_state.sql"/>
+            	<file name="nl_subscriber_attribute_type.sql"/>
+            	<file name="nl_subscription_category.sql"/>
+            	<file name="nl_subscriber.sql"/>
+            	<file name="nl_group.sql"/>
+            	<file name="nl_subscriber_attribute_value.sql"/>
+            	<file name="nl_group_i18n_fields.sql"/>
+            	<file name="nl_mail_template.sql"/>
+            	<file name="nl_mail_template_i18n_fields.sql"/>
+            	<file name="nl_subscriber2group.sql"/>
+            	<file name="nl_publication.sql"/>
+            	<file name="nl_publication2group.sql"/>
+            	<file name="nl_publication_i18n_fields.sql"/>
+                <file name="nl_publication2article.sql"/>
+                <file name="nl_attachment.sql"/>
+            	<file name="nl_mailing_state.sql"/>
+            	<file name="nl_mailing.sql"/>
+            </filelist>
+        </concat>
+    </target>
+
+    <target name="join-functions" depends="clean">
+        <concat destfile="${build-db-dir}/${functions-dump}"
+            append="true"
+            fixlastline="yes"
+            eol="crlf"
+            encoding="utf-8">
+            <header filtering="no" trimleading="yes">
+                
+                /* =================================== */
+                /*              FUNCTIONS              */
+                /* =================================== */
+                
+            </header>
+            <filelist dir="${data-dir}/functions">
+                <file name="drop_all_tables.sql"/>
+                <file name="tpl_create_article.sql"/>
+                <file name="tpl_generate_article_by_id.sql"/>
+                <file name="tpl_create_list.sql"/>
+                <file name="tpl_generate_list_by_id.sql"/>
+                <file name="tpl_generate_list_item_by_id.sql"/>
+                <file name="tpl_page.sql"/>
+                <file name="tpl_generate_menu.sql"/>
+                <file name="reorder_images.sql"/>
+                <file name="create_attribute_from_template.sql"/>
+                <file name="days_left.sql"/>
+                <file name="is_dynamic.sql"/>
+                <file name="reorder_list_item.sql"/>
+                <file name="pm_get_parent_path.sql"/>
+                <file name="job_cms_implant.sql"/>
+                <file name="cb_delete_cb_cont_group_contact.sql"/>
+                <file name="mc_create_folder.sql"/>
+                <file name="event_in_period.sql"/>
+                <file name="event_in_term.sql"/>
+                <file name="delete_image.sql"/>
+                <file name="dc_implant.sql"/>
+            	<file name="tpl_generate_banner.sql"/>
+            	<file name="tpl_create_banner.sql"/>
+            </filelist>
+        </concat>
+    </target>
+
+    <target name="join-init-data" depends="clean">
+        <concat destfile="${build-db-dir}/${init-data-dump}"
+            append="true"
+            fixlastline="yes"
+            eol="crlf"
+            encoding="utf-8">
+            <header filtering="no" trimleading="yes">
+                
+                /* =================================== */
+                /*           INIT CONTENT              */
+                /* =================================== */
+                
+            </header>
+            <footer filtering="no" trimleading="yes">
+
+COMMIT;
+            </footer>
+            <filelist dir="${data-dir}/data/init">
+                <file name="language.sql"/>
+                <file name="roles.sql"/>
+                <file name="site.sql"/>
+                <file name="site_url.sql"/>
+                <file name="user_list.sql"/>
+                <file name="containers.sql"/>
+                <file name="groups.sql"/>
+                <file name="members.sql"/>
+                <file name="module.sql"/>
+                <file name="article.sql"/>
+                <file name="page.sql"/>
+                <file name="page_component.sql"/>
+                <file name="page_component_params.sql"/>
+                <file name="menu.sql"/>
+                <file name="menu_item.sql"/>
+                <file name="pm_product_type.sql"/>
+                <file name="pm_category.sql"/>
+                <file name="pm_attribute_type.sql"/>
+                <file name="job.sql"/>
+                <file name="nl_mail_template.sql"/>
+                <file name="nl_mail_template_i18n_fields.sql"/>
+                <file name="wcms_attr_type.sql"/>
+                <file name="core_field.sql"/>
+                <file name="core_field_set.sql"/>
+                <file name="core_field_details.sql"/>
+                <file name="core_field2sets.sql"/>
+                <file name="core_property.sql"/>
+                <file name="core_reference_type.sql"/>
+                <file name="core_reference.sql"/>
+                <file name="document.sql"/>
+                <file name="forms.sql"/>
+                <file name="pm_checkout_wizard_pages.sql"/>            	
+            </filelist>
+        </concat>
+    </target>
+
+    <target name="join-demo-data" depends="clean">
+        <concat destfile="${build-db-dir}/${demo-data-dump}"
+            append="true"
+            fixlastline="yes"
+            eol="crlf"
+            encoding="utf-8">
+            <header filtering="no" trimleading="yes">
+                
+                /* =================================== */
+                /*           DEMO CONTENT              */
+                /* =================================== */
+                
+            </header>
+            <footer filtering="no" trimleading="yes">
+
+COMMIT;
+        	</footer>
+            <filelist dir="${data-dir}/data/demo">
+                <file name="language.sql"/>
+                <file name="contact.sql"/>
+                <file name="roles.sql"/>
+                <file name="site.sql"/>
+                <file name="site_url.sql"/>
+                <file name="user_list.sql"/>
+                <file name="containers.sql"/>
+                <file name="groups.sql"/>
+                <file name="members.sql"/>
+                <file name="string_resource.sql"/>
+                <file name="module.sql"/>
+                <file name="article.sql"/>
+                <file name="page.sql"/>
+                <file name="page_component.sql"/>
+                <file name="page_component_params.sql"/>
+                <file name="xslt_template.sql"/>
+                <file name="news_archive.sql"/>
+                <file name="menu-data.sql"/>
+                <file name="list-data.sql"/>
+                <file name="pm_product_type.sql"/>
+                <file name="pm_attribute_type.sql"/>
+                <file name="pm_category.sql"/>
+                <file name="pm_product.sql"/>
+                <file name="pm_prod2lang_presence.sql"/>
+                <file name="pm_featured_product.sql"/>
+                <file name="pm_attribute_value.sql"/>
+                <file name="pm_customer.sql"/>
+                <file name="pm_delivery_method.sql"/>
+                <file name="job_departments.sql"/>
+                <file name="job_strings.sql"/>
+                <file name="job_vacancies.sql"/>
+                <file name="job_field_types.sql"/>
+                <file name="job_field_options.sql"/>
+                <file name="job_templates.sql"/>
+                <file name="job_extra_fields.sql"/>
+                <file name="guestbook_enumerator.sql"/>
+                <file name="guestbook.sql"/>
+                <file name="nl_subscription_category.sql"/>
+                <file name="nl_mail_template.sql"/>
+                <file name="nl_mail_template_i18n_fields.sql"/>
+                <file name="nl_publication.sql"/>
+                <file name="nl_publication_i18n_fields.sql"/>
+                <file name="nl_group.sql"/>
+                <file name="nl_group_i18n_fields.sql"/>
+                <file name="nl_subscriber.sql"/>
+                <file name="nl_subscriber2group.sql"/>
+                <file name="nl_subscriber_attribute_value.sql"/>
+                <file name="forms.sql"/>
+                <file name="cb_group.sql"/>
+                <file name="cb_cont_group.sql"/>
+                <file name="mc_folder.sql"/>
+                <file name="images_set.sql"/>
+                <file name="wcms_attr_type.sql"/>
+                <file name="wcms_attr_template.sql"/>
+                <file name="image.sql"/>
+                <file name="wcms_attribute_set.sql"/>
+                <file name="wcms_attribute.sql"/>
+                <file name="event_calendar.sql"/>
+                <file name="photo_album.sql"/>
+                <file name="webpoll.sql"/>
+                <file name="webpoll_voter.sql"/>
+                <file name="inq_questionnaire.sql"/>
+                <file name="inq_question.sql"/>
+                <file name="inq_option.sql"/>
+                <file name="inq_respondent.sql"/>
+                <file name="inq_answer_question.sql"/>
+                <file name="inq_answer_option.sql"/>
+                <file name="dc_category.sql"/>
+                <file name="dc_document.sql"/>
+                <file name="stat_statistics.sql"/>
+                <file name="core_field.sql"/>
+                <file name="core_field_details.sql"/>
+                <file name="core_field_set.sql"/>
+                <file name="core_field2sets.sql"/>
+                <file name="em_category.sql"/>
+                <file name="em_category_details.sql"/>
+                <file name="em_event.sql"/>
+                <file name="em_event_details.sql"/>
+                <file name="core_property.sql"/>
+                <file name="core_reference_type.sql"/>
+                <file name="core_reference.sql"/>
+                <file name="pm_list_attribute2product_type.sql"/>
+                <file name="pm_filter.sql"/>
+                <file name="pm_filter2category.sql"/>
+                <file name="pm_filter_attribute.sql"/>
+                <file name="pm_filter_attr2product_attr.sql"/>
+                <file name="pm_checkout_wizard_pages.sql"/>
+            	<file name="bm_type.sql"/>
+            	<file name="bm_category.sql"/>
+            	<file name="bm_banner.sql"/>
+            	<file name="bm_banner2page.sql"/>
+            	<file name="bm_banner2group.sql"/>
+            	<file name="bm_statistics.sql"/>
+            	<!-- last script that makes the further initialization of
+            	     demo dump in preference for calling functions to
+            	     form the data -->
+            	<file name="init.sql"/>
+            </filelist>
+        </concat>
+    </target>
+
+    <target name="join-common-header-data" depends="clean">
+        <concat destfile="${build-db-dir}/${common-header-data-dump}"
+            append="true"
+            fixlastline="yes"
+            eol="crlf"
+            encoding="utf-8">
+            <header filtering="no" trimleading="yes">
+
+BEGIN;
+
+            </header>
+            <filelist dir="${data-dir}/data/common/header">
+                <file name="pm_order_status_values.sql"/>
+                <file name="pm_payment_kind_values.sql"/>
+                <file name="pm_payment_status_values.sql"/>             
+				<file name="pm_product_status_values.sql"/> 
+                <file name="pm_all_wizard_pages.sql"/>
+                <file name="bm_image_type.sql"/>
+                <file name="nl_subscriber_attribute_value.sql"/>                
+                <file name="nl_mailing_state.sql"/>                
+                <file name="nl_publication_state.sql"/>                
+            </filelist>
+        </concat>
+    </target>
+
+    <target name="join-common-footer-data" depends="clean">
+        <concat destfile="${build-db-dir}/${common-footer-data-dump}"
+            append="true"
+            fixlastline="yes"
+            eol="crlf"
+            encoding="utf-8">
+            <footer filtering="no" trimleading="yes">
+
+COMMIT;
+            </footer>
+            <filelist dir="${data-dir}/data/common/footer">
+                <file name="interface_language.sql"/>
+                <file name="dictionary_file.sql"/>
+                <file name="dictionary.sql"/>
+                <file name="dic_custom_const.sql"/>
+                <file name="dic_custom_translation.sql"/>
+            </filelist>
+        </concat>
+    </target>
+	
+    <target name="build-init-dump" depends="join-schemas, join-functions, join-init-data, join-common-header-data, join-common-footer-data">
+        <concat destfile="${build-db-dir}/${init-dump}"
+            append="true"
+            fixlastline="yes"
+            eol="crlf"
+            encoding="utf-8">
+            <header filtering="no" trimleading="yes">
+                /* =================================== */
+                /*         webcms_init.sql             */
+                /*     Copyright (c) 2007 Negeso       */
+                /*      generated, do not edit         */
+                /* =================================== */
+            	
+            </header>
+            <filelist dir="${build-db-dir}">
+                <file name="${schemas-dump}"/>
+                <file name="${functions-dump}"/>
+                <file name="${common-header-data-dump}"/>            	
+                <file name="${init-data-dump}"/>
+                <file name="${common-footer-data-dump}"/>              
+            </filelist>
+        </concat>
+    </target>
+
+    <target name="build-demo-dump" depends="join-schemas, join-functions, join-demo-data, join-common-header-data, join-common-footer-data">
+        <concat destfile="${build-db-dir}/${demo-dump}"
+            append="true"
+            fixlastline="yes"
+            eol="crlf"
+            encoding="utf-8">
+            <header filtering="no" trimleading="yes">
+                /* =================================== */
+                /*         webcms_demo.sql             */
+                /*     Copyright (c) 2007 Negeso       */
+                /*      generated, do not edit         */
+                /* =================================== */
+            	
+            </header>
+            <filelist dir="${data-dir}">
+                <file name="${drop-tables}"/>
+            </filelist> 
+            <filelist dir="${build-db-dir}">
+                <file name="${schemas-dump}"/>
+                <file name="${functions-dump}"/>
+                <file name="${common-header-data-dump}"/>            	
+                <file name="${demo-data-dump}"/>
+                <file name="${common-footer-data-dump}"/>              
+            </filelist>
+        </concat>
+    </target>
+
+    <target name="build-all-dumps" depends="build-init-dump, build-demo-dump">
+    	<delete file="${build-db-dir}/${schemas-dump}"/>
+    	<delete file="${build-db-dir}/${functions-dump}"/>
+    	<delete file="${build-db-dir}/${common-header-data-dump}"/>
+    	<delete file="${build-db-dir}/${demo-data-dump}"/>
+    	<delete file="${build-db-dir}/${init-data-dump}"/>
+    	<delete file="${build-db-dir}/${common-footer-data-dump}"/>
+    </target>
+
+    <target name="help">
+        <echo message="${ant.project.name}" />
+        <echo message="-----------------------------------" />
+        <echo message="Available targets are:" />
+        <echo message="-----------------------------------" />
+        <echo message="build-all-dumps  --> Build all database dumps (init and demo)" />
+        <echo message="build-init-dump  --> Build init database dump" />
+        <echo message="build-demo-dump  --> Build demo database dump" />
+        <echo message="clean            --> Delete generated database dumps"/>
+    </target>
+
+</project>

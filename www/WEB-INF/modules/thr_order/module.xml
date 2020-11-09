@@ -1,0 +1,7 @@
+<module id="thr_order" name="Thr Order management module for Android/iOS app">
+  <extension point="core">	
+	<mapping-url>/admin/orders.html</mapping-url>
+	<mapping-url>/save_order</mapping-url>
+	<mapping-url>/thr_generate_pdf</mapping-url>
+  </extension>
+</module>

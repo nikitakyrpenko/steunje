@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+>
+
+
+    <context:component-scan base-package="com.negeso.module.webshop.config">
+        <context:exclude-filter type="regex" expression="com\.negeso\.module\.webshop\.controller\..*"/>
+    </context:component-scan>
+    <tx:annotation-driven transaction-manager="webshopTransactionManager"/>
+    <aop:aspectj-autoproxy/>
+
+    <bean id="webshopTransactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="abstractHibernateDaoTarget" class="com.negeso.framework.dao.impl.AbstractHibernateDao" abstract="true">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="cacheableMappingLocations" >
+            <list>
+                <value>file:www/WEB-INF/generated/hibernate/user.hbm.xml</value>
+                <value>file:www/WEB-INF/modules/webshop/hibernate/*.hbm.xml</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.archive.autodetection">class,hbm</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</prop>
+                <prop key="hibernate.connection.username">sa</prop>
+                <prop key="hibernate.connection.password">1</prop>
+                <prop key="hibernate.connection.url">jdbc:hsqldb:mem:newsletter</prop>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
+            </props>
+        </property>
+    </bean>
+</beans>

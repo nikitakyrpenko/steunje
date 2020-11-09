@@ -1,0 +1,282 @@
+<html>
+<PUBLIC:COMPONENT tagname="mainWidget">
+<PUBLIC:DEFAULTS viewLinkContent="true" style="position:absolute;left:300px;top:0px;z-index:1000" />
+<PUBLIC:ATTACH event="oncontentready" onevent="init()" />
+<PUBLIC:ATTACH event="onmouseover" onevent="maximize()" />
+<PUBLIC:ATTACH event="onmouseout" onevent="minimize()" />
+<PUBLIC:ATTACH event="onresize" onevent="positionWidget()" />
+<PUBLIC:ATTACH event="onselectstart" onevent="cancelEvent()" />
+<PUBLIC:ATTACH event="ondragstart" onevent="cancelEvent()" />
+</PUBLIC:COMPONENT>
+<script>
+
+/**
+ *           NEGESO WIDGET
+ *     (Viewlink Element Behavior)
+ *          (c) 2003 NEGESO
+ *   coded by Roman.Korenev@negeso.com
+ * designed by Myroslava.Kinko@negeso.com
+ *
+ *  All menu items are presented as DIV elements inside <div id="menu">
+ *  at the bottom of this file.
+ *
+ */
+
+var locked=false, docked=true, xLock, yLock, xSize=0, ySize=0, xSizeOld, ySizeOld, xScroll, yScroll, winWidth, winHeight, winWidthOld, itemLocked = false;
+
+// highlighting menu item
+function highlight() {
+    if (!itemLocked || itemLocked == this) this.className="overed";
+}
+
+function restore() {
+    this.className="";
+}
+
+// prevents highlighting menu items when user tries to cancel selection of a menu item.
+function lockItem() {
+    itemLocked = this;
+    window.document.attachEvent("onmouseup",unlockMenuItem);
+    
+}
+function unlockMenuItem() {
+    itemLocked = false;
+    window.document.detachEvent("onmouseup",unlockMenuItem);
+}
+
+
+// initializing Negeso Widget (entry point)
+function init() {
+    try {
+        var menuItems=menu.childNodes;
+    } catch(e) {
+        alert("Negeso Widget contains no menu!");
+        return;
+    }
+
+    // hooking event handlers to menu items
+    for (var i=0; i<menuItems.length; i++) {
+        menuItems(i).onmouseover=highlight;
+        menuItems(i).onmouseout=restore;
+        menuItems(i).onmousedown=lockItem;
+    }
+
+    try {
+        menuItems(menuItems.length-1).style.borderBottom="none";
+    } catch(e) {
+        alert("No menu items found in Negeso Widget!");
+    }
+    
+    // position Widget in the top right corner
+    style.left = window.document.body.clientWidth + window.document.body.scrollLeft - element.offsetWidth;
+    style.top = window.document.body.scrollTop;
+
+    
+    // initialisiing variables
+    getSize();
+    xScroll = window.document.body.scrollLeft;
+    yScroll = window.document.body.scrollTop;
+}
+
+// getting Widget offset
+function getSize() {
+    xSizeOld = xSize;
+    ySizeOld = ySize;
+    xSize = element.offsetWidth;
+    ySize = element.offsetHeight;
+}
+
+// expand Widget menu
+function maximize() {
+    menu.style.display="block";
+    getSize();
+}
+
+// hide Widget menu
+function minimize() {
+    if (locked) return;         // don't hide while dragging (prevents flickering)
+    menu.style.display="";
+    getSize();
+}
+
+// BEGIN posoition handlers
+
+// aligns widget to it's right edge when it's resized (e.g. expanded on mouseover) and check if it overflows document border by simulating window resize
+function positionWidget() {
+    var x = element.offsetLeft + xSizeOld - xSize; // offset for expanded/collapsed widget
+    if (x < xScroll) x = xScroll;           // align to left border if widget is overflowing it when expanded
+    style.left = x;
+    positionWidgetResize();
+}
+
+function firstPosition() {
+    if (window.document.readyState == "complete")
+    {
+        positionWidgetResize();
+    }
+}
+
+// position Widget when window is being resized
+function positionWidgetResize() {
+
+    xScroll = window.document.body.scrollLeft;
+    yScroll = window.document.body.scrollTop;
+    winWidthOld = winWidth;
+    winWidth = window.document.body.clientWidth + xScroll;
+    winHeight = window.document.body.clientHeight + yScroll;
+    var rightMargin = element.offsetLeft + xSize;
+    var topMargin = element.offsetTop;
+    getSize();
+    if (rightMargin > winWidth && winWidth!=0) {        // if border is pushing the Widget (checking winWidth to avoid IE bug)
+        var x = winWidth - xSize;
+        if (x < xScroll) x = xScroll;           // if widget is pressed to opposit border
+        style.left = x;
+    }
+    if (topMargin == yScroll && rightMargin == xScroll + winWidthOld) {     // docking to the right top corner
+        style.left = winWidth - xSize;
+    }
+    if (element.offsetTop + ySize > winHeight) {
+        var y = winHeight - ySize;
+        if (y < yScroll) y = yScroll;
+        style.top = y;
+    }
+}
+
+// position Widget when window is being scrolled
+function positionWidgetScroll() {
+    var xScrollNew = window.document.body.scrollLeft;
+    var yScrollNew = window.document.body.scrollTop;
+    style.left = parseInt(style.left) + xScrollNew - xScroll;
+    xScroll = xScrollNew;
+    style.top = parseInt(style.top) + yScrollNew - yScroll;
+    yScroll = yScrollNew;
+}
+
+// END position handlers
+
+// BEGIN handler of dragging
+
+// initialize dragging
+function startDragging() {
+    locked=true;
+    xLock=event.clientX + 2;
+    yLock=event.clientY + 2;
+    
+    // attach required event listeners
+    window.document.attachEvent("onmousemove",doDragging);
+    window.document.attachEvent("ondrag",doDragging);
+    window.document.attachEvent("onmouseup",stopDragging);
+}
+
+// makes Widget follow the mouse pointer
+function doDragging() {
+    xScroll = window.document.body.scrollLeft;
+    yScroll = window.document.body.scrollTop;
+    var x = event.clientX + xScroll - xLock;
+    var y = event.clientY + yScroll - yLock;
+    var winWidth = window.document.body.clientWidth - element.clientWidth + xScroll;
+    var winHeight = window.document.body.clientHeight - element.clientHeight + yScroll;
+    if (x<xScroll) x = xScroll;
+    if (y<yScroll) y = yScroll;
+    if (x>winWidth) x = winWidth;
+    if (y>winHeight) y = winHeight;
+    if (x > winWidth - 10 && y < yScroll + 10) {        // docking to top right corner
+        x = winWidth;
+        y = yScroll;
+    }
+    element.style.left = x;
+    element.style.top = y;
+}
+
+// deinitialize dragging
+function stopDragging() {
+    window.document.detachEvent("onmousemove",doDragging);
+    window.document.detachEvent("onmouseup",stopDragging);
+    locked = false;     // release widget and its menu items.
+}
+
+// END handler of dragging
+
+// used to forbid text selection and image dragging
+function cancelEvent() {
+    event.returnValue=false;
+}
+
+// repositioning widget when parent window changed size or scrolled
+window.attachEvent("onresize",positionWidgetResize);
+window.attachEvent("onscroll",positionWidgetScroll);
+window.document.attachEvent("onreadystatechange",firstPosition);
+
+// Maximum role of the contributer
+var curEditorMaxRole = "" + window.document.body.page_role_id_max;
+
+// Absolute URL of Mentrix to add to negeso-widget. Set empty ("") to hide.
+var linkInWidgetToSiteMentrix = "";
+
+</script>
+<style>
+
+body {
+background-color:#ffffff;
+padding:1px;
+margin:0px;
+border:none;
+}
+
+.widget {
+border:1px solid #000000;
+}
+
+.header {
+background-image: url(/images/widget_bg.gif);
+text-align:right;
+cursor:move;
+}
+
+#menu {
+display:none;
+border-top:1px solid #ffffff;
+}
+
+#menu div {
+background-color:#c8e9ca;
+border-top:1px solid #006666;
+border-bottom:1px solid #ffffff;
+font: 12px sans-serif;
+line-height:13px;
+padding-left:11px;
+padding-right:11px;
+color:#000000;
+cursor:hand;
+white-space:nowrap;
+}
+
+a {
+color:#000000;
+text-decoration:none;
+}
+
+#menu div.overed {
+background-color:#01ae4a;
+}
+
+</style>
+<body>
+<div class="widget">
+    <div class="header" onmousedown="startDragging()"><img src="/images/widget_logo.gif" width=38 height=34></div>
+    <div id="menu">
+        <div style="display: expression((linkInWidgetToSiteMentrix == '' || isMentrix!=true) ? 'none' : 'block');"
+             onclick="window.open(linkInWidgetToSiteMentrix+'?login='+adminLogin+'&pwd='+adminPassword);">SiteMentrix</div>
+        <div onclick="window.document.body.editProperties();"><script>document.writeln(Strings.PAGE_PROPERTIES);</script></div>
+        <div style="display: expression( (curEditorMaxRole=='administrator' || curEditorMaxRole=='manager') ? 'block' : 'none');"
+             onclick="window.open('menu_editor','menuEditor','height=600,width=590,toolbar=yes,status=no,resizable=yes,scrollbars=yes');"><script>document.writeln(Strings.MENU_STRUCTURE);</script></div>
+        <div style="display: expression( (curEditorMaxRole=='administrator' || curEditorMaxRole=='manager') ? 'block' : 'none');"
+             onclick="Constants.showList();"><script>document.writeln('Edit constants');</script></div>
+        <div onclick="window.open('?command=get-modules-command', 'modules','height=610,width=800,toolbar=yes,status=no,resizable=yes,scrollbars=yes');"><script>document.writeln(Strings.MODULES);</script></div>
+        <div style="display: expression(curEditorMaxRole == 'administrator' ? 'block' : 'none');"
+             onclick="window.open('user_mngr','userManager','height=550,width=800,toolbar=yes,status=no,resizable=yes,scrollbars=yes');"><script>document.writeln(Strings.SECURITY);</script></div>
+        <div onclick="window.location.href = 'logout';"><script>document.writeln(Strings.LOGOUT);</script></div>
+    </div>
+</div>
+</body>
+</html>

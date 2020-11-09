@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>   
+    <class name="com.negeso.module.form_manager.domain.FormArchive" table="forms_archive">
+        <id name="id"  type="long">
+          <generator class="sequence">
+            <param name="sequence">forms_archive_id_seq</param>
+          </generator>
+        </id>         
+        <property name="formId" column="form_id" not-null="true" type="long"/>
+        <property name="sentDate" column="sent_date" not-null="true" type="timestamp"/>       
+        <bag name="fields" inverse="true" order-by="id" cascade="all-delete-orphan">
+            <key column="archive_id"/>
+            <one-to-many  class="com.negeso.module.form_manager.domain.FormArchiveValue"/>
+        </bag>
+    </class>
+    
+    <class name="com.negeso.module.form_manager.domain.FormArchiveValue"
+        table="forms_archive_value">
+        <id name="id" type="long">
+            <generator class="sequence">
+                <param name="sequence">forms_archive_value_id_seq</param>
+            </generator>
+        </id>
+        <property name="value" />
+        <many-to-one name="formField"
+            class="com.negeso.module.form_manager.domain.FormField" column="field_id"
+            cascade="all" />
+		<many-to-one name="formArchive"
+            class="com.negeso.module.form_manager.domain.FormArchive" column="archive_id"
+            cascade="all" />
+    </class>
+    
+    <query name="FormArchive.listArchivesByFormId"><![CDATA[
+        from FormArchive fA where fA.formId = ?
+    ]]></query>   
+    
+</hibernate-mapping>

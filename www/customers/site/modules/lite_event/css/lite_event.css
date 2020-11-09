@@ -1,0 +1,57 @@
+/* ================ Events Calendar =============== */
+.emCalendarTitle {
+	height: 20px;
+	width: 210px;
+}
+
+.emCalendarTitle td.emPrev, .emCalendarTitle td.emNext {
+	width: 20px;
+}
+
+.emCalendarTitle td.emPrev a, .emCalendarTitle td.emNext a {
+	font-family: Arial, Helvetica, sans-serif;
+	color: #FF0000;
+	text-decoration: none;
+}
+
+.emCalendarTitle td.emPrev a:hover, .emCalendarTitle td.emNext a:hover {
+	text-decoration: underline;
+}
+
+.emCalendar {
+}
+
+.emCalendar th {
+	background-color: #EFEFEF;
+	vertical-align: middle;
+	text-align: center;
+	width: 30px;
+	height: 30px;
+}
+
+.emCalendar tr {
+	height: 30px;
+}
+
+.emCalendar tr td {
+	vertical-align: middle;
+	text-align: center;	
+}
+
+.emCalendar tr td.emHasEvents {
+	background-color: #e45641;
+	color: #FFFFFF;
+}
+
+.emCalendar tr td.emHasEvents a {
+	color: #FFFFFF;
+}
+
+.emCalendar tr td.emCurrent {
+	border: 1px dashed gray;
+}
+
+.emCalendarContent {
+	background-color: #ffffff; 
+	border: 1px solid #b4b4b4;
+}

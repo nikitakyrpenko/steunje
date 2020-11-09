@@ -1,0 +1,7 @@
+<module id="guestbook" name="Guestbook module">
+	<extension point="core">
+    	<page-components>
+			<page-component name="guestbook-component" class="com.negeso.module.guestbook.web.component.RecordsPageComponent"/>
+	    </page-components>
+	</extension>
+</module>

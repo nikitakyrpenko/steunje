@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/css/admin_style.css">
+    <script src="/script/jquery.min.js" type="text/javascript"></script>
+	<script src="/script/RTE_Media_Catalog.js" type="text/javascript"></script>
+
+	<script type="text/javascript">
+		var params;
+		
+		function collectParams(){
+			var o = $('#commonPopupWindowContent').serializeArray();
+			for (var i=0;i<o.length;i++)
+			{
+				params.answer[o[i].name] = o[i].value;
+			}
+			
+			params.answer.resCode='OK';
+		}
+		
+		$(function(){
+			params = window.dialogArguments;
+			params.answer = params.answer||{};
+			document.title = params.title||document.title;
+			$('#commonPopupWindowContent').html(params.innerHTML);
+		});
+     
+		function choose_from_media_catalog(dest_id)	{
+			MediaCatalog.choosePage(dest_id);
+		}
+	</script>
+    
+    </head>
+<body>
+	<div>
+		<table border="0" cellspacing="0" cellpadding="0" width="100%">
+			<tbody>
+				<tr>
+					<td class="admWcmsHeadLogo">
+						<img border="0" alt="" align="middle" src="/images/negeso.gif" width="182" height="41">
+					</td>
+					<td class="admWcmsHead">
+						Web&nbsp;/&nbsp;Content&nbsp;Management&nbsp;System
+					</td>
+				</tr>
+				<tr>
+					<td class="admHelp" colspan="2">
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div>
+		<table class="admPanelSpace" width="550" border="0" cellspacing="0" cellpadding="0">
+			<tbody>
+				<tr>
+					<td class="admNavbarImg">
+						<img border="0" alt="" src="/images/navBarLeft.gif">
+					</td>
+					<td class="admNavbar admLeft">
+						<a id="backLinkTop" class="admNone" href="javascript:window.close()">&lt;&nbsp;Close&nbsp;&gt;</a>
+					</td>
+					<td class="admNavbar admRight">
+						<a class="admNone" href="javascript:window.close()">&lt;&nbsp;Close&nbsp;&gt;</a>
+					</td>
+					<td class="admNavbarImg">
+						<img border="0" alt="" src="/images/navBarRight.gif">
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<table class="admPanelSpace" border="0" width="550" cellspacing="0" cellpadding="0">
+			<tbody>
+				<tr>
+					<td class="admNavbarImg">
+						<img border="0" alt="" src="/images/titleLeft.gif">
+					</td>
+					<td class="admTitle">
+					&#160;
+					</td>
+					<td class="admNavbarImg">
+						<img border="0" alt="" src="/images/titleRight.gif">
+					</td>
+				</tr>
+			</tbody>
+		</table>
+			
+		<form id="commonPopupWindowContent">
+			
+			
+		</form>
+		<table class="admPanelSpace" border="0" width="550" cellspacing="0" cellpadding="0">
+			<tbody>
+				<tr>
+					<td class="admNavbarImg">
+						<img border="0" alt="" src="/images/navBarLeft.gif">
+					</td>
+					<td class="admNavbar admLeft">
+						<a class="admNone" href="javascript:window.close()">&lt;&nbsp;Close&nbsp;&gt; </a>
+					</td>
+					<td class="admNavbar admRight">
+						<a class="admNone" href="javascript:window.close()">&lt;&nbsp;Close&nbsp;&gt; </a>
+					</td>
+					<td class="admNavbarImg">
+						<img border="0" alt="" src="/images/navBarRight.gif">
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

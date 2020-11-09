@@ -1,0 +1,130 @@
+<PUBLIC:METHOD NAME="SaveArticle"/>
+<PUBLIC:METHOD NAME="isEntityChanged"/>
+
+<script>
+/*
+ * @(#)$article3.htc$
+ *
+ * Copyright (c) 2004 Negeso Ukraine
+ *
+ * This software is the confidential and proprietary information of Negeso
+ * ("Confidential Information").  You shall not disclose such Confidential 
+ * Information and shall use it only in accordance with the terms of the 
+ * license agreement you entered into with Negeso.
+ * 
+ * Behavior of entity "article".
+ *
+ * @author      roman.korenev@negeso.com
+ * @author		stanislav.demchenko@negeso.com
+ * @version		$Revision$
+ */
+
+
+var articleID = id.substr(12);
+var previousContent = innerHTML;
+var tempBuffer = null;
+
+/**
+ * If forceSave==true, no dialog will be displayed. if noRefresh==true,
+ * pressing 'No' in save dialog will not result in article refresh.
+ */
+function SaveArticle(forceSave, noRefresh) {
+    var todo;
+    forceSave = true;
+    if (forceSave) {
+        todo="yes";
+    } else {
+        todo = window.showModalDialog(
+            "/dialogs/dialogYNC.html",
+            "Save article on server?",
+            "dialogHeight: 90px; dialogWidth: 300px; help: No; scroll: No; status: No;"
+            );
+    }
+    switch(todo){
+        case "yes":
+            var callObj = ClientManager.CMSCreateAuxCallOptions();
+            callObj.setCommand("update-article-text-command");
+            callObj.setParam("id", articleID);
+            callObj.setParam("text", StringUtil.str2xml(saveFlash(makeFormTagsReadonly(innerHTML, false))) );
+            var result = ClientManager.CMSUpdateEntity(callObj);
+            previousContent = innerHTML;
+            return true;
+            break;
+        case "no":
+            if (!noRefresh && previousContent != null) {
+                innerHTML = previousContent;
+            }
+            return true; // article shouldn't be saved
+            break;
+        case "cancel":
+            return false; // same as returning to the current article
+    }
+}
+
+function makeFormTagsReadonly( htmlContent, readonly )
+{
+	if (tempBuffer == null)
+	{
+		tempBuffer = window.document.createElement("DIV");
+		tempBuffer = window.document.body.appendChild(tempBuffer);
+		tempBuffer.style.display="none";
+	}
+	tempBuffer.innerHTML = htmlContent;
+	//var formsCollection = tempBuffer.getElementsByTagName("FORM");
+	//for (var i=0; i<formsCollection.length; i++)
+	//{
+
+	makeTagReadonly( tempBuffer, readonly);
+	//}
+	return tempBuffer.innerHTML;
+}
+
+function makeTagReadonly( obj, readonly )
+{	
+	if ( (obj.tagName == "INPUT" && (obj.type == "text" || obj.type == "password" )) 
+		 || obj.tagName == "TEXTAREA")
+	{
+	   obj.readOnly =readonly ;
+	}
+	else if ((obj.tagName == "INPUT" && (obj.type == "checkbox" || obj.type == "file" || obj.type == "radio" || obj.type == "submit" || obj.type == "reset")) 
+		 || obj.tagName == "SELECT")
+	{
+		obj.disabled =readonly;
+	}
+	for (var i=0; i<obj.childNodes.length; i++ )
+	{
+		makeTagReadonly( obj.childNodes(i), readonly );
+	}
+
+}
+
+
+function isEntityChanged() {
+    if(innerHTML != previousContent){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function saveFlash(text){
+	var pos = 0;
+	var pos2 = 0;
+	var val1 = 0;
+	while ((pos = text.indexOf("negesoFlash=", pos+1))!=-1){
+		pos2 = text.indexOf("<PARAM NAME=\"Play\" VALUE=\"", pos+1);
+		val1 = text.substr(pos+13, 1);
+		//alert(val1);
+		if (text.substr(pos2+26, 1)=="-"){
+			text = text.substring(0, pos2+26) + val1 + text.substring(pos2+28, text.length);
+		}
+		else{
+			text = text.substring(0, pos2+26) + val1 + text.substring(pos2+27, text.length);
+		}
+		//alert(text);
+		//alert(text.substring(0, pos2+26));
+	}
+	return text;
+}
+
+</script>

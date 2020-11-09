@@ -1,0 +1,28 @@
+<matcher uri="admin/contact_book" command-name="cb-manage-groups">
+    <bind result="group-list" view="html-view">
+        <parameter name="xsl" value="CB_BROWSE_GROUPS"/>
+    </bind>
+    <bind result="edit-group" view="html-view">
+        <parameter name="xsl" value="CB_EDIT_GROUP"/>
+    </bind>
+</matcher>
+
+<matcher uri="admin/contact_book_xml" command-name="cb-manage-groups">
+    <bind result="group-list" view="xml-view"/>
+    <bind result="edit-group" view="xml-view"/>
+</matcher>
+
+<command name="cb-manage-contacts">
+    <bind result="contact-list" view="html-view">
+        <parameter name="xsl" value="CB_BROWSE_CONTACTS"/>
+    </bind>
+    <bind result="edit-contact" view="html-view">
+        <parameter name="xsl" value="CB_EDIT_CONTACT"/>
+    </bind>
+</command>
+
+<matcher uri="admin/contacts_xml" command-name="cb-manage-contacts">
+    <bind result="contact-list" view="xml-view"/>
+    <bind result="edit-contact" view="xml-view"/>
+</matcher>
+

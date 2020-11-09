@@ -1,0 +1,61 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Negeso W/CMS</title>
+<link rel="stylesheet" type="text/css" href="/css/admin_dialog_style.css">
+	<META http-equiv=Content-Type content="text/html; charset=UTF-8">
+	<script type="text/javascript" src="/script/jquery.min.js"></script>
+ <script language="JavaScript" src="/script/common_functions.js"></script>
+
+	<!-- script block for localization mechanism -->
+    <script id="localization"></script>
+	<script language="JavaScript">
+		document.all["localization"].src =
+            "/dictionaries/dict_dialogs_" + getInterfaceLanguage() + ".js";
+	</script>
+
+<script>
+document.onclick = function(){if (event.srcElement.tagName=="BUTTON") window.close();}
+document.onkeypress = function(){
+	switch (window.event.keyCode){
+		case 89:
+		case 121:
+			window.returnValue='yes';
+			window.close();
+			break;
+		case 78:
+		case 110:
+			window.returnValue='no';
+			window.close();
+			break;
+		case 27:
+		case 67:
+		case 99:
+			window.returnValue='cancel';
+			window.close();
+			break;
+	}
+}
+    attachEvent ("onload", resizeDialogWindow); //resize dialog window height
+</script>
+</head>
+
+<body>
+<p class="admMarginAll admCenter">
+<script>
+document.write((window.dialogArguments==null)?"Save?":window.dialogArguments);
+</script>
+</p>
+<div class="admDiv">
+<button id="buttonYes" value="Yes" onclick="window.returnValue='yes';">
+<button id="buttonNo" onclick="window.returnValue='no';">
+<button id="buttonCancel" onclick="window.returnValue='cancel';">
+</div>
+
+<script>
+	window.document.all.buttonYes.value = Strings.YES;
+	window.document.all.buttonNo.value = Strings.NO;
+	window.document.all.buttonCancel.value = Strings.CANCEL;
+</script>
+</body>
+</html>

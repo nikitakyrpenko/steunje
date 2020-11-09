@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.negeso.module.banner_module.bo.Banner2Page" table="bm_banner2page">
+        <id name="id"  type="long" >
+          <generator class="sequence">
+            <param name="sequence">bm_banner2page_id_seq</param>
+          </generator>
+        </id>
+        <property name="bannerId" column="banner_id"/>
+        <property name="pageId" column="page_id"/>
+        
+        <property name="pmProductId" column="pm_product_id"/>
+        <property name="pmCategoryId" column="pm_category_id"/>
+        
+        <property name="type"/>
+    </class>
+    
+    <query name="Banner2Page.listBannerPages"><![CDATA[
+        from Banner2Page b2P where b2P.bannerId = ? and b2P.type = ? order by id asc
+    ]]></query>
+	
+    <query name="Banner2Page.listBanner2PagesIds"><![CDATA[
+        select b2P.id from Banner2Page b2P where b2P.bannerId = ? and b2P.type = ? order by id asc
+    ]]></query>
+    
+    <query name="Banner2Page.listBannersByPageId"><![CDATA[
+        select b from Banner2Page b2P, Banner b where b2P.pageId = ? and b2P.bannerId = b.id order by b.title asc
+    ]]></query>
+    
+    <query name="Banner2Page.findBanner2PageByProductCategoryId"><![CDATA[
+        from Banner2Page b2P where b2P.bannerId = ? and b2P.pmCategoryId = ? and b2P.type = ?
+    ]]></query>
+    
+    <query name="Banner2Page.findBanner2PageByProductId"><![CDATA[
+        from Banner2Page b2P where b2P.bannerId = ? and b2P.pmProductId = ? and b2P.type = ?
+    ]]></query>
+    
+    <query name="Banner2Page.listBannersByPmCategoryId"><![CDATA[
+        select b from Banner2Page b2P, Banner b where b2P.pageId = ? and b2P.pmCategoryId = ? and b.id = b2P.bannerId
+    ]]></query>
+    
+    <query name="Banner2Page.listBannersByPmProductId"><![CDATA[
+        select b from Banner2Page b2P, Banner b where b2P.pageId = ? and b2P.pmProductId = ? and b.id = b2P.bannerId
+    ]]></query>
+    
+</hibernate-mapping>

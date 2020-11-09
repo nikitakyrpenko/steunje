@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+	<bean id="messageSource" class="com.negeso.framework.i18n.DatabaseResourceBundleMessageSource">
+        <property name="basename" value="dict_common.xsl, import.jsp, history_links.jsp"/>
+    </bean>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="10000000"/>
+    </bean>
+
+    <bean id="exceptionResolver" class="com.negeso.framework.ExceptionHandler">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.Exception">friendlyError</prop>
+            </props>
+        </property>
+    </bean>    
+    
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+		<property name="prefix" value="/WEB-INF/modules/import/jsp/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+
+	<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props> 
+				<prop key="/admin/importers.html">importController</prop>
+				<prop key="/admin/importer.html">importController</prop>
+				<prop key="/admin/import.html">importFormController</prop>
+                <prop key="/admin/back.html">backController</prop>
+			</props>
+		</property>
+	</bean>
+
+  <bean id="methodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+    <property name="paramName">
+        <value>action</value>
+    </property>
+    <property name="defaultMethodName">
+       <value>getImporters</value>
+    </property>
+ </bean>
+
+  <bean id="importController" class="com.negeso.module.imp.web.controller.ImportController">
+    <property name="methodNameResolver">
+        <ref bean="methodNameResolver"/>
+    </property>
+  </bean>
+  
+  <bean id="importFormController" class="com.negeso.module.imp.web.controller.ImportFormController">
+        <property name="commandClass" value="com.negeso.module.imp.web.controller.ImportForm"/>
+        <property name="formView" value="importForm"/>
+  </bean>
+    
+  <bean id="backController" class="com.negeso.framework.navigation.BackController"/> 
+    
+</beans>

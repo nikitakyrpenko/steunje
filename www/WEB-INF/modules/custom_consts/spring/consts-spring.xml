@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+	<bean id="messageSource"
+		class="com.negeso.framework.i18n.DatabaseResourceBundleMessageSource">
+		<property name="basename"
+			value="dict_common.xsl, custom_consts.jsp" />
+	</bean>
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10000000"/>
+	</bean>
+
+	<bean id="handlerMapping1"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<bean
+					class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+					<property name="paramName"
+						value="interfaceLanguage" />
+				</bean>
+
+				<bean
+					class="com.negeso.framework.security.SecurityInterceptor" />
+
+				<ref bean="openSessionInViewInterceptor" />
+			</list>
+
+		</property>
+		<property name="mappings">
+			<props>
+				<prop key="/admin/consts">
+					customConstsEntryPointController
+				</prop>
+				<prop key="/admin/module_consts">
+					customConstsController
+				</prop>
+				<prop key="/admin/back.html">backController</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean name="openSessionInViewInterceptor"
+		class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+		<property name="flushMode">
+			<bean
+				id="org.springframework.orm.hibernate3.HibernateAccessor.FLUSH_AUTO"
+				class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean" />
+		</property>
+
+	</bean>
+
+    <bean id="exceptionResolver" class="com.negeso.framework.ExceptionHandler">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">friendlyError</prop>
+			</props>
+		</property>
+	</bean>
+
+    <bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix"
+			value="/WEB-INF/modules/custom_consts/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<bean id="methodNameResolver"
+		class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+		<property name="paramName">
+			<value>act</value>
+		</property>
+		<property name="defaultMethodName">
+			<value>getConsts</value>
+		</property>
+	</bean>
+
+	<bean id="customConstsEntryPointController"
+		class="com.negeso.module.custom_consts.controller.CustomConstsEntryPointController">
+		<property name="moduleService">
+			<ref bean="moduleService" />
+		</property>
+	</bean>
+
+	<bean id="customConstsDao"
+		class="com.negeso.module.custom_consts.dao.HibernateCustomConstsDao">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="customConstsService"
+		class="com.negeso.module.custom_consts.service.CustomConstsService">
+		<property name="customConstsDao">
+			<ref bean="customConstsDao" />
+		</property>
+		<property name="moduleService">
+			<ref bean="moduleService" />
+		</property>
+	</bean>
+
+	<bean id="referenceDao"
+		class="com.negeso.module.core.dao.HibernateReferenceDao">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="referenceService"
+		class="com.negeso.module.core.service.ReferenceService">
+		<property name="dao">
+			<ref bean="referenceDao" />
+		</property>
+	</bean>
+
+	<bean id="customConstsController"
+		class="com.negeso.module.custom_consts.controller.CustomConstsController">
+		<property name="customConstsService">
+			<ref bean="customConstsService" />
+		</property>
+		<property name="moduleService">
+			<ref bean="moduleService" />
+		</property>
+		<property name="methodNameResolver">
+			<ref bean="methodNameResolver" />
+		</property>
+		<property name="referenceService">
+			<ref bean="referenceService" />
+		</property>
+	</bean>
+
+	<bean id="backController"
+		class="com.negeso.framework.navigation.BackController" />
+		
+	  <bean id="resourceBundleInitializer" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+	    <property name="staticMethod" value="com.negeso.framework.i18n.DatabaseResourceBundle.setCustomConstsService"/>
+	    <property name="arguments"><ref local = "customConstsService"/></property>
+	  </bean>
+
+</beans>
+
+

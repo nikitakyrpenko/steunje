@@ -1,0 +1,14 @@
+.b-changeFont{cursor: default;}
+
+.b-changeFont img {
+	width: 21px;
+	height: 22px;
+	margin: 0 5px 0 5px;
+}
+
+.fontSize_sm img		{background: top left no-repeat url(/site/core/images/change_font/fontSmal.gif);}
+.fontSize_sm:hover img	{background: top left no-repeat url(/site/core/images/change_font/fontSmalr.gif);}
+.fontSize_mid img		{background: top left no-repeat url(/site/core/images/change_font/fontMed.gif);}
+.fontSize_mid:hover img	{background: top left no-repeat url(/site/core/images/change_font/fontMedr.gif);}
+.fontSize_big img		{background: top left no-repeat url(/site/core/images/change_font/fontBig.gif);}
+.fontSize_big:hover img	{background: top left no-repeat url(/site/core/images/change_font/fontBigr.gif);}

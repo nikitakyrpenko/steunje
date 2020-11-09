@@ -1,0 +1,30 @@
+/*Main photo album*/
+.b-photoBack{
+	background:url(/site/modules/photo_album/images/photoBack.gif) no-repeat left top;
+}
+
+/*Album*/
+.b-photoAlbum{}
+.b-photoAlbum-Thumb{}
+.b-photoAlbum-Name{}
+.b-photoAlbum-Descr{}
+
+/*Photo*/
+.b-photoPhoto{
+	background:url(/site/modules/photo_album/images/photoBg.gif) no-repeat left top;
+}
+.b-photoPhoto-Thumb{}
+.b-photoPhoto-Name{}
+.b-photoPhoto-Descr{}
+
+/*Photo - full size*/
+.b-photoFull{}
+.b-photoFull-Img{}
+
+/*Paging*/
+.b-photoPaging-New{}
+
+.b-photoPaging-Old{}
+.b-photoPaging-Old a{}
+
+

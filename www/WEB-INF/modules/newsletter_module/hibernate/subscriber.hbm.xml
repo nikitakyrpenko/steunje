@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+   <class name="com.negeso.module.newsletter.bo.Subscriber" table="nl_subscriber" batch-size="20">
+	   <id name="id" type="long">
+		    <generator class="sequence">
+	    	     <param name="sequence">nl_subscriber_id_seq</param>
+	        </generator>            
+		</id>
+	
+		<property name="activated" type="boolean"/>
+		<property name="createdTime" column="created_date" />
+	
+		<property name="siteId" column="site_id"/>
+		<property name="subscriptionLangId" column="subscription_lang_id"/>
+		<property name="html" column="html"/>
+	
+		<bag name="subscriberGroups" table="nl_subscriber2group" cascade="persist,merge,save-update" >
+			<key column="subscriber_id" foreign-key="fk_nl_subscriber2group_subscriber"/>
+			<many-to-many class="com.negeso.module.newsletter.bo.SubscriberGroup" column="group_id"
+                          foreign-key="fk_nl_subscriber2group_group" />
+		</bag>
+	
+		<set name="attributes" cascade="all" lazy="true" order-by="attribute_type_id asc">
+	     	<key column="subscriber_id" not-null="true" />
+	        <!-- map-key-many-to-many class="com.negeso.module.newsletter.bo.SubscriberAttributeType" 
+	        	column="attribute_type_id"/-->
+	        <one-to-many class="com.negeso.module.newsletter.bo.SubscriberAttributeValue" />
+	    </set>
+    
+	</class>
+
+	<class name="com.negeso.module.newsletter.bo.SubscriberAttributeType" table="nl_subscriber_attribute_type">
+	   	<id name="id">
+		    <generator class="sequence">
+	    		<param name="sequence">nl_subscriber_attribute_type_id_seq</param>
+	        </generator>            
+		</id>
+	   	<property name="key" lazy="true"/>
+	   	<property name="required" lazy="true" />
+	   	<property name="visible" lazy="true" />
+	   	<property name="orderNumber" column="order_number" />
+	</class>
+	
+	<class name="com.negeso.module.newsletter.bo.SubscriberAttributeValue" table="nl_subscriber_attribute_value">
+	   	<id name="id" type="long">
+		    <generator class="sequence">
+	    		<param name="sequence">nl_subscriber_attribute_value_id_seq</param>
+	        </generator>            
+		</id>
+		<many-to-one name="subscriberAttributeType" class="com.negeso.module.newsletter.bo.SubscriberAttributeType" 
+			column="attribute_type_id" 
+            foreign-key="fk_nl_subscriber_attribute_value_subscriber_attribute_type"/>
+
+        <property name="value"/>
+  
+	   	<many-to-one name="subscriber" class="com.negeso.module.newsletter.bo.Subscriber" 
+            column="subscriber_id" insert="false" update="false"
+            foreign-key="fk_nl_subscriber_attribute_value_subscriber"/>
+	</class>
+	
+	<query name="Subscriber.listSubscribersByGroupId"><![CDATA[
+        select sub from Subscriber as sub join sub.subscriberGroups as groups where groups.id = ?
+        	and sub.activated = true
+    ]]></query>
+
+	<query name="Subscriber.listSubscribersWithNoGroup"><![CDATA[
+        select sub from Subscriber as sub where sub.id not in ( select g.subscribers.id from SubscriberGroup as g)
+        	and sub.activated = true
+    ]]></query>
+
+	<query name="Subscriber.listSubscriptionRequests"><![CDATA[
+        select sub from Subscriber as sub where sub.activated = false
+    ]]></query>
+
+	<query name="Subscriber.listByEMail"><![CDATA[
+        select sub from 
+        	Subscriber as sub, 
+        	SubscriberAttributeValue as value,
+        	SubscriberAttributeType as type
+        where 
+        	value.subscriberAttributeType.id = type.id
+        	and
+        	type.key = 'EMAIL'
+        	and
+        	value.subscriber.id = sub.id
+        	and
+        	lower(value.value) = ?
+    ]]></query>
+    
+    
+    <query name="Subscriber.listActivatedSubscribers"><![CDATA[
+        select sub from Subscriber as sub where sub.activated = true
+    ]]></query>
+    
+    <query name="Subscriber.listSubscribersByGroupIdAndQuery"><![CDATA[
+        select distinct sub from SubscriberAttributeValue as value 
+        	join value.subscriber as sub 
+        	join sub.subscriberGroups as groups 
+        where groups.id = ? and lower(value.value) like ? and sub.activated = true
+    ]]></query>
+
+    <query name="Subscriber.listSubscribersByQuery"><![CDATA[
+        select distinct sub from SubscriberAttributeValue as value 
+        	join value.subscriber as sub 
+        where lower(value.value) like ? and sub.activated = true
+    ]]></query>
+	
+	<query name="SubscriberAttributeType.listRequiredSubscriberAttributesTypes"><![CDATA[
+        select type from SubscriberAttributeType as type where type.required = true
+    ]]></query>
+
+	<query name="SubscriberAttributeType.findAttributeByTitle"><![CDATA[
+        select type from SubscriberAttributeType as type where type.key = ?
+    ]]></query>
+
+	<query name="Subscriber.countSubscribers"><![CDATA[
+        select count(s) from Subscriber as s
+    ]]></query>
+  
+</hibernate-mapping>

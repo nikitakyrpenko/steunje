@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+							http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+							http://www.springframework.org/schema/context
+                			http://www.springframework.org/schema/context/spring-context.xsd
+							http://www.springframework.org/schema/aop
+							http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+							http://www.springframework.org/schema/tx
+							http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+
+	
+	<bean id="dbHelperDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="url" value="jdbc:postgresql://192.168.14.125:5432/baten_local" />
+		<property name="username" value="baten_local" />
+		<property name="password" value="baten" />
+		<property name="driverClassName" value="org.postgresql.Driver" />
+		<property name="maxActive" value="15" />
+		<property name="maxIdle" value="15" />
+		<property name="validationQuery" value="select 1" />
+		<property name="maxWait" value="10000" />
+		<property name="removeAbandoned" value="true" />
+		<property name="removeAbandonedTimeout" value="1" />
+	</bean>
+	<!--<bean id="dbHelperSessionFactory"-->
+		<!--class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"-->
+		<!--depends-on="dbHelperDataSourceInitializer">-->
+		<!--<property name="mappingLocations"-->
+			<!--value="file:build/webapp/WEB-INF/generated/hibernate/*.hbm.xml" />-->
+
+		<!--<property name="hibernateProperties">-->
+			<!--<props>-->
+				<!--<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>-->
+				<!--<prop key="hibernate.show_sql">true</prop>-->
+				<!--<prop key="hibernate.cache.use_second_level_cache">false</prop>-->
+				<!--<prop key="hibernate.hbm2ddl.auto">update</prop>-->
+			<!--</props>-->
+		<!--</property>-->
+		<!--<property name="dataSource" ref="dbHelperDataSource" />-->
+	<!--</bean>-->
+	<bean id="dbHelperDataSourceInitializer"
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod"
+			value="com.negeso.framework.domain.DBHelper.setDataSource" />
+		<property name="arguments">
+			<list>
+				<ref local="dbHelperDataSource" />
+			</list>
+		</property>
+	</bean>
+
+	<!--<bean-->
+		<!--class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">-->
+		<!--<property name="staticMethod"-->
+			<!--value="com.negeso.framework.domain.DBHelper.setSessionFactory" />-->
+		<!--<property name="arguments">-->
+			<!--<list>-->
+				<!--<ref local="dbHelperSessionFactory" />-->
+			<!--</list>-->
+		<!--</property>-->
+	<!--</bean>-->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"
+		depends-on="dbHelperDataSourceInitializer">
+		<property name="mappingLocations"
+			value="file:www/WEB-INF/generated/hibernate/*.hbm.xml" />
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
+			</props>
+		</property>
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="url" value="jdbc:postgresql://alpha1.phidias.nl:5433/wcms" />
+		<property name="username" value="wcms" />
+		<property name="password" value="wcms" />
+		<property name="driverClassName" value="org.postgresql.Driver" />
+		<property name="maxActive" value="15" />
+		<property name="maxIdle" value="15" />
+		<property name="validationQuery" value="select 1" />
+		<property name="maxWait" value="10000" />
+		<property name="removeAbandoned" value="true" />
+		<property name="removeAbandonedTimeout" value="1" />
+	</bean>
+	<bean id="parameterDao" class="com.negeso.module.core.dao.HibernateParameterDao">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="parameterService" class="com.negeso.module.core.service.ParameterService">
+		<property name="dao">
+			<ref bean="parameterDao" />
+		</property>
+	</bean>
+
+	<bean id="moduleDao" class="com.negeso.module.core.dao.HibernateModuleDao">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<!--<bean id="moduleService" class="com.negeso.module.core.service.ModuleService">-->
+		<!--<property name="dao">-->
+			<!--<ref bean="moduleDao" />-->
+		<!--</property>-->
+	<!--</bean>-->
+	<bean id="siteInitializer"
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod"
+			value="com.negeso.framework.site.Site.setParameterService" />
+		<property name="arguments">
+			<ref local="parameterService" />
+		</property>
+	</bean>
+	<bean id="environmentInitializer"
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod" value="com.negeso.framework.Env.setParameterService" />
+		<property name="arguments">
+			<ref local="parameterService" />
+		</property>
+	</bean>
+	<!-- common DAO beans -->
+
+	<!--<bean id="finderIntroductionAdvisor" class="com.negeso.framework.dao.finder.impl.FinderIntroductionAdvisor" />-->
+	<bean id="simpleFinderNamingStrategy"
+		class="com.negeso.framework.dao.finder.impl.SimpleFinderNamingStrategy" />
+	<bean id="simpleFinderArgumentTypeFactory"
+		class="com.negeso.framework.dao.finder.impl.SimpleFinderArgumentTypeFactory" />
+
+	<bean id="abstractDaoTarget" class="com.negeso.framework.dao.impl.GenericDaoHibernateImpl"
+		abstract="true">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+		<property name="namingStrategy">
+			<ref bean="simpleFinderNamingStrategy" />
+		</property>
+		<property name="argumentTypeFactory">
+			<ref bean="simpleFinderArgumentTypeFactory" />
+		</property>
+	</bean>
+
+	<bean id="abstractDao" class="org.springframework.aop.framework.ProxyFactoryBean"
+		abstract="true">
+		<property name="interceptorNames">
+			<list>
+				<value>finderIntroductionAdvisor</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="sessionTemplate" class="com.negeso.framework.dao.SessionTemplate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="hibernateTransactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="jdbcTransactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>
+
+	<bean id="abstractJdbcTxDefinition"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true">
+		<property name="transactionManager" ref="jdbcTransactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	<!--<bean id="menuGenerator" class="com.negeso.framework.menu.MenuGenerator" />-->
+	<!--<bean id="menuService" class="com.negeso.framework.menu.MenuService">-->
+		<!--<property name="menuGenerator" ref="menuGenerator" />-->
+	<!--</bean>-->
+</beans>
+

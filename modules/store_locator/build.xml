@@ -1,0 +1,10 @@
+<project name="WebCMS-Store_Locator" basedir="../.." default="compile-module">
+
+	<property name="module.version" value="3.2.0.RC1"/>
+	
+	<property name="module.key" value="store_locator"/>
+	<property name="module.title" value="Store Locator Module"/>
+	<path id="module.classpath"/>
+	<import file="../../ant/compile.xml"/>
+
+</project>

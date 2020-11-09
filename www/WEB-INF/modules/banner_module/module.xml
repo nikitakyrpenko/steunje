@@ -1,0 +1,18 @@
+<module id="banner_module" name="Banner module">
+  <extension point="core">
+    <mapping-url>/admin/back.html</mapping-url>
+    <mapping-url>/admin/bm_categorylist.html</mapping-url>
+    <mapping-url>/admin/bm_category.html</mapping-url>
+    <mapping-url>/admin/bm_bannerlist.html</mapping-url>
+    <mapping-url>/admin/bm_banner.html</mapping-url>
+    <mapping-url>/admin/bm_typelist.html</mapping-url>
+    <mapping-url>/admin/bm_type.html</mapping-url>
+    <mapping-url>/admin/bm_redirect.html</mapping-url>
+    <mapping-url>/admin/bm_product_pages.html</mapping-url>
+    <mapping-url>/admin/bm_detailstat.html</mapping-url>
+    <mapping-url>/bm_redirect.html</mapping-url>
+    <page-components>
+        <page-component name="banner-module-component" class="com.negeso.module.banner_module.web.component.BannerComponent"/>              
+    </page-components>
+  </extension>
+</module>

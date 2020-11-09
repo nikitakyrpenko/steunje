@@ -1,0 +1,59 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>{#negeso_revisions.title}</title>
+	<script language="javascript" type="text/javascript" src="../../tiny_mce_popup.js"></script>
+	<script language="javascript" type="text/javascript" src="js/revisions.js"></script>
+	<script language="javascript" type="text/javascript" src="../../utils/mctabs.js"></script>
+	<script language="javascript" type="text/javascript" src="../../utils/form_utils.js"></script>
+	<script type="text/javascript" src="/script/jquery.min.js">/**/</script>
+	<link href="css/revisions.css" rel="stylesheet" type="text/css" />
+	<link href="/site/core/css/default_styles.css" rel="stylesheet" type="text/css" />
+	<base target="_self" />
+</head>
+<body style="display: none; margin: 0; padding: 6px" onload="fillRevisionList()" class="bodyRevisions">
+    <form onsubmit="saveContent();return false;" action="#">
+		<div class="tabs">
+            <ul>
+                <li id="general_tab" class="current"><span><a href="#">Revisions</a></span></li>
+            </ul>
+        </div>
+
+        <div class="panel_wrapper" style="text-align: center;">
+            
+            
+            <DIV STYLE="overflow: auto; width: 100%; height: 87px;           
+            padding:0px; margin: 0px; border: 1px solid gray;">
+                <table class="tableBorder" cellpadding="0px" cellspacing="0px;"  width="100%">
+			     <thead>
+				     <tr><th style="border-left: none;">{#negeso_revisions.revision}</th><th>{#negeso_revisions.date}</th><th>{#negeso_revisions.author}</th></tr>
+			     <thead>
+                    <tbody id="left_select">
+                    </tbody>
+			    </table>
+			</DIV>
+		</div>
+		<div class="tabs" style="margin-top: 5px; ">
+            <ul>
+                <li id="general_tab" class="current" ><span style="width: 50px;"><a href="#" id="textTab">&#160;</a></span></li>
+            </ul>
+        </div>
+		<div class="panel_wrapper">
+			<div id="general_panel" class="panel current">
+				<div id="leftText" class="contentStyle"></div>
+			</div>
+		</div>
+        <div class="mceActionPanel" style="padding-bottom: 20px">
+            <div style="float: left" >
+                <input type="button" id="insert" name="insert" value="{#negeso_revisions.restore}" onclick="saveContent();" />
+            </div>
+            
+
+            <div style="float: right">
+                <input type="button" id="cancel" name="cancel" value="{#close}" onclick="tinyMCEPopup.close();" />
+            </div>
+        </div>
+	</form>
+</body>
+
+
+</html>

@@ -1,0 +1,115 @@
+
+<command name="pm-browse-category">
+    <bind result="success" view="html-view">
+       <parameter name="xsl" value="PM_BROWSE_CATEGORY_XSL"/>
+    </bind>
+</command>
+<command name="pm-delete-category">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="PM_BROWSE_CATEGORY_XSL"/>
+    </bind>
+</command>
+<command name="pm-reorder-category">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="PM_BROWSE_CATEGORY_XSL"/>
+    </bind>
+</command>
+<command name="pm-get-edit-category-page">
+    <bind result="success" view="html-view">
+    	<parameter name="xsl" value="PM_EDIT_CATEGORY_XSL"/>
+    </bind>
+</command>
+
+<command name="pm-update-category">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="PM_EDIT_CATEGORY_XSL"/>
+    </bind>
+</command>
+
+<command name="pm-get-edit-product-page">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="PM_EDIT_PRODUCT_XSL"/>
+    </bind>
+</command>
+
+<command name="pm-get-edit-product-page-xml">
+    <bind result="success" view="xml-view"/>
+</command>
+
+<command name="pm-update-product">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="PM_EDIT_PRODUCT_XSL"/>
+    </bind>
+</command>
+<command name="pm-delete-product">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="PM_BROWSE_CATEGORY_XSL"/>
+    </bind>
+</command>
+<command name="pm-reorder-product">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="PM_BROWSE_CATEGORY_XSL"/>
+    </bind>
+</command>
+<command name="pm-browse-product-types">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="PM_BROWSE_PRODUCT_TYPES_XSL"/>
+    </bind>
+</command>
+<command name="pm-get-edit-product-type-face">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="PM_EDIT_PRODUCT_TYPE_XSL"/>
+    </bind>
+</command>
+<command name="pm-get-entry-page">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="PM_ENTRY_PAGE_XSL"/>
+    </bind>
+</command>
+
+
+<command name="pm-get-edit-product-type-page">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="PM_EDIT_PRODUCT_TYPE_XSL"/>
+    </bind>
+</command>
+
+
+<command name="pm-manage-customers">
+    <bind result="browse_customers" view="html-view">
+    	<parameter name="xsl" value="PM_BROWSE_CUSTOMERS_XSL"/>
+    </bind>
+    
+    <bind result="edit_customer" view="html-view">
+    	<parameter name="xsl" value="PM_EDIT_CUSTOMER_XSL"/>
+    </bind>
+</command>
+
+
+<command name="pm-manage-shop-preferences">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="PM_SHOP_PREFERENCES_XSL"/>
+    </bind>
+</command>
+
+<command name="pm-manage-delivery-methods">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="PM_DELIVERY_METHODS_XSL"/>
+    </bind>
+
+    <bind result="failure" view="resource-not-found-view"/>
+    <bind result="access-denied" view="html-view">
+        <parameter name="xsl" value="ACCESS_DENIED_XSL"/>
+    </bind>
+</command>
+
+<command name="pm-manage-price-list">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="PM_PRICE_LIST_XSL"/>
+    </bind>
+</command>
+<command name="pm-manage-product">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="PM_BROWSE_CATEGORY_XSL"/>
+    </bind>
+</command>

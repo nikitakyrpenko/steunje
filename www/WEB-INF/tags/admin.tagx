@@ -1,0 +1,27 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	version="2.0">
+    <jsp:directive.attribute name="back" type="java.lang.Boolean"/>
+    <jsp:directive.attribute name="isSmall" type="java.lang.Boolean"/>
+
+    <table class="admMain"  align="center" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td class="admConnerLeft"></td>
+            <td class="admTopBtn">
+                <div><img src="/images/logo.png"  class="admMainLogo" /></div>
+                <br></br>
+                <jsp:include page="/WEB-INF/jsp/common/back_bar.jsp"/>
+            </td>
+            <td class="admConnerRight"></td>
+        </tr>
+        <tr>
+            <td class="admMainLeft"><img src="/images/left_bot.png" /></td>
+            <td>
+                <jsp:doBody/>
+            </td>
+            <td class="admMaiRight"><img src="/images/right_bot.png" /></td>
+        </tr>
+    </table>
+
+</jsp:root>

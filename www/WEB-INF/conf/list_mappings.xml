@@ -1,0 +1,85 @@
+<!-- News module, FAQ, Photo album, Web poll -->
+
+<command name="get-list-command">
+    <bind result="success" view="html-view"/>
+</command>
+
+<command name="get-list-item-command">
+    <bind result="success" view="html-view"/>
+</command>
+
+<command name="create-list-item-command">
+    <bind result="success" view="html-view"/>
+</command>
+
+<command name="update-list-item-command">
+    <bind result="success" view="html-view"/>
+</command>
+
+<command name="delete-list-item-command">
+    <bind result="success" view="html-view"/>
+</command>
+
+<command name="copy-list-item-command">
+    <bind result="success" view="html-view"/>
+</command>
+
+<command name="change-order-command">
+    <bind result="success" view="html-view"/>    
+</command>
+
+<command name="set-list-path-command">
+    <bind result="success" view="html-view"/>
+</command>
+
+<command name="create-links-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="LANGUAGES_LIST_XSL"/>
+    </bind>
+</command>
+
+<command name="archive-list-item-command">
+    <bind result="success" view="html-view"/>
+</command>
+
+<command name="get-list-roll-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="LISTS_ROLL_XSL"/>
+    </bind>
+</command>
+
+<!-- Archive -->
+
+<command name="get-archive-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="ARCHIVE_LIST_XSL"/>
+    </bind>
+</command>
+
+<command name="delete-from-archive-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="ARCHIVE_LIST_XSL"/>
+    </bind>
+</command>
+
+<command name="restore-from-archive-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="ARCHIVE_LIST_XSL"/>
+    </bind>
+</command>
+
+<command name="get-archived-list-item-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="ARCHIVE_ITEM_XSL"/>
+    </bind>
+</command>
+
+<!-- Web poll -->
+
+<command name="create-poll-option-command">
+    <bind result="success" view="html-view"/>
+</command>
+
+<command name="create-poll-command">
+    <bind result="success" view="html-view"/>
+</command>

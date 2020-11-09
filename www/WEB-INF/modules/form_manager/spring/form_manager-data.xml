@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+	<bean id="formFieldDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.negeso.module.form_manager.dao.FormFieldDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.negeso.module.form_manager.domain.FormField</value>
+                </constructor-arg>
+            </bean>
+        </property>    
+    </bean>
+	
+	<bean id="formArchiveDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.negeso.module.form_manager.dao.FormArchiveDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.negeso.module.form_manager.domain.FormArchive</value>
+                </constructor-arg>
+            </bean>
+        </property>    
+    </bean>
+    
+    <bean id="formsDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.negeso.module.form_manager.dao.FormsDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.negeso.module.form_manager.domain.Forms</value>
+                </constructor-arg>
+            </bean>
+        </property>    
+    </bean>    
+</beans>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="CmsAppender"
+        class="com.negeso.framework.util.logging.DailyRollingZippingFileAppender">
+
+        <param name="MaxLogs" value="365" />
+        <param name="DatePattern" value="'.'yyyy-MM-dd" />
+        <param name="UseDailyFolderStructure" value="true" />
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                value="%p %d{ISO8601} %L %c{1}: %M %m%n" />
+        </layout>
+
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="DEBUG" />
+            <param name="LevelMax" value="FATAL" />
+        </filter>
+
+    </appender>
+
+    <appender name="CoreAppender"
+        class="com.negeso.framework.util.logging.DailyRollingZippingFileAppender">
+
+        <param name="MaxLogs" value="365" />
+        <param name="DatePattern" value="'.'yyyy-MM-dd" />
+        <param name="UseDailyFolderStructure" value="true" />
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                value="%d{ISO8601} Next event occured: %m%n%n%n" />
+        </layout>
+
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="INFO" />
+            <param name="LevelMax" value="INFO" />
+        </filter>
+
+    </appender>
+
+
+    <category name="com.negeso.framework.util.logging.RequestLogger" additivity="false">
+        <priority value="INFO" />
+        <appender-ref ref="CoreAppender" />
+    </category>
+
+    <category name="com.negeso.framework.adminwebservice.AdminServiceImpl" additivity="false">
+        <priority value="INFO" />
+        <appender-ref ref="CoreAppender" />
+    </category>
+
+    <category name="com.negeso.framework.domain.Article" additivity="false">
+        <priority value="INFO" />
+        <appender-ref ref="CoreAppender" />
+    </category>
+
+    <category name="com.negeso.module.menu.domain.MenuItem" additivity="false">
+        <priority value="INFO" />
+        <appender-ref ref="CoreAppender" />
+    </category>
+
+    <category name="com.negeso.framework.CmsContextListener" additivity="false">
+        <priority value="INFO" />
+        <appender-ref ref="CoreAppender" />
+    </category>
+
+    <category name="com.negeso.module.user.command" additivity="false">
+        <priority value="INFO" />
+        <appender-ref ref="CoreAppender" />
+    </category>
+	<category name="com.negeso.framework.mailer.MailClient" additivity="false">
+        <priority value="ERROR" />
+        <appender-ref ref="CmsAppender" />
+    </category>
+
+    <root>
+        <priority value="ERROR" />
+        <appender-ref ref="CmsAppender" />
+    </root>
+
+</log4j:configuration>

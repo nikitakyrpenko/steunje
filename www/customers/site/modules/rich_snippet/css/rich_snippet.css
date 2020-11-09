@@ -1,0 +1,105 @@
+/*Snippets style start*/
+.snippetsBody{
+	position:relative;
+	width:540px;
+
+	margin-top:10px;
+}
+
+.snippetsContainer{
+	position:relative;
+	width:540px;
+	height:280px;
+	overflow:hidden;
+	z-index:1;
+}
+.reviewsBig .snippetsContainer{
+	width:846px;
+	overflow:visible;
+}
+.snippetsArrow{
+	position:absolute;
+	top:5px;
+	height:210px;
+	z-index:20;
+}
+.snippetsArrow img{
+	margin-top:85px;
+	cursor:pointer;
+	cursor:hand;
+}
+#snippetsPrev{
+	width:40px;
+	left:-40px;
+}
+#snippetsPrev img{
+	background:url(../images/arrow-prev.png) 0 0 no-repeat;
+}
+#snippetsNext{
+	background:url(../images/bg-next-arrow.png) 0 0 repeat-y;
+	right:0;
+	width:109px;
+	text-align:right;
+}
+#snippetsNext img{
+	background:url(../images/arrow-next.png) 0 0 no-repeat;
+}
+.snippetsContent{
+	position:relative;
+	width:1000px;
+}
+.snipTop{
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+	width: 320px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: #9c9b9b 0px 0px 8px;
+    -moz-box-shadow: #9c9b9b 0px 0px 8px;
+    box-shadow: #9c9b9b 0px 0px 8px;
+    background: #ffffff;
+    behavior: url(/site/core/css/PIE.htc);
+    position: relative;
+    z-index: 1;
+    height: 180px;
+    text-align: left;
+}
+.reviewsBig .snipTop{
+	width:250px;
+}
+.snipTop img {
+    margin: 0 0 10px 2px;
+}
+.snipsBottom{
+    position: relative;
+    z-index: 5;
+    background: url(../images/snip_bg.png) 15px -10px no-repeat;
+    width: 200px;
+    height: 36px;
+    padding-top:30px;
+}
+
+.snipsBlock {
+    width:510px;
+    padding: 15px;
+
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: #9c9b9b 0px 0px 8px;
+    -moz-box-shadow: #9c9b9b 0px 0px 8px;
+    box-shadow: #9c9b9b 0px 0px 8px;
+    background: #ffffff;
+    behavior: url(/site/core/css/PIE.htc);
+    position: relative;
+    z-index: 1;
+    text-align: left;
+}
+
+.reviewsBig .snipsBlock {
+	width:846px;
+}
+
+/*Snippets style end*/

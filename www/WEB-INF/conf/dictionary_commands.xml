@@ -1,0 +1,11 @@
+<command name="get-dictionary-files-command" class="com.negeso.module.dictionary.command.GetDictionaryFilesCommand"/>
+<command name="get-dictionary-file-command" class="com.negeso.module.dictionary.command.GetDictionaryFileCommand"/>
+<command name="update-dictionary-file-command" class="com.negeso.module.dictionary.command.UpdateDictionaryFileCommand"/>
+<command name="delete-dictionary-file-command" class="com.negeso.module.dictionary.command.DeleteDictionaryFileCommand"/>
+<command name="get-dictionary-command" class="com.negeso.module.dictionary.command.GetDictionaryCommand"/>
+<command name="update-dictionary-command" class="com.negeso.module.dictionary.command.UpdateDictionaryCommand"/>
+<command name="manage-dictionary-command" class="com.negeso.module.dictionary.command.ManageDictionaryCommand"/>
+<command name="get-languages-list-command" class="com.negeso.module.dictionary.command.GetLanguagesListCommand"/>
+<command name="download-dictionary-command" class="com.negeso.module.dictionary.command.DownloadDictionaryCommand"/>
+<command name="validate-entry-command" class="com.negeso.module.dictionary.command.ValidateEntryCommand"/>
+

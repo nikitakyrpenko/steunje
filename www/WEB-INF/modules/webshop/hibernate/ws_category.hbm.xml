@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.negeso.module.webshop.entity.ProductCategory" table="ws_category">
+        <id name="id" type="string" column="name"/>
+        <property name="title" type="string"/>
+        <property name="description" type="string"/>
+        <property name="image" type="string" />
+        <property name="orderNumber" column="order_number" type="integer" />
+        <property name="visible" type="boolean" />
+        <many-to-one name="parentCategory" class="com.negeso.module.webshop.entity.ProductCategory" column="parent_category_name" cascade="merge"/>
+        <set name="childCategories" table="ws_category" cascade="none" inverse="true">
+            <key column="parent_category_name" />
+            <one-to-many class="com.negeso.module.webshop.entity.ProductCategory"/>
+        </set>
+        <property name="creationDate" column="creation_date" type="timestamp"/>
+        <bag name="products" table="ws_products" cascade="none" inverse="true">
+            <key column="category_name"/>
+            <one-to-many class="com.negeso.module.webshop.entity.Product"/>
+        </bag>
+        <set name="visibleTo" table="ws_category2customer_visibility" cascade="save-update">
+            <key column="category_name" />
+            <element type="string" column="visible_to"/>
+        </set>
+    </class>
+</hibernate-mapping>

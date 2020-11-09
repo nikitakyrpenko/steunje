@@ -1,0 +1,12 @@
+<command name="add-photos-command" class="com.negeso.module.photoalbum.command.AddPhotosCommand"/>
+<command name="copy-photos-command" class="com.negeso.module.photoalbum.command.CopyPhotosCommand"/>
+<command name="create-album-command" class="com.negeso.module.photoalbum.command.CreateAlbumCommand"/>
+<command name="create-secured-album-command" class="com.negeso.module.photoalbum.command.CreateSecuredAlbumCommand"/>
+<command name="delete-photo-album-command" class="com.negeso.module.photoalbum.command.DeletePhotoAlbumCommand"/>
+<command name="get-albums-tree-command" class="com.negeso.module.photoalbum.command.GetAlbumsTreeCommand"/>
+<command name="get-photo-album-command" class="com.negeso.module.photoalbum.command.GetPhotoAlbumCommand"/>
+<command name="get-photo-command" class="com.negeso.module.photoalbum.command.GetPhotoCommand"/>
+<command name="get-album-description-command" class="com.negeso.module.photoalbum.command.GetAlbumDescriptionCommand"/>
+<command name="update-photo-description-command" class="com.negeso.module.photoalbum.command.UpdateDescriptionCommand"/>
+<command name="change-album-container-command" class="com.negeso.module.photoalbum.command.ChangeAlbumContainerCommand"/>
+<command name="validate-access-command" class="com.negeso.module.photoalbum.command.ValidateAccessCommand"/>

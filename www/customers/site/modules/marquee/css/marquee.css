@@ -1,0 +1,34 @@
+.mqBody{
+	background-color: #EBEBEB;
+	border-top: 3px solid #FFFFFF;
+	border-bottom: 3px solid #FFFFFF;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	width: 100%;
+	heigth: 100%;
+}
+
+.mqBody a{
+	color: #ff0000;
+}
+
+.mqBody a:hover{
+	color: #ff0000;
+}
+
+.mqBodyTop {
+	margin: 15px;
+}
+
+.mqContent {
+	background-color:#FFFFFF;
+	border: 1px solid #b4b4b4; 
+}
+
+td.mqHeadBlock {
+	background: #ffffff url(/site/modules/marquee/images/mq_big_title_bg.gif) repeat-x bottom;
+	height: 38px;
+	border-bottom: 2px solid #b4b4b4;
+	padding: 0px 6px;
+	vertical-align: middle;
+	font-weight: bold;
+}

@@ -1,0 +1,100 @@
+/*Poll styles Start*/
+.pollContainer {
+	background-color: #FFFFFF;
+	border: 1px solid #ADADAD;
+	width: 326px;
+	height: 150px;
+	margin: 0px 10px 0px 10px;	
+	position: relative;
+}
+
+.pollContainer form {
+	margin: 0px 7px 0px 7px;
+}
+
+.pollContainer table {
+	width: 312px;
+}
+
+.pollContainer table td {
+	height: 21px;
+	background-color: #ebebeb;
+	padding-top: 2px;
+	padding-left: 5px;
+}
+
+.pollContainer table td.pollSubmitTd {
+	height: 30px;
+	background-color: #ffffff;
+	font-weight: bold;
+}
+
+.pollContainer table td.pollSubmitTd a {
+	color: #FF0000;
+}
+
+.pollMargin {
+	width: 312px;
+	height: 36px;
+	border-bottom: solid 2px #df1500;
+	margin: 7px;
+	margin-bottom: 4px;
+	color: #FF0000;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 11px;
+	overflow: hidden;
+}
+.pollMargin img {
+	margin-right: 5px;
+	float: left;
+}
+
+.pollMargin p {
+	margin: 0;
+}
+/*Poll result styles*/
+.PollResQuestion {
+	margin-top: 10px;
+	margin-left: 5px;
+	font-weight: bold;
+	font-size: 12px;
+	color: #FF0000;
+}
+
+.PollResQuestion p {
+	margin: 0;	
+}
+
+.PollResultLine {
+	width: 100%;
+	height: 20px;
+	border: none 0;
+	margin: 8px 0px 5px 0px;
+}
+.PollOther {
+	background-color: #EEEEEE;
+	padding: 2px 2px 0px 5px;
+}
+.PollTotal {
+	font-weight: bold;
+	font-size: 12px;
+	color: #000000;
+	padding: 2px 2px 0px 5px;
+}
+.PollText {
+	margin-top: 14px;
+	text-align: justify;
+}
+.PollNo {background-color: #17677D;}
+.PollYes {background-color: #A51FA0;}
+.PollNeutral {background-color: #969696;}
+.PollYesNumbers,.PollNoNumbers,.PollNeutralNumbers{
+	font-weight: bold;
+	font-size: 12px;
+	margin-left: 5px;
+}
+.PollYesNumbers {color: #8E0189;}
+.PollNoNumbers {color: #005268;}
+.PollNeutralNumbers {color: #787878;}
+/*Poll styles End*/

@@ -1,0 +1,235 @@
+<project name="WebCMS-compile" basedir=".." default="help">
+
+    <property environment="env" />
+    <property file="version.properties" />
+    <property file="ant/compile.properties" />
+
+	<property name="module.build.dir" value="build/${module.key}" />
+	<property name="module.src.dir" value="modules/${module.key}/src/main" />
+    <property name="module.jar.name" value="negeso-wcms-${module.key}-${module.version}.jar"/>
+	
+    <!-- class path for the common libraries -->
+    <path id="classpath">
+        <fileset dir="${lib.dir}">
+            <include name="*.jar" />
+        </fileset>
+        <fileset dir="${lib-pdf.dir}">
+            <include name="*.jar" />
+        </fileset>
+        <fileset dir="${lib-spring.dir}">
+            <include name="*.jar" />
+        </fileset>
+    </path>
+	
+	<target name="clean" description="Clean the resources">
+        <delete dir="${build.dir}" />
+        <delete dir="${dist.dir}" />
+		<delete dir="${www.dir}/WEB-INF/classes" />
+    </target>
+	
+    <target name="compile" description="Compile the main Java sources">
+        <!-- create folders -->
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${build.dir}/main"/>
+
+        <tstamp/>
+
+        <!-- compile java sources -->
+        <javac destdir="${build.dir}/main" debug="true" debuglevel="lines,vars,source" source="1.8" target="1.8" encoding="UTF-8">
+            <compilerarg value="-XDignore.symbol.file" />
+            <src path="${src.dir}/main" />
+            <classpath refid="classpath" />
+        </javac>
+    	
+        <!-- Copy hibernate mapping files -->
+        <copy todir="${build.dir}/main">
+            <fileset dir="${src.dir}/main" includes="**/*.hbm.xml" />
+        </copy>
+
+        <!-- Copy sources -->
+        <copy todir="${build.dir}/main">
+            <fileset dir="${src.dir}/main" />
+        </copy>
+    	
+        <!-- Create manifest file -->
+        <mkdir dir="${build.dir}/main/META-INF"  />
+        <manifest file="${build.dir}/main/META-INF/MANIFEST.MF">
+            <attribute name="Built-By" value="${user.name}" />
+            <attribute name="Specification-Title" value="${application.title}" />
+            <attribute name="Specification-Version" value="${version}" />
+            <attribute name="Specification-Vendor" value="${application.vendor}" />
+        </manifest>
+    </target>
+
+    <target name="compile-nodeps" description="Compile the sources with no dependencies">
+        <!-- create folders -->
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${module.build.dir}"/>
+
+        <tstamp/>
+
+        <!-- compile java sources -->
+        <javac srcdir="${module.src.dir}" destdir="${module.build.dir}" debug="true" debuglevel="lines,vars,source" source="1.8" target="1.8" encoding="UTF-8">
+            <classpath>
+                <path refid="classpath"/>
+                <path refid="module.classpath"/>
+                <pathelement location="${build.dir}/main"/>
+            </classpath>
+        </javac>
+
+        <!-- Copy sources -->
+        <copy todir="${module.build.dir}">
+            <fileset dir="${module.src.dir}" excludes="**/*.java"/>
+        </copy>
+
+        <!-- Create manifest file -->
+        <mkdir dir="${module.build.dir}/META-INF"  />
+        <manifest file="${module.build.dir}/META-INF/MANIFEST.MF">
+            <attribute name="Built-By" value="${user.name}" />
+            <attribute name="Specification-Title" value="${module.title}" />
+            <attribute name="Specification-Version" value="${module.version}" />
+            <attribute name="Specification-Vendor" value="${application.vendor}" />
+        </manifest>
+    </target>
+
+    <target name="build-jar" depends="compile" description="Create the main WebCMS JAR file">
+        <mkdir dir="${dist.dir}"/>
+        <jar jarfile="${dist.dir}/${jar.name}" basedir="${build.dir}/main" manifest="${build.dir}/main/META-INF/MANIFEST.MF" />
+    </target>
+
+    <target name="build-jar-nodeps" depends="compile-nodeps" description="Build JAR which doesn't depend on anything">
+        <mkdir dir="${dist.dir}"/>
+        <jar jarfile="${dist.dir}/${module.title}-${module.version}.jar" basedir="${module.build.dir}" manifest="${module.build.dir}/META-INF/MANIFEST.MF" />
+    </target>
+	
+    <target name="compile-custom" depends="compile" description="Compile the custom Java sources">
+        <!-- create folders -->
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${build.dir}/custom"/>
+
+        <tstamp/>
+
+        <!-- compile java sources -->
+        <javac destdir="${build.dir}/custom" debug="true" debuglevel="lines,vars,source" source="1.8" target="1.8" encoding="UTF-8">
+            <src path="${src.dir}/custom" />
+        	<classpath>
+        		<path refid="classpath"/>
+        		<pathelement location="${build.dir}/main"/>
+        	</classpath>
+        </javac>
+    	
+        <!-- Copy hibernate mapping files -->
+        <copy todir="${build.dir}/custom">
+            <fileset dir="${src.dir}/custom" includes="**/*.hbm.xml" />
+        </copy>
+
+        <!-- Copy sources -->
+        <copy todir="${build.dir}/custom">
+            <fileset dir="${src.dir}/custom" excludes="**/*.java"/>
+        </copy>
+    	
+        <!-- Create manifest file -->
+        <mkdir dir="${build.dir}/custom/META-INF"  />
+        <manifest file="${build.dir}/custom/META-INF/MANIFEST.MF">
+            <attribute name="Built-By" value="${user.name}" />
+            <attribute name="Specification-Title" value="${custom.application.title}" />
+            <attribute name="Specification-Version" value="${custom.version}" />
+            <attribute name="Specification-Vendor" value="${application.vendor}" />
+        </manifest>
+    </target>
+
+    <target name="compile-module" depends="compile" description="Compile the module Java sources">
+
+    	<mkdir dir="${module.build.dir}"/>
+
+        <tstamp/>
+
+        <!-- compile java sources -->
+        <javac srcdir="${module.src.dir}" destdir="${module.build.dir}" debug="true" debuglevel="lines,vars,source" source="1.8" target="1.8" encoding="UTF-8">
+            <classpath>
+                <path refid="classpath"/>
+            	<path refid="module.classpath"/>
+                <pathelement location="${build.dir}/main"/>
+            </classpath>
+        </javac>
+        
+        <!-- Copy sources -->
+        <copy todir="${module.build.dir}">
+            <fileset dir="${module.src.dir}" excludes="**/*.java"/>
+        </copy>
+        
+        <!-- Create manifest file -->
+        <mkdir dir="${module.build.dir}/META-INF"  />
+        <manifest file="${module.build.dir}/META-INF/MANIFEST.MF">
+            <attribute name="Built-By" value="${user.name}" />
+            <attribute name="Specification-Title" value="${module.title}" />
+            <attribute name="Specification-Version" value="${module.version}" />
+            <attribute name="Specification-Vendor" value="${application.vendor}" />
+        </manifest>
+    </target>	
+	
+    <target name="build-custom-jar" depends="compile-custom" description="Create the custom JAR file">
+        <mkdir dir="${dist.dir}"/>
+        <jar jarfile="${dist.dir}/${custom.jar.name}" basedir="${build.dir}/custom" manifest="${build.dir}/custom/META-INF/MANIFEST.MF" />
+    </target>
+	
+    <target name="build-module-jar" depends="compile-module" description="Create the JAR file for module">
+        <mkdir dir="${dist.dir}"/>
+        <jar jarfile="${dist.dir}/${module.jar.name}" basedir="build/${module.key}" manifest="build/${module.key}/META-INF/MANIFEST.MF" />
+    </target>
+
+	<target name="build-all-jars" depends="build-jar" description="Build all JARs">
+        <subant target="build-module-jar">
+            <fileset dir="modules" includes="*/build.xml"/>
+        </subant>
+        <delete dir="${build.dir}" />
+    </target>
+	
+    <target name="merge" depends="build-all-jars" description="Merging the files for the WebCMS application">
+        <copy todir="${webapp.dir}">
+            <fileset dir="${www.dir}"/>
+        </copy>
+        <!-- remove the wcms jar from /WEB-INF/lib directory -->
+        <delete verbose="true">
+            <fileset dir="${webapp.dir}/WEB-INF/lib" includes="negeso-wcms-*.jar"/>
+        </delete>
+        <!-- copy into the /WEB-INF/lib directory the built jar file -->
+        <copy todir="${webapp.dir}/WEB-INF/lib">
+            <fileset dir="${dist.dir}" includes="*.jar"/>
+        </copy>
+    </target>
+
+    <target name="merge-module" depends="build-module-jar" description="Merging the current module jar">
+        <!-- copy into the /WEB-INF/lib directory the built jar file -->
+        <copy todir="${www.dir}/WEB-INF/lib">
+            <fileset dir="${dist.dir}" includes="negeso-wcms-${module.key}-*.jar"/>
+        </copy>
+    </target>
+
+    <target name="merge-module-and-clean" depends="merge-module" description="Fast build">
+        <delete dir="${build.dir}" />
+        <delete dir="${dist.dir}" />
+    </target>
+	
+    <target name="build-war" depends="merge" description="Create the WebCMS web application archive">
+        <war
+            basedir="${webapp.dir}"
+            destfile="${dist.dir}/${war.name}"
+            webxml="${webapp.dir}/WEB-INF/web.xml"/>
+    </target>
+	
+    <target name="help">
+        <echo message="${ant.project.name}" />
+        <echo message="-----------------------------------" />
+        <echo message="Available targets are:" />
+        <echo message="-----------------------------------" />
+        <echo message="compile          --> Compile the main Java sources" />
+        <echo message="compile-custom   --> Compile the custom Java sources" />
+        <echo message="build-jar        --> Build the main W/CMS JAR" />
+        <echo message="build-custom-jar --> Build the custom W/CMS JAR" />
+        <echo message="build-all-jars   --> Build all JARs" />
+    	<echo message="build-war        --> Build the W/CMS web application archive" />
+        <echo message="clean            --> Delete compiled classes and JARs"/>
+    </target>
+	
+</project>

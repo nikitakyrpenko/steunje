@@ -1,0 +1,42 @@
+<module id="core" name="Core module">
+  <extension point="core">
+      <mapping-url>/admin/back.html</mapping-url>
+      <mapping-url>/admin/parameters</mapping-url>
+      <mapping-url>/admin/visitor_parameters</mapping-url>
+	  <mapping-url>/admin/site_settings</mapping-url>
+	  <mapping-url>/admin/google_monitor.html</mapping-url>
+	  <mapping-url>/admin/menuEditor</mapping-url>
+	  <mapping-url>/admin/landing_pages</mapping-url>
+	  <mapping-url>/admin/article_revisions</mapping-url>
+	  <mapping-url>/admin/site_history</mapping-url>
+	  <mapping-url>/admin/site_overvies</mapping-url>
+	  <mapping-url>/admin/getHelpLink</mapping-url>
+	  <mapping-url>/admin/manage_search.html</mapping-url>
+	  <mapping-url>/admin/edit_social_network</mapping-url>
+	  <mapping-url>/admin/site_placeholder.html</mapping-url>
+	  <mapping-url>/admin/geoip_languages.html</mapping-url>
+	  <mapping-url>/probe</mapping-url>
+	  <mapping-url>/qrcode</mapping-url>
+	  <mapping-url>/captcha_check</mapping-url>
+    <page-components/>
+  </extension>
+</module>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

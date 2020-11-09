@@ -1,0 +1,20 @@
+<matcher uri="admin/glossary" command-name="d-manage-glossary">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="D_GLOSSARY_XSL"/>
+    </bind>
+</matcher>
+
+<matcher uri="admin/glossary_xml" command-name="d-manage-glossary">
+    <bind result="success" view="xml-view"/>
+</matcher>
+
+
+<matcher uri="admin/glossary_category" command-name="d-manage-categories">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="D_CATEGORY_XSL"/>
+    </bind>
+</matcher>
+
+<matcher uri="admin/glossary_category_xml" command-name="d-manage-categories">
+    <bind result="success" view="xml-view"/>
+</matcher>

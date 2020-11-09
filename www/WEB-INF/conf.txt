@@ -1,0 +1,22 @@
+# Settings for cruise control database. Don't change these settings
+# in this file placed in repository. Modify this
+# file in your local environment with following format:
+# jdbc.url=jdbc:postgresql://192.168.0.1:5432/DBNAME
+# jdbc.username=DBUSER
+# jdbc.password=DBPASSWORD
+
+#jdbc.url=jdbc:postgresql://10.0.0.13:5432/clean_template
+#jdbc.username=clean_template
+#jdbc.password=clean_template
+
+#jdbc.url=jdbc:postgresql://10.0.0.13:5432/iam_demo
+#jdbc.username=iam_demo
+#jdbc.password=0PaHcn92
+
+jdbc.url=jdbc:postgresql://192.168.14.125:5432/steunjeclub_db_local
+jdbc.username=steunjeclub_user
+jdbc.password=BpTILz6sU8MvqtWs
+
+wcms.stage=dev
+ws.central_modules.url=http://democjs.phidias.nl/centralModules
+ws.site.identifier=dev30

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="parametrized_link" name="Parametrized Link Module">
+  <extension point="core">
+	<mapping-url>/admin/parametrized_links.html</mapping-url>
+	<mapping-url>/admin/pl_details.html</mapping-url>
+    <page-components/>
+  </extension>
+</module>

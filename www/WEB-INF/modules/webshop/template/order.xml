@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<order comment="test commentfghfgh"  total="400 e"  deliveryType="wordt afgehaald" deliveryDate="11-10-2016 00:00" VAT="84 e" deliveryCost="15 e" pagesNumber="1/2" deliveryPrice="" totalWithVAT="484 e" transactionId="00000000000001" message="">
+    <customer email="P.F@negeso.com" login="28273" userName="Reflex Trading Holland" orderDate="11-10-2016 00:00"/>
+    <item price="22,33 e" discount="10%" quantity="4" total="80,39 e" id="000001" title="3M BLABLA 50x10"/>
+    <item price="22,33 e" discount="10%" quantity="4" total="80,39 e" id="000002" title="3M BLABLA 50x20"/>
+    <billing address="NL" companyName="Kersten Verf Wand" addressLine="Veldje 13" zipCode="6042JB" city="ROERMOND" phone="5" />
+    <shipping address="NL" companyName="Kersten Verf Wand" addressLine="Veldje 13" zipCode="6042JB" city="ROERMOND" phone="5" />
+</order>

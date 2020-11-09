@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.negeso.module.webshop.entity.Order" table="ws_order" dynamic-update="true">
+        <id name="id" type="integer">
+            <generator class="sequence">
+                <param name="sequence">ws_order_id_seq</param>
+            </generator>
+        </id>
+        <property name="transactionId" type="string" column="transaction_id"/>
+        <many-to-one name="customer" class="com.negeso.module.webshop.entity.Customer" column="username" cascade="save-update" />
+        <set name="orderItems" table="ws_order_items" cascade="save-update" inverse="true">
+            <key column="order_id" />
+            <one-to-many class="com.negeso.module.webshop.entity.OrderItem"/>
+        </set>
+        <property name="status" type="string"/>
+        <property name="price" type="big_decimal"/>
+        <property name="currency" type="string"/>
+        <property name="paymentMethod" type="string" column="payment_method"/>
+        <property name="deliveryType" type="string" column="delivery_type"/>
+        <one-to-one name="deliveryContact" class="com.negeso.module.webshop.entity.DeliveryContact" cascade="save-update"/>
+        <property name="orderDate" type="timestamp" column="order_date"/>
+        <property name="customField1" type="string" column="custom_field_1"/>
+        <property name="customField2" type="string" column="custom_field_2"/>
+        <property name="comment" type="string" />
+        <property name="deliveryPrice" column="delivery_price" type="big_decimal"/>
+        <property name="vat" column="vat_price" type="big_decimal"/>
+    </class>
+
+    <class name="com.negeso.module.webshop.entity.OrderItem" table="ws_order_items">
+        <id name="id" type="integer">
+            <generator class="sequence">
+                <param name="sequence">ws_order_items_id_seq</param>
+            </generator>
+        </id>
+        <many-to-one name="order" class="com.negeso.module.webshop.entity.Order" column="order_id"/>
+        <property name="quantity" type="integer"/>
+        <many-to-one name="product" class="com.negeso.module.webshop.entity.Product" column="product_id"/>
+        <property name="price" type="big_decimal"/>
+        <property name="discount" type="big_decimal"/>
+    </class>
+    
+    <class name="com.negeso.module.webshop.entity.DeliveryContact" table="ws_order_delivery">
+        
+        <id name="id" type="integer">
+            <generator class="foreign">
+                <param name="property">order</param>
+            </generator>
+        </id>
+        <one-to-one name="order" class="com.negeso.module.webshop.entity.Order" constrained="true"/>
+        <property name="firstName" type="string" column="first_name"/>
+        <property name="secondName" type="string" column="second_name"/>
+        <property name="companyName" type="string" column="company_name"/>
+        <property name="addressLine" type="string" column="address_line"/>
+        <property name="zipCode" type="string" column="zip_code"/>
+        <property name="city" type="string"/>
+        <property name="country" type="string"/>
+        <property name="phone" type="string"/>
+        <property name="fax" type="string"/>
+    </class>
+</hibernate-mapping>

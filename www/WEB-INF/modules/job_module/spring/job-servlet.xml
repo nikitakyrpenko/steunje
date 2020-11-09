@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+	<bean id="messageSource" class="com.negeso.framework.i18n.DatabaseResourceBundleMessageSource">
+        <property name="basename" value="dict_common.xsl, history_links.jsp, dict_job_module.xsl, job_module"/>
+    </bean>
+
+    <bean id="exceptionResolver" class="com.negeso.framework.ExceptionHandler">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">friendlyError</prop>
+			</props>
+		</property>
+	</bean>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+		<property name="prefix" value="/WEB-INF/modules/job_module/jsp/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+
+	<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+					<property name="paramName" value="interfaceLanguage"/>
+				</bean>
+				<bean class="com.negeso.framework.security.SecurityInterceptor"/>
+			</list>
+		</property>
+		<property name="mappings">
+			<props> 
+				<prop key="/admin/job_regions.html">regionController</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="regionController" class="com.negeso.module.job.web.controller.RegionController">
+	   <property name="listRegionsView" value="job_regions"/>
+		<property name="regionService" ref="regionService"/>
+		<property name="methodNameResolver" ref="methodNameResolver"/>
+	</bean>
+
+    <bean id="methodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+		<property name="paramName" value="act"/>
+		<property name="defaultMethodName" value="list"/>
+	</bean>
+
+</beans>

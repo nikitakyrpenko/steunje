@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Locations are resolved relatively to the root folder of the web-application.
+    
+    A trailing slash is appended to folder names automatically when the
+    absolute path is resolved.
+-->
+<resources>
+    
+    <file id="INDEX_DIR" location="WEB-INF/generated/search"/>
+    <file id="STATISTICS_DIR" location="WEB-INF/generated/statistics"/>
+    <file id="MENU_REPORT_TXT" location="WEB-INF/generated/logs/menu.txt"/>
+    <file id="CONF_JS" location="WEB-INF/conf.js"/>
+    <file id="ERROR_HTML" location="error.html"/>
+    
+
+    <!-- BEGIN GENERAL XSLs -->
+    <file id="APPLICATION_CONFIG" location="WEB-INF/application.xconf"/>
+    <file id="SITE_XSL" location="/site/core/xsl/site.xsl"/>
+    <file id="LOGIN_XSL" location="xsl/login.xsl"/>
+    <file id="ACCESS_DENIED_XSL" location="modules/standard/access_denied.xsl"/>
+    <file id="RESOURCE_NOT_FOUND_XSL" location="modules/standard/resource_not_found.xsl"/>
+    <file id="VERSION_INFO_XSL" location="modules/standard/version_info.xsl"/>
+    <file id="TEMPLATE_NEW_PAGE" location="WEB-INF/page_template.xml"/>
+    <file id="TEMPLATE_SPECIAL_PAGE" location="WEB-INF/special_page_template.xml"/>
+    <!-- END GENERAL XSLs -->
+
+    <file id="SITE_DYNAMICS_XSL" location="modules/dynamics/site_dynamics.xsl"/>
+    <file id="PAGE_PROPERTIES_XSL" location="dialogs/dialog_change_page_properties.xsl"/>
+    
+    <!-- BEGIN SECURITY MODULE  -->
+    <file id="MANAGE_USERS_XSL" location="modules/user_manager/manage_contributors.xsl"/>
+    <file id="MANAGE_VISITORS_XSL" location="modules/user_manager/manage_visitors.xsl"/>
+    <file id="MANAGE_CONTAINERS_XSL" location="modules/user_manager/manage_containers.xsl"/>
+    <file id="MANAGE_GROUPS_XSL" location="modules/user_manager/manage_groups.xsl"/>
+    <file id="MANAGE_VISITOR_GROUPS_XSL" location="modules/user_manager/manage_visitor_groups.xsl"/>
+    <file id="SELECT_CONTAINER_XSL" location="modules/user_manager/select_container.xsl"/>
+    <!-- END SECURITY MODULE  -->
+
+    <!-- BEGIN LISTS  -->
+    <file id="FAQ_LIST_XSL" location="modules/faq/list.xsl"/>
+    <file id="NEWSLIST_LIST_XSL" location="modules/news/news_list.xsl"/>
+    <file id="LANGUAGES_LIST_XSL" location="modules/news/news_languages_list.xsl"/>
+    <file id="LISTS_ROLL_XSL" location="modules/news/news_listsroll.xsl"/>
+    <file id="MODULES_LIST_XSL" location="modules/module/list.xsl"/>
+    <file id="CATEGORIES_LIST_XSL" location="modules/category/list.xsl"/>
+    <file id="NEWS_CATEGORIES_XSL" location="modules/category/newslist.xsl"/>
+	<file id="DYNAMIC_ITEMS_XSL" location="modules/category/dim_list.xsl"/>
+    <file id="PAGES_LIST_XSL" location="modules/pexplorer/list.xsl"/>
+    <file id="ARCHIVE_LIST_XSL" location="modules/news/news_archive_list.xsl"/>
+    <file id="ARCHIVE_ITEM_XSL" location="modules/news/news_archive_item.xsl"/>
+    <file id="NEWS_EDIT_ITEM_XSL" location="modules/news/news_edit_item.xsl"/>
+    <file id="FAQ_EDIT_ITEM_XSL" location="modules/faq/edit_item.xsl"/>
+    <!--file id="WEBPOLL_XSL" location="modules/webpoll/tln/list.xsl"/ -->
+    <file id="WEBPOLL_XSL" location="modules/webpoll/list.xsl"/>
+    <file id="WEBPOLL_EDIT_ITEM_XSL" location="modules/webpoll/edit_item.xsl"/>
+    <!-- END LISTS  -->
+
+    <!-- BEGIN UPDOWNLOAD  -->
+    <file id="IMAGE_UPLOADER_XSL" location="modules/updownload/upload_image.xsl"/>	
+    <file id="UPLOAD_FILE_XSL" location="modules/updownload/upload_file.xsl"/>
+    <file id="REPOSITORY_CHOOSE_RESOURCE" location="modules/updownload/choose_resource.xsl"/>
+    <file id="UPDOWNLOAD_MODULE_INFO_XSL" location="modules/updownload/module_info.xsl"/>
+    <file id="MASS_THUMBNAIL_UPLOADER_XSL" location="modules/updownload/mass_thumbnail_uploader.xsl"/>
+    <file id="MASS_FILE_UPLOADER_XSL" location="modules/updownload/mass_file_uploader.xsl"/>
+    <!-- END UPDOWNLOAD  -->
+
+    <!-- BEGIN MEDIA CATALOG  -->
+    <file id="LIST_DIRECTORY_XSL" location="modules/media_catalog/list_directory.xsl"/>
+    <file id="MOVE_RESOURCE_XSL" location="modules/media_catalog/move_resource.xsl"/>
+    <file id="RENAME_RESOURCE_XSL" location="modules/media_catalog/rename_resource.xsl"/>
+    <file id="RESOURCE_INFO_XSL" location="modules/media_catalog/resource_info.xsl"/>
+    <!-- END MEDIA CATALOG -->
+
+    <!-- BEGIN NEW RTE  -->
+    <file id="SECOND_IMAGE_UPLOADER_XSL" location="rte/tinymce/jscripts/tiny_mce/plugins/negeso_advimage/image_adds.xsl"/>
+    <file id="SECOND_REPOSITORY_CHOOSE_RESOURCE" location="rte/tinymce/jscripts/tiny_mce/plugins/negeso_advlink/link_to_file.xsl"/>
+    <file id="SECOND_CHOOSE_FORM_XSL" location="rte/tinymce/jscripts/tiny_mce/plugins/negeso_form_manager/form_manager_list.xsl"/>
+    <file id="RTE_PARAMETRIZED_LINKS_XSL" location="rte/tinymce/jscripts/tiny_mce/plugins/negeso_parametrized_links/parametrized_links.xsl"/>
+    <file id="RTE_AUTO_FILLED_ATTRS_XSL"  location="rte/tinymce/jscripts/tiny_mce/plugins/negeso_auto_filled_attrs/auto_filled_attrs.xsl"/>
+    <!-- END NEW RTE  -->
+
+    <!-- BEGIN PRODUCT MODULE -->
+    <file id="PM_BROWSE_CATEGORY_XSL" location="modules/product/browse_category.xsl"/>
+    <file id="PM_EDIT_CATEGORY_XSL" location="modules/product/edit_category.xsl"/>
+    <file id="PM_LIST_PRODUCTS_XSL" location="modules/product/list_products.xsl"/>
+    <file id="PM_EDIT_PRODUCT_XSL" location="modules/product/edit_product.xsl"/>
+    <file id="PM_EDIT_PROPERTIES_XSL" location="modules/product/edit_properties.xsl"/>
+    <file id="PM_EDIT_FEATURED_XSL" location="modules/product/edit_featured.xsl"/>
+    <file id="PM_BROWSE_PRODUCT_TYPES_XSL" location="modules/product/browse_product_types.xsl"/>
+    <file id="PM_EDIT_PRODUCT_TYPE_XSL" location="modules/product/edit_product_type.xsl"/>
+    <file id="PM_ENTRY_PAGE_XSL" location="modules/product/pm_entry_page.xsl"/>
+    <file id="PM_BROWSE_CUSTOMERS_XSL" location="modules/product/pm_customers.xsl"/>
+    <file id="PM_EDIT_CUSTOMER_XSL" location="modules/product/pm_edit_customer.xsl"/>
+    <file id="PM_SHOP_PREFERENCES_XSL" location="modules/product/pm_shop_preferences.xsl"/>
+    <file id="PM_DELIVERY_METHODS_XSL" location="modules/product/pm_delivery_methods.xsl"/>
+    <file id="PM_PRICE_LIST_XSL" location="modules/product/pm_price_list.xsl"/>
+
+
+    <file id="PM_ACTIVATION_MAIL_XSL" location="site/template/customer_reg_confirm.xsl"/>
+    <file id="PM_REGISTER_REQUEST_MAIL_XSL" location="site/template/customer_reg_request.xsl"/>
+    <file id="PM_HTML_SHOP_INVOICE_XSL" location="site/template/shop_invoice.xsl"/>
+    <file id="PM_HTML_CUSTOMER_INVOICE_XSL" location="site/template/customer_invoice.xsl"/>
+
+    <!-- END PRODUCT MODULE -->
+    
+      <!-- STATISTICS MODULE -->
+    <document id="STATISTICS_USER_PAGE_FORM_XSL" location="modules/statistics/statistics_user_page.xsl"/>
+    <document id="STATISTICS_PAGE_FORM_XSL" location="modules/statistics/statistics_page.xsl"/>
+    <document id="MANAGE_COUNTERS_XSL"      location="modules/statistics/manage_counters_page.xsl"/>
+    <document id="STATISTICS_CACHE_XSL"      location="modules/statistics/cache_transform.xsl"/>
+    <document id="STATISTICS_SELECT_USER_XSL"      location="modules/statistics/select_user.xsl"/>
+    
+    <!-- END STATISTICS MODULE -->
+
+    <!-- BEGIN NEWSLETTER MODULE -->
+    <file id="NL_BROWSE_CATEGORY_XSL" location="modules/newsletter/nl_browse_category.xsl"/>
+    <file id="NL_EDIT_CATEGORY_XSL" location="modules/newsletter/nl_edit_category.xsl"/>
+    <file id="NL_EDIT_PUBLICATION_XSL" location="modules/newsletter/nl_edit_publication.xsl"/>
+    <file id="NL_BROWSE_REQUEST_XSL" location="modules/newsletter/nl_browse_request.xsl"/>
+    <file id="NL_BROWSE_SUBSCRIBER_XSL" location="modules/newsletter/nl_browse_subscriber.xsl"/>
+    <file id="NL_EDIT_SUBSCRIBER_XSL" location="modules/newsletter/nl_edit_subscriber.xsl"/>
+    <file id="NL_BROWSE_TEMPLATE_XSL" location="modules/newsletter/nl_browse_template.xsl"/>
+    <file id="NL_EDIT_TEMPLATE_XSL" location="modules/newsletter/nl_edit_template.xsl"/>
+    <file id="NL_BROWSE_SCHEDULE_XSL" location="modules/newsletter/nl_browse_schedule.xsl"/>
+    <file id="NL_IMPORT_XSL" location="modules/newsletter/nl_import.xsl"/>
+    <!-- END NEWSLETTER MODULE -->
+
+    <!-- BEGIN TRANSLATION -->
+    <file id="DICTIONARY_FILES_LIST_XSL" location="modules/dictionary/list.xsl"/>
+    <file id="DICTIONARY_FILE_XSL" location="modules/dictionary/file.xsl"/>
+    <file id="DICTIONARY_XSL" location="modules/dictionary/dictionary.xsl"/>
+    <file id="DICTIONARY_STRUCTURE_XSL" location="modules/dictionary/structure.xsl"/>
+    <file id="DICTIONARY_LANGUAGES_LIST_XSL" location="modules/dictionary/languages_list.xsl"/>
+    <!-- END TRANSLATION -->
+
+    <!-- BEGIN EVENT MODULE -->
+    <file id="EVENT_CATEGORIES_XSL" location="modules/event/categories.xsl"/>
+    <file id="EVENT_CATEGORY_XSL" location="modules/event/edit_category.xsl"/>
+    <file id="EVENT_SCHEDULE_XSL" location="modules/event/schedule.xsl"/>
+    <file id="EVENT_DAILY_XSL" location="modules/event/daily.xsl"/>
+    <file id="EVENT_YEARLY_XSL" location="modules/event/yearly.xsl"/>
+    <file id="EVENT_LIST_XSL" location="modules/event/list.xsl"/>
+    <file id="EVENT_EDIT_EVENT_XSL" location="modules/event/edit_event.xsl"/>
+    <file id="EVENT_SEARCH_XSL" location="modules/event/search.xsl"/>
+    <!-- END EVENT MODULE -->
+
+    <!-- BEGIN PHOTO ALBUM MODULE -->
+    <file id="PHOTO_ALBUM_XSL" location="modules/photo_album/album.xsl"/>
+    <file id="PHOTO_ALBUM_PHOTO_XSL" location="modules/photo_album/photo.xsl"/>
+    <file id="PHOTO_ALBUM_DESCRIPTION_XSL" location="modules/photo_album/description.xsl"/>
+    <file id="PHOTO_ALBUMS_TREE_XSL" location="modules/photo_album/tree.xsl"/>
+    <file id="PHOTO_ALBUM_CREATE_XSL" location="modules/photo_album/createalbum.xsl"/>
+    <!-- END EVENT MODULE -->
+
+    <!-- BEGIN JOB MODULE -->
+    <file id="J_DEPARTMENTS_XSL" location="modules/job/j_module.xsl"/>
+    <file id="J_DEPARTMENT_XSL" location="modules/job/j_department.xsl"/>
+    <file id="J_VACANCY_XSL" location="modules/job/j_vacancy.xsl"/>
+    <file id="J_APPLICANT_XSL" location="modules/job/j_applicant.xsl"/>
+    <file id="J_APPLICATION_FORM_XSL" location="modules/job/j_application_form.xsl"/>
+    <file id="J_FIELD_CHOOSER_XSL" location="modules/job/j_field_chooser.xsl"/>
+    <file id="J_FIELD_REPOSITORY_XSL" location="modules/job/j_field_repository.xsl"/>
+    <file id="J_FIELD_DETAILS_XSL" location="modules/job/j_field.xsl"/>
+    <file id="J_APPLICATION_MAIL_TEMPL_XSL" location="modules/job/j_application_mail.xsl"/>
+    
+    <!-- END JOB MODULE -->
+
+    <!-- BEGIN MENU AND POPUP LIST EDITOR -->
+	<file id="MENU_EDITOR" location="xsl/menu_editor.xsl"/>        
+    <file id="SPECIAL_PAGES_EDITOR" location="xsl/special_pages_editor.xsl"/>
+    <file id="PAGE_INFO_EDITOR" location="dialogs/page_info_editor.xsl"/>
+    <file id="CREATE_PAGE_DIALOG" location="dialogs/create_page.xsl"/>
+    <file id="SELECT_PAGE_TEMPLATE_XSL" location="dialogs/select_page_template.xsl"/>
+    <!-- END MENU AND POPUP LIST EDITOR -->
+    
+    
+    <!-- FORM MANAGER -->
+    <file id="MANAGE_FORMS_XSL" location="modules/form_manager/manage_forms.xsl"/>
+    <file id="CHOOSE_FORM_XSL" location="modules/form_manager/choose_form.xsl"/>
+    <file id="FORM_MAIL_TEMPL_XSL" location="site/template/webform_mail.xsl"/>
+    <!-- END FORM MANAGER -->
+
+    <!-- BEGIN MENU -->
+    <file id="CREATE_MENU_ITEM_DIALOG_XSL" location="modules/standard/create_menu_item.xsl"/>
+    <!-- END MENU -->
+
+    <!-- WCMS_ATTRIBUTES -->
+    <file id="WCMS_IMAGES" location="modules/wcms_attributes/image.xsl"/>
+	<file id="WCMS_IMAGE_LINK_XSL" location="modules/wcms_attributes/image_link.xsl"/>
+	<file id="WCMS_ANIMATION_PROP_XSL" location="modules/wcms_attributes/animation_properties.xsl"/>
+    <!-- WCMS_ATTRIBUTES -->
+    
+    <!-- CONTACT BOOK -->
+    <file id="CB_BROWSE_GROUPS" location="modules/contact_book/cb_browse_groups.xsl"/>
+    <file id="CB_EDIT_GROUP" location="modules/contact_book/cb_edit_group.xsl"/>
+    <file id="CB_BROWSE_CONTACTS" location="modules/contact_book/cb_browse_contacts.xsl"/>
+    <file id="CB_EDIT_CONTACT" location="modules/contact_book/cb_edit_contact.xsl"/>
+    <!-- CONTACT BOOK -->
+
+    <!-- GLOSSARY -->
+    <file id="D_GLOSSARY_XSL" location="modules/glossary/d_glossary.xsl"/>
+    <file id="D_CATEGORY_XSL" location="modules/glossary/d_category.xsl"/>
+    <!-- GLOSSARY -->
+
+    <!-- INQUIRY MODULE -->
+    <file id="INQUIRY_XSL" location="modules/inquiry/inquiry.xsl"/>
+    <!-- INQUIRY MODULE -->
+
+    <!-- DOCUMENT MODULE -->
+    <file id="DC_BROWSE_CATEGORY_XSL" location="modules/document_module/dc_browse_category.xsl"/>
+    <file id="DC_CATEGORY_XSL" location="modules/document_module/dc_category.xsl"/>
+    <file id="DC_DOCUMENT_XSL" location="modules/document_module/dc_document.xsl"/>
+    <file id="DC_TREE_XSL" location="modules/document_module/tree.xsl"/>
+    <!-- DOCUMENT MODULE -->
+    
+    <!-- MAIL_TO_A_FRIEND -->
+    <file id="MAIL_TO_A_FRIEND_HTML_XSL" location="site/template/mail_to_a_friend_html.xsl"/>
+    <file id="MAIL_TO_A_FRIEND_PLAIN_XSL" location="site/template/mail_to_a_friend_plain.xsl"/>    
+    <!-- MAIL_TO_A_FRIEND -->
+    
+    <!--  SUPERUSER -->
+    <file id="SUPERUSER_LOGIN_XSL" location="xsl/superuser_login.xsl"/>    
+    <file id="SUPERUSER_LOG" location="xsl/superuser_log.xsl"/>    
+    <!--  SUPERUSER  -->
+    
+    <!-- GUESTBOOK -->
+    <file id="GUESTBOOK" location="modules/guestbook/guestbook.xsl"/>
+    <!-- GUESTBOOK -->
+    
+    <file id="PL_PARAMETRIZED_LINK" location="modules/parametrized links/parametrized_link.xsl"/>
+    
+</resources>

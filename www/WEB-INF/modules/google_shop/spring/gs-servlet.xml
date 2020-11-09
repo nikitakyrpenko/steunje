@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean id="messageSource"
+		class="com.negeso.framework.i18n.DatabaseResourceBundleMessageSource">
+		<property name="basename"
+			value="dict_common.xsl, google_shop, core, dict_modules.xsl" />
+	</bean>
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix"
+			value="/WEB-INF/modules/google_shop/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<bean id="handlerMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<bean
+					class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+					<property name="paramName"
+						value="interfaceLanguage" />
+				</bean>
+			</list>
+		</property>
+		<property name="mappings">
+			<props>
+				<prop key="/admin/google_shop.html">merchantController</prop>
+				<prop key="/admin/gm_edit_merchant.html">merchantController</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="merchantController" class="com.negeso.module.google_shop.web.controller.MerchantController">
+	   <property name="methodNameResolver">
+			<bean
+				class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+				<property name="paramName">
+					<value>action</value>
+				</property>
+				<property name="defaultMethodName" value="browse" />
+			</bean>
+		</property>
+	   <property name="merchantService" ref="merchantService"/>
+	   <property name="defaultConditions">
+		 	<list>
+		 		<value>new</value>
+		 		<value>refurbished</value>
+		 		<value>used</value>
+		 	</list>
+	   </property>
+	   <property name="defaultAvailabilities">
+		 	<list>
+		 		<value>in stock</value>
+		 		<value>available for order</value>
+		 		<value>out of stock</value>
+		 		<value>preorder</value>
+		 	</list>
+	   </property>
+	</bean>
+
+</beans>

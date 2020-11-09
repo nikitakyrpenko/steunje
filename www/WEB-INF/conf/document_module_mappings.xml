@@ -1,0 +1,84 @@
+<matcher uri="admin/document_module" command-name="dc-browse-category">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="DC_BROWSE_CATEGORY_XSL"/>
+    </bind>
+</matcher>
+
+<matcher uri="admin/document_module_xml" command-name="dc-browse-category">
+    <bind result="success" view="xml-view"/>
+</matcher>
+
+<matcher uri="admin/dc_category" command-name="dc-get-category-details">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="DC_CATEGORY_XSL"/>
+    </bind>
+</matcher>
+
+<matcher uri="admin/dc_document" command-name="dc-get-document-details">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="DC_DOCUMENT_XSL"/>
+    </bind>
+</matcher>
+
+<matcher uri="admin/dc_document_xml" command-name="dc-get-document-details">
+    <bind result="success" view="xml-view"/>
+</matcher>
+
+<matcher uri="admin/dc_category_xml" command-name="dc-get-category-details">
+    <bind result="success" view="xml-view"/>
+</matcher>
+
+
+<matcher uri="admin/dc-add-documents" command-name="dc-add-documents">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="DC_BROWSE_CATEGORY_XSL"/>
+    </bind>
+</matcher>
+
+<matcher uri="admin/dc-change-category-container" command-name="dc-change-category-container">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="DC_BROWSE_CATEGORY_XSL"/>
+    </bind>
+</matcher>
+
+<matcher uri="admin/dc-copy-document" command-name="dc-copy-document">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="DC_BROWSE_CATEGORY_XSL"/>
+    </bind>
+</matcher>
+
+<matcher uri="admin/dc-delete-category" command-name="dc-delete-category">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="DC_BROWSE_CATEGORY_XSL"/>
+    </bind>
+</matcher>
+
+<matcher uri="admin/dc-delete-document" command-name="dc-delete-document">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="DC_BROWSE_CATEGORY_XSL"/>
+    </bind>
+</matcher>
+
+<matcher uri="admin/dc-get-categories-tree" command-name="dc-get-categories-tree">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="DC_TREE_XSL"/>
+    </bind>
+</matcher>
+
+<matcher uri="admin/dc-update-category" command-name="dc-update-category">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="DC_CATEGORY_XSL"/>
+    </bind>
+</matcher>
+
+<matcher uri="admin/dc-update-document" command-name="dc-update-document">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="DC_DOCUMENT_XSL"/>
+    </bind>
+</matcher>
+
+<matcher uri="admin/dc-reorder" command-name="dc-reorder">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="DC_BROWSE_CATEGORY_XSL"/>
+    </bind>
+</matcher>

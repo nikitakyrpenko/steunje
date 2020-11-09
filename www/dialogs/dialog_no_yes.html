@@ -1,0 +1,49 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <title>Negeso W/CMS</title>
+    <link rel="stylesheet" type="text/css" href="/css/admin_style.css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script type="text/javascript" src="/script/jquery.min.js"></script>
+    <script language="JavaScript" src="/script/common_functions.js"  type="text/javascript"></script>
+    <!-- script block for localization mechanism -->
+    <script id="localization"  type="text/javascript"></script>
+    <script language="JavaScript"  type="text/javascript">
+        document.all["localization"].src = "/dictionaries/dict_dialogs_" + getInterfaceLanguage() + ".js";
+    </script>
+    <script  type="text/javascript">
+        document.onkeypress = function () {
+            if (window.event.keyCode == 27) returnNo();
+        }
+        window.onload = function () {
+            buttonNo.focus();
+        }
+        function returnYes() {
+            window.returnValue = 'yes';
+            window.close();
+        }
+        function returnNo() {
+            window.returnValue = 'no';
+            window.close();
+        }
+        attachEvent("onload", resizeDialogWindow); //resize dialog window height
+    </script>
+</head>
+<body>
+    <table border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td class="admTableTDLast admCenter">
+                <p class="admMarginAll admCenter" style="margin-bottom: 10px;">
+                    <script type="text/javascript">document.write(window.dialogArguments);</script>
+                </p>
+                <input type="button" onclick="returnYes()" id="buttonYes" value="Yes"/>
+                <input type="button" onclick="returnNo()" id="buttonNo" value="No"/>
+            </td>
+        </tr>
+    </table>
+    <script  type="text/javascript">
+        window.document.all.buttonYes.value = Strings.YES;
+        window.document.all.buttonNo.value = Strings.NO;
+    </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<PUBLIC:METHOD NAME="CMSUpdateEntity" />
+<PUBLIC:METHOD NAME="CMSCreateCallOptions" />
+<PUBLIC:METHOD NAME="CMSCreateAuxCallOptions" />
+<script>
+
+/**
+Client Manager
+coded by Roman.Korenev@negeso.com, Stanislav.Demchenko@negeso.com
+*/
+
+var connecting = false;
+var serviceComponent = null; 
+
+window.document.attachEvent ('onreadystatechange', init);
+
+
+function init() {
+    if (readyState=="complete") {
+        serviceComponent = element; //ClientManager itself has webservice behaviour attached
+        myUrl = window.location;
+        wsPath = 
+                myUrl.pathname.substring(0, myUrl.pathname.indexOf("/")) +
+                 "/adminwebservice?WSDL";
+        wsUrl = myUrl.protocol + "//" + myUrl.host + wsPath;
+        serviceComponent.useService(wsUrl,"AdministrativeService");
+    }
+}
+
+
+// Web-Services related operations
+
+function CMSUpdateEntity(callObj){ // Call the service
+        if(connecting) return;
+        connecting = true;
+        var result = serviceComponent.AdministrativeService.callService(callObj);
+        if(result.error) alertError(result);
+        connecting = false;
+        return result;
+}
+
+
+/** Creates 'call' object for all operations except 'auxOperation'.
+* Example:
+* var callObj = ClientManager.CMSCreateCallOptions();
+* callObj.funcName = "add";
+* callObj.params.x = 2;
+* callObj.params.y = 3;
+* var result = ClientManager.CMSUpdateEntity(callObj);
+* if(result.error){ ... }
+* else{ ... }
+*/
+function CMSCreateCallOptions(){ // Make a 'call' object
+    var callObj = serviceComponent.createCallOptions();
+    callObj.async = false;
+    callObj.params = new Array();
+    callObj.SOAPHeader = new Array();
+    callObj.SOAPHeader[0] = new Object();
+    return callObj;
+}
+
+
+/** Creates 'call' object specifically for 'auxOperation' of the webservices
+* Example:
+* var callObj = ClientManager.CMSCreateAuxCallOptions();
+* callObj.setCommand("add");
+* callObj.setParam("x", 2);
+* callObj.setParam("y", 3);
+* var result = ClientManager.CMSUpdateEntity(callObj);
+* if(!result.error){ ... }
+* else{ ... }
+*/
+function CMSCreateAuxCallOptions(){
+    var callObj = serviceComponent.createCallOptions();
+    callObj.async = false;
+    callObj.funcName = "auxOperation";
+    callObj.params = new Array();
+    callObj.params.operationKind = "";
+    callObj.params.parameterNames = new Array();
+    callObj.params.parameterValues = new Array();
+    callObj.setCommand = function(command){
+        callObj.params.operationKind = command;
+        }
+    callObj.setParam = function(name, value){
+        var i = callObj.params.parameterNames.length;
+        // If a parameter with this name exists, overwrite it
+        for(var j = 0; j < i; j++){
+            if(callObj.params.parameterNames[j] == name){
+                i = j;
+                break;
+            }
+        }
+        callObj.params.parameterNames[i] = name;
+        callObj.params.parameterValues[i] = value;
+        }
+    callObj.SOAPHeader = new Array();
+    callObj.SOAPHeader[0] = new Object();
+    return callObj;
+}
+
+// Clears result.errorDetail from extra details and show message to user
+function alertError(result){ 
+    var xfaultcode = result.errorDetail.code;
+    var xfaultstring = result.errorDetail.string;
+    var xfaultsoap = result.errorDetail.raw;
+    if(xfaultstring != null) {
+        var start = xfaultstring.indexOf("[") + 1;
+        var end = xfaultstring.lastIndexOf("]");
+        if(end < 1) end = xfaultstring.length;
+        xfaultstring = xfaultstring.substring(start, end);
+    }
+    if( typeof(xfaultstring) == "undefined" ||
+        xfaultstring == "null" ||
+        xfaultstring == "")
+    {
+        xfaultstring = "Error occured. Error details are not available";
+    }
+    if(typeof(win) == "object") {
+        try {
+            win.alert(xfaultstring); // alert with help of RTE window
+            return;
+        } catch(e) { /* Is not 'win' a window? */ }
+    }
+    alert(xfaultstring);
+}
+
+</script>

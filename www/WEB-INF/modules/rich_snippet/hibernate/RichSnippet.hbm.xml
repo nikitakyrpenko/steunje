@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="com.negeso.module.rich_snippet.bo.RichSnippet" table="rs_rich_snippet">
+		<id name="id" type="long">
+			<generator class="sequence">
+				<param name="sequence">rs_rich_snippet_id_seq</param>
+			</generator>
+		</id>
+		<discriminator column="discrim" type="string" />
+		<property name="name" />
+		<property name="description" />
+		<property name="orderNumber" column="order_number" />
+		<property name="discrim" insert="false" update="false" />
+
+		<subclass name="com.negeso.module.rich_snippet.bo.Review" discriminator-value="review">
+			<join table="rs_review">
+				<key column="rs_id" />
+				<property name="url" />
+				<property name="author" />
+				<property name="datePublished" column="date_published" type="date" />
+				<property name="itemsReviewed" column="items_reviewed" />
+				<property name="reviewBody" column="review_body" />
+				<property name="rating" type="integer" />
+				<property name="ratingScaleMin" column="rating_scale_min" type="integer" />
+				<property name="ratingScaleMax" column="rating_scale_max" type="integer" />
+			</join>
+		</subclass>
+
+		<subclass name="com.negeso.module.rich_snippet.bo.ProductRichSnippet" discriminator-value="product">
+			<join table="rs_product">
+				<key column="rs_id" />
+				<property name="brand" />
+				<property name="manufacturer" />
+				<property name="model" />
+				<property name="averageRating" column="average_rating" type="integer" />
+				<property name="reviews" type="integer" />
+				<property name="productId" column="product_id" />
+				<property name="price" />
+				<property name="condition" />
+				<property name="availability" />
+			</join>
+		</subclass>
+
+		<subclass name="com.negeso.module.rich_snippet.bo.Video" discriminator-value="video">
+			<join table="rs_video">
+				<key column="rs_id" />
+				<property name="thumbnailUrl" column="thumbnail_url" />
+				<property name="duration" type="integer" />
+				<property name="contentUrl" column="content_url" />
+				<property name="embedUrl" column="embed_url" />
+				<property name="uploadDate" column="upload_date" type="date" />
+				<property name="expires" type="date" />
+				<property name="extraField" column="extra_field" />
+			</join>
+		</subclass>
+
+		<subclass name="com.negeso.module.rich_snippet.bo.AggregateReview" discriminator-value="aggregate_review">
+			<join table="rs_aggregate_review">
+				<key column="rs_id" />
+				<property name="bestRating" column="best_rating" />
+				<property name="ratingValue" column="rating_value" type="big_decimal" />
+				<property name="worstRating" column="worst_rating" />
+				<property name="ratingCount" column="rating_count" />
+				<property name="reviewCount" column="review_count" />
+			</join>
+		</subclass>
+
+	</class>
+</hibernate-mapping>

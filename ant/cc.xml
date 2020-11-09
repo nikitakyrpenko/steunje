@@ -1,0 +1,425 @@
+<!--
+  @(#)$$Id: $$
+ 
+  Copyright (c) 2007 Negeso Ukraine
+ 
+  This software is the confidential and proprietary information of Negeso
+  ("Confidential Information").  You shall not disclose such Confidential 
+  Information and shall use it only in accordance with the terms of the 
+  license agreement you entered into with Negeso.
+
+  
+  @author		Anatoliy Pererva
+  @version		$$Revision: $$
+-->
+
+<project name="WebCMS-cc" basedir=".." default="help">
+
+	<property file="version.properties" />
+	<property file="ant/compile.properties" />
+
+	<property file="ant/library.properties" />
+	<property file="ant/cc.properties" />
+
+
+	<!--<property name = "cactus.tests.failed"/>
+    <property name = "unit.tests.failed"/>-->
+
+	<import file="compile.xml" />
+	<import file="db.xml" />
+
+	<!-- svn tasks -->
+	<taskdef resource="svntask.properties">
+		<classpath>
+			<pathelement location="${svnjavahl.jar}" />
+			<pathelement location="${svnant.jar}" />
+			<pathelement location="${svnClientAdapter.jar}" />
+		</classpath>
+	</taskdef>
+
+	<!-- cactus tasks -->
+	<taskdef resource="cactus.tasks">
+		<classpath>
+			<pathelement location="${lib.dir}/cactus.core.framework.uberjar.javaEE.14-1.8.1.jar" />
+			<pathelement location="${lib.dir}/cactus.integration.shared.api-1.8.1.jar" />
+			<pathelement location="${lib.dir}/cactus.integration.ant-1.8.1.jar" />
+			<pathelement location="${lib.dir}/cargo-ant-1.0-beta-2.jar" />
+			<pathelement location="${lib.dir}/cargo-core-uberjar-1.0-beta-2.jar" />
+			<pathelement location="${lib.dir}/commons-httpclient-2.0.2.jar" />
+			<pathelement location="${lib.dir}/commons-logging-1.1.jar" />
+			<pathelement location="${lib.dir}/aspectjrt-1.5.3.jar" />
+
+
+
+		</classpath>
+	</taskdef>
+
+	<!-- class path to the tomcat libraries -->
+	<path id="tomcat.classpath">
+		<fileset dir="${tomcat6x.home}/lib">
+			<include name="*.jar" />
+			<!--<exclude name="catalina-request-util.jar"/>-->
+		</fileset>
+		<fileset dir="${lib.dir}">
+			<include name="commons-logging-api.jar" />
+			<include name="postgresql-8.1-413.jdbc3.jar" />
+		</fileset>
+	</path>
+	<path id="lib.classpath">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	<!-- class path to the pmd libraries -->
+	<!--<path id="pmd.classpath">
+		<fileset dir="${pmd.dir.lib}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	<taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="pmd.classpath" />-->
+
+	<!-- class path to the emma libraries -->
+	<path id="emma.classpath">
+		<fileset dir="${emma.dir.lib}">
+			<include name="emma.jar" />
+			<include name="emma_ant.jar" />
+		</fileset>
+	</path>
+	<taskdef resource="emma_ant.properties" classpathref="emma.classpath" />
+
+	<target name="checkout" description="checkout required resources from the repository">
+		<echo message="Checkout files from repository ${repository.url} into ${basedir}" />
+		<!--<svn javahl="${javahl}">
+			<checkout url="${repository.url}/ant" destPath="ant" />
+			<checkout url="${repository.url}/data" destPath="data" />
+			<checkout url="${repository.url}/conf" destPath="conf" />
+			<checkout url="${repository.url}/lib" destPath="lib" />
+			<checkout url="${repository.url}/src" destPath="src" />
+			<checkout url="${repository.url}/www" destPath="www" />
+			<checkout url="${repository.url}/modules" destPath="modules" />
+			<checkout url="${repository.url}/data" destPath="data" />
+		</svn>-->
+	</target>
+
+	<target name="build-test" description="Build the Tests">
+		<mkdir dir="${build.dir}/test" />
+		<javac destdir="${build.dir}/test" debug="true" debuglevel="lines,vars,source" encoding="UTF-8">
+			<src path="${src.dir}/test" />
+			<src path="${modules.dir}/newsletter/src/test" />
+			<src path="${modules.dir}/banner/src/test" />
+			<src path="${modules.dir}/product/src/test" />
+			<classpath refid="classpath" />
+			<classpath location="${build.dir}/main" />
+			<classpath location="${build.dir}/newsletter" />
+			<classpath location="${build.dir}/banner" />
+			<classpath location="${build.dir}/product" />
+			<classpath location="${build.dir}/payment.spi" />
+		</javac>
+		<!-- Copy test xml schemas -->
+		<copy todir="${build.dir}/test">
+			<fileset dir="${src.dir}/test" includes="**/*.xml" />
+			<fileset dir="${modules.dir}/newsletter/src/test" includes="**/*.xml" />
+			<fileset dir="${modules.dir}/banner/src/test" includes="**/*.xml" />
+			<fileset dir="${modules.dir}/product/src/test" includes="**/*.xml" />
+		</copy>
+	</target>
+
+	<target name="emma-init">
+		<delete dir="${emma.coverage.dir}" />
+		<mkdir dir="${emma.coverage.dir}" />
+
+		<delete dir="${emma.report.dir}" />
+		<mkdir dir="${emma.report.dir}" />
+
+		<emma enabled="true">
+			<instr instrpath="${build.dir}/main" destdir="${emma.coverage.dir}" merge="true" mode="copy" metadatafile="${emma.report.dir}/metadata.emma" />
+		</emma>
+
+		<copy todir="${emma.coverage.dir}" overwrite="false">
+			<fileset dir="${build.dir}/main" />
+		</copy>
+
+	</target>
+
+	<target name="build-jar" depends="compile" description="Override parent target in order to bind emma instrumented classes">
+		<mkdir dir="${dist.dir}" />
+		<antcall target="emma-init" />
+		<jar jarfile="${dist.dir}/${jar.name}" basedir="${emma.coverage.dir}" manifest="${build.dir}/main/META-INF/MANIFEST.MF" />
+		<delete dir="${build.dir}" />
+	</target>
+
+	<!--<target name="merge" description="Override parent target in order to bind emma instrumented classes that override no instrumented classes in jar">
+    	    <antcall target="WebCMS-build.merge"/>
+    	    <antcall target="emma-init"/>
+    	    <echo message="merge with emma instrumented classes"/>
+    	    <mkdir dir="${webapp.dir}/WEB-INF/classes"/>
+    	    <copy todir="${webapp.dir}/WEB-INF/classes">
+        		<fileset dir="${emma.coverage.dir}"/>
+            </copy>
+	   </target>-->
+
+	<target name="run-junit-test">
+
+		<delete dir="${test.report.dir}" />
+		<mkdir dir="${test.report.dir}" />
+
+		<echo message="Run all non-Cactus based JUnit tests..." />
+		<junit printsummary="yes" errorproperty="unit.tests.failed" failureproperty="unit.tests.failed" fork="yes" dir="${basedir}">
+
+			<classpath>
+				<pathelement location="${build.dir}/main" />
+				<pathelement location="${build.dir}/test" />
+				<pathelement location="${build.dir}/newsletter" />
+				<pathelement location="${build.dir}/banner" />
+				<pathelement location="${build.dir}/product" />
+				<pathelement location="${build.dir}/payment.spi" />
+				<path refid="lib.classpath" />
+
+			</classpath>
+			<sysproperty key="emma.coverage.out.file" value="${emma.report.dir}/coverage.ec" />
+			<sysproperty key="emma.coverage.out.merge" value="true" />
+			<formatter type="xml" />
+			<batchtest todir="${test.report.dir}" haltonerror="true">
+				<fileset dir="${build.dir}/test">
+					<include name="com/negeso/module/newsletter/web/controller/*Test.class" />
+					<!-- TODO: extend it with other junit tests -->
+				</fileset>
+			</batchtest>
+		</junit>
+		<!--<fail message="Unit Tests failed" if="unit.tests.failed" />-->
+
+	</target>
+
+	<target name="run-cactus-test">
+		<delete dir="${build.dir}/tomcat6x" />
+
+		<echo message="Run Cactus tests..." />
+		<!-- create a cactify war file -->
+		<cactifywar srcfile="${dist.dir}/${war.name}" destfile="${build.dir}/${cactified.war.name}">
+			<classes dir="${build.dir}/test" />
+			<lib file="${lib.dir}/xmlunit1.0.jar" />
+
+			<!--lib file="${lib.dir}/asm-all-2.1.jar" /-->
+			<!--lib file="${lib.dir}/easymock.jar" /-->
+			<!--lib file="${lib.dir}/easymockclassextension.jar" /-->
+
+		</cactifywar>
+
+		<!-- start cactus tests -->
+		<cactus warfile="${build.dir}/${cactified.war.name}" fork="yes" failureproperty="cactus.tests.failed" errorproperty="cactus.tests.failed">
+			<cactusproperty server="true" propertiesFile="${cactus.config.dir}/cactus.properties" />
+			<jvmarg value="-Xdebug" />
+			<classpath>
+				<path refid="classpath" />
+				<pathelement location="${emma.coverage.dir}" />
+				<pathelement location="${build.dir}/test" />
+			</classpath>
+			<containerclasspath>
+				<path refid="tomcat.classpath" />
+				<path refid="emma.classpath" />
+			</containerclasspath>
+			<sysproperty key="emma.coverage.out.file" value="${emma.report.dir}/coverage.ec" />
+			<sysproperty key="emma.coverage.out.merge" value="true" />
+			<containerset>
+				<!--tomcat6x dir="${tomcat6x.home}" port="${tomcat6x.port}" tmpdir="${build.dir}/tomcat6x" serverxml="${cactus.config.dir}/server.xml" /-->
+				<cargo containerId="tomcat6x" home="${tomcat6x.home}" output="tomcat-output.log" log="tomcat-cargo.log">
+					<configuration>
+						<property name="cargo.servlet.port" value="8082" />
+						<property name="cargo.logging" value="high" />
+						<deployable type="war" file="../${build.dir}/${cactified.war.name}" />
+					</configuration>
+				</cargo>
+
+			</containerset>
+
+			<formatter type="xml" />
+
+			<batchtest todir="${test.report.dir}">
+				<fileset dir="${build.dir}/test">
+					<include name="**/*CactusTest.class" />
+				</fileset>
+			</batchtest>
+		</cactus>
+
+	</target>
+
+	<target name="run-test" depends="build-war, build-test" description="Run all tests">
+		<delete dir="${test.report.dir}" />
+		<mkdir dir="${test.report.dir}" />
+
+		<echo message="Run all non-Cactus based JUnit and Integration tests..." />
+		<junit printsummary="yes" errorproperty="unit.tests.failed" failureproperty="unit.tests.failed" fork="yes" dir="${basedir}">
+			<classpath>
+				<pathelement location="${build.dir}/main" />
+				<pathelement location="${build.dir}/test" />
+				<pathelement location="${build.dir}/newsletter" />
+				<pathelement location="${build.dir}/banner" />
+				<pathelement location="${build.dir}/product" />
+				<pathelement location="${build.dir}/payment.spi" />
+				<path refid="lib.classpath" />
+			</classpath>
+			<sysproperty key="emma.coverage.out.file" value="${emma.report.dir}/coverage.ec" />
+			<sysproperty key="emma.coverage.out.merge" value="true" />
+			<formatter type="xml" />
+			<batchtest todir="${test.report.dir}" haltonerror="false">
+				<fileset dir="${build.dir}/test">
+					<include name="com/negeso/framework/SimpleTest.class" />
+					<include name="com/negeso/framework/util/StringUtilTest.class" />
+					<include name="com/negeso/module/newsletter/web/controller/*IntegrationTest.class" />
+					<!-- TODO: extend it with other junit tests -->
+				</fileset>
+			</batchtest>
+		</junit>
+
+		<delete dir="${build.dir}/tomcat6x" />
+
+		<echo message="Run Cactus tests..." />
+		<!-- create a cactify war file -->
+		<cactifywar srcfile="${dist.dir}/${war.name}" destfile="${build.dir}/${cactified.war.name}">
+			<classes dir="${build.dir}/test" />
+
+			<lib file="${lib.dir}/xmlunit1.0.jar" />
+
+			<!--lib file="${lib.dir}/asm-all-2.1.jar" /-->
+			<!--lib file="${lib.dir}/easymock.jar" /-->
+			<!--lib file="${lib.dir}/easymockclassextension.jar" /-->
+
+		</cactifywar>
+
+		<!-- start cactus tests -->
+		<cactus warfile="${build.dir}/${cactified.war.name}" fork="yes" failureproperty="cactus.tests.failed" errorproperty="cactus.tests.failed">
+			<cactusproperty server="true" propertiesFile="${cactus.config.dir}/cactus.properties" />
+
+			<classpath>
+				<path refid="classpath" />
+				<pathelement location="${emma.coverage.dir}" />
+				<pathelement location="${build.dir}/test" />
+				<pathelement location="${build.dir}/product" />
+				<pathelement location="${build.dir}/banner" />
+				<pathelement location="${build.dir}/newsletter" />
+				<pathelement location="${build.dir}/payment.spi" />
+			</classpath>
+			<containerclasspath>
+				<path refid="tomcat.classpath" />
+				<path refid="emma.classpath" />
+			</containerclasspath>
+			<sysproperty key="emma.coverage.out.file" value="${emma.report.dir}/coverage.ec" />
+			<sysproperty key="emma.coverage.out.merge" value="true" />
+			<containerset>
+				<!--tomcat6x dir="${tomcat6x.home}" port="${tomcat6x.port}" tmpdir="${build.dir}/tomcat6x" serverxml="${cactus.config.dir}/server.xml" /-->
+				<cargo containerId="tomcat6x" home="${tomcat6x.home}" output="tomcat-output.log" log="tomcat-cargo.log">
+					<configuration>
+						<property name="cargo.servlet.port" value="8082" />
+						<property name="cargo.logging" value="high" />
+						<deployable type="war" file="../${build.dir}/${cactified.war.name}" />
+					</configuration>
+				</cargo>
+			</containerset>
+
+			<formatter type="xml" />
+			<batchtest todir="${test.report.dir}">
+				<fileset dir="${build.dir}/test">
+					<include name="**/*CactusTest.class" />
+				</fileset>
+
+			</batchtest>
+		</cactus>
+
+		<!-- create test report -->
+		<mkdir dir="${test.report.dir}/html" />
+		<junitreport todir="${test.report.dir}/html">
+			<fileset dir="${test.report.dir}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="frames" todir="${test.report.dir}/html" />
+		</junitreport>
+
+		<!-- create emma report -->
+
+		<emma enabled="true">
+			<report sourcepath="${build.dir}/main" depth="method">
+				<infileset dir="${emma.report.dir}" includes="*.emma, *.ec" />
+				<!--<xml outfile="${emma.report.dir}/coverage.xml" />-->
+				<html outfile="../${emma.report.dir}/coverage.html" />
+			</report>
+		</emma>
+
+
+		<!--<echo message="unit.tests.failed = ${unit.tests.failed}" />
+        <echo message="cactus.tests.failed = ${cactus.tests.failed}"/>
+        <condition property="unit.tests.failed" value="false">
+            <fail message="Unit Tests failed"/>
+        </condition>
+        <condition property="cactus.tests.failed" value="false">
+            <fail message="Cactus Tests failed"/>
+        </condition>-->
+		<fail message="Unit Tests failed" if="unit.tests.failed" />
+		<fail message="Cactus Tests failed" if="cactus.tests.failed" />
+
+	</target>
+
+	<!--<target name="pmd" description="Runs PMD">
+		<pmd rulesetfiles="rulesets/basic.xml" shortFilenames="true">
+			<formatter type="xml" toFile="${test.report.dir}/report.pmd.xml" />
+			<fileset dir="${src.dir}/main">
+				<include name="**/*.java" />
+			</fileset>
+		</pmd>
+	</target>-->
+
+	<!--<target name="report" description="Reports">
+        -->
+	<!-- create test report -->
+	<!--
+		<mkdir dir="${test.report.dir}/html" />
+		<junitreport todir="${test.report.dir}/html">
+			<fileset dir="${test.report.dir}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="frames" todir="${test.report.dir}/html" />
+		</junitreport>
+
+		-->
+	<!-- create emma report -->
+	<!--
+
+		<emma enabled="true">
+			<report sourcepath="${build.dir}/main" depth="method">
+				<infileset dir="${emma.report.dir}" includes="*.emma, *.ec" />
+				-->
+	<!--<xml outfile="${emma.report.dir}/coverage.xml" />-->
+	<!--
+				<html outfile="../${emma.report.dir}/coverage.html" />
+			</report>
+		</emma>
+    </target>-->
+
+	<target name="deploy-database" description="deploying the database">
+		<mkdir dir="${remote.dir}" />
+		<copy todir="${remote.dir}">
+			<fileset file="${build-db-dir}/wcms_demo.sql" />
+			<fileset file="demo/init-test.sql" />
+		</copy>
+		<echo message="Executing script and filling database" />
+		<exec executable="bash" failonerror="yes">
+			<arg value="${db-script}" />
+		</exec>
+		<echo message="Retrieving of log files" />
+		<copy todir="${output.dir}">
+			<fileset file="${remote.dir}/*.log" />
+		</copy>
+		<delete dir="${remote.dir}" />
+	</target>
+
+	<target name="ci-build" depends="clean, run-test" description="to be started by the Hudson build server">
+	</target>
+
+	<target name="help">
+		<echo message="${ant.project.name}" />
+		<echo message="-----------------------------------" />
+		<echo message="Available targets are:" />
+		<echo message="-----------------------------------" />
+		<echo message="cruise           --> run full build process (started by CruiseControl)" />
+	</target>
+
+</project>

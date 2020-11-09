@@ -1,0 +1,10 @@
+<project name="WebCMS-Dynamic_Item" basedir="../.." default="compile-module">
+
+	<property name="module.version" value="3.2.0.RC1"/>
+	
+	<property name="module.key" value="dynamic_item"/>
+	<property name="module.title" value="Dynamic Item Module"/>
+	<path id="module.classpath"/>
+	<import file="../../ant/compile.xml"/>
+
+</project>

@@ -1,0 +1,21 @@
+#IMG_load{
+	position:absolute;
+	z-index:1005;
+}
+
+body a img.thickbox{
+	position:relative;
+	top:-5px;
+	left:-10px;
+	height:10px;
+	width:9px;
+	margin:-10px 0  0 -13px !important;
+	text-align:left !important;
+	cursor:hand;
+	cursor:pointer;
+}
+
+.keyIframe{
+	width:300px;
+}
+A.thickbox{position:absolute;}

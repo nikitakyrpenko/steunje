@@ -1,0 +1,10 @@
+<project name="WebCMS-MTF" basedir="../.." default="compile-module">
+
+	<property name="module.version" value="3.2.0.RC1"/>
+	
+	<property name="module.key" value="mail_to_a_friend"/>
+	<property name="module.title" value="MTF Module"/>
+	<path id="module.classpath"/>
+	<import file="../../ant/compile.xml"/>
+
+</project>

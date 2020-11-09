@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.negeso.module.newsletter.bo">
+
+  <class name="Mailing" table="nl_mailing">
+    <id name="id" type="long">
+        <generator class="sequence">
+             <param name="sequence">nl_mailing_id_seq</param>
+        </generator>            
+    </id>
+
+    <many-to-one name="publication" class="Publication" column="publication_id" not-null="true"
+                 foreign-key="fk_nl_mailing_publication"/>
+    <many-to-one name="subscriber" class="Subscriber" column="subscriber_id" not-null="true"
+            foreign-key="fk_nl_mailing_subscriber"/>
+    <many-to-one name="mailingState" class="MailingState" column="mailing_state_id" not-null="true"
+            foreign-key="fk_nl_mailing_mailing_state"/>
+
+    <property name="message" column="mailing_state_message"/>
+    <property name="createdDate" column="created_date"/>
+    <property name="uniqId" column="uniq_id" />
+    <property name="retryCount" column="retry_count" type="integer"/>
+    
+  </class>
+
+  <class name="MailingState" table="nl_mailing_state">
+    <id name="id" type="long">
+        <generator class="sequence">
+             <param name="sequence">nl_mailing_state_id_seq</param>
+        </generator>            
+    </id>
+
+    <property name="name" />
+    
+  </class>
+  
+  <query name="Mailing.listMailingsByUniqId"><![CDATA[
+        from Mailing m where m.uniqId = ? 
+  ]]></query>
+  
+  <query name="MailingState.findByName"><![CDATA[
+        from MailingState mS where mS.name = ? 
+  ]]></query>
+
+  <query name="Mailing.countSubscribersByPublicationId"><![CDATA[
+        select count(m.id) from Mailing m where m.publication.id = ? and m.mailingState.id = ? 
+  ]]></query>
+
+  <query name="Mailing.listSubscribersInRange"><![CDATA[
+        from Mailing m where m.publication.id = ? and m.mailingState.id = ? order by created_date asc
+  ]]></query>
+	
+  <query name="Mailing.countMailByPeriod"><![CDATA[
+        select count(m) from Mailing m where m.publication.id = ? and m.mailingState.id = ? and m.createdDate >= ? and m.createdDate <= ?
+  ]]></query>
+  
+</hibernate-mapping>

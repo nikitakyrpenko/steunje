@@ -1,0 +1,175 @@
+<PUBLIC:METHOD NAME="EditTitle"/>
+<PUBLIC:METHOD NAME="EditProperties"/>
+<PUBLIC:METHOD NAME="EditPopup"/>
+<PUBLIC:METHOD NAME="DeleteMenuItem"/>
+
+<script>
+
+var menuItemNode = window.document.XMLDocument
+    .selectSingleNode("//negeso:menu_item[@id='" + menu_item_id + "']");
+
+var curPageId = "";
+var curTitle = "";
+var curLink = "";
+var curPublish = "";
+var curExpire = "";
+var curContainer = "";
+var curPageTitle = "";
+var pageProtected = "";
+
+
+try{ curTitle = menuItemNode.selectSingleNode("@title").text; } catch(e){ }
+try{ curLink = menuItemNode.selectSingleNode("@href").text; } catch(e) { }
+try{ pageProtected = menuItemNode.selectSingleNode("@protected").text; } catch(e) { }
+try{ curPublish = menuItemNode.selectSingleNode("@publish_date").text; } catch(e){ }
+try{ curExpire = menuItemNode.selectSingleNode("@expired_date").text; }catch(e){ }
+try{ curContainer = menuItemNode.selectSingleNode("@container_id").text; }catch(e){ }
+try{ curPageTitle = menuItemNode.selectSingleNode("@page_title").text; } catch(e) { }
+
+var newTitle = "";
+var newLink = "";
+var newPublish = "";
+var newExpire = "";
+var newContainer = "";
+var newPageTitle = "";
+
+
+function prepare(){
+    try{
+        //Try to change node value for a while
+        var titleNode = menuItemNode.selectSingleNode("@title");
+        var title = titleNode.text;
+        titleNode.text = "test";
+        titleNode.text = title;
+    }catch(e){
+        //Setting a node a value failed; it means the node is read-only
+        window.location.reload();
+    }
+	oldLink=curLink;
+	newLink = curLink;
+    newTitle = curTitle;
+    newPublish = curPublish;
+    newExpire = curExpire;
+    newContainer = curContainer;
+    newPageTitle = curPageTitle;
+}
+
+
+function EditTitle() {
+    prepare();
+    var res = prompt(Strings.RENAME_ITEM + ": ", newTitle);
+    if(res == null) return;
+    if(!StringUtil.validateNotEmpty(res)){
+        alert(Strings.TEXT_OF_MENU_ITEM_CANNOT_BE_EMPTY);
+        return;
+    }
+    newTitle = res;
+    SaveMenuItem();
+}
+
+
+var newContainerTitle = "";
+
+function EditProperties() {
+    prepare();
+    try{
+        newContainerTitle = menuItemNode.selectSingleNode(
+            "//negeso:container[@id=" + newContainer + "]/@name").text;
+    } catch(e) {
+        newContainerTitle = "";
+    }
+    var saveChanges = window.showModalDialog(
+        "/dialogs/dialog_change_page_properties.html",
+        this,
+        "dialogHeight: 920px; dialogWidth: 825px; help: Yes; scroll: Yes; status: Yes;");		
+	if (saveChanges == "yes") {
+		SaveMenuItem();
+    }
+}
+
+
+function EditPopup() {
+    var isPopup = (menuItemNode.selectSingleNode("@category") != null) &&
+                  (menuItemNode.selectSingleNode("@category").text == "popup");
+    var theUrl = menuItemNode.selectSingleNode("@href").text;
+    if(isPopup) {
+        displayPopup(theUrl);
+    } else {
+        try{
+            window.opener.location.href = theUrl;
+            window.opener.focus();
+        }catch(e){
+            window.open(
+                theUrl,
+                "mainWindow",
+                "height=" + (screen.availHeight - 155)+ "px"
+                + ", width=" + (screen.availWidth - 12) + "px"
+                + ", menubar=yes, location=yes, resizable=yes"
+                + ", scrollbars=yes, status=yes, titlebar=yes, toolbar=yes"
+                + ", left=0, top=0");
+        }
+    }
+}
+
+
+function DeleteMenuItem() {
+    prepare();
+    var answer = window.showModalDialog(
+        "/dialogs/dialog_no_yes.html",
+        Strings.OPERATION_CANNOT_BE_REVOKED + ".<br>" +
+        Strings.DELETE_ITEM_AND_PAGE_CONFIRMATION,
+        "dialogHeight: 70px; dialogWidth: 250px; help: No; scroll: No; status: No;"
+        );
+    if(answer != "yes") return;
+    var callObj = ClientManager.CMSCreateAuxCallOptions();
+    callObj.setCommand("delete-menu-item-command");
+    callObj.setParam("id", menu_item_id);
+    var result = ClientManager.CMSUpdateEntity(callObj)
+    if(!result.error){
+        menuItemNode.parentNode.removeChild(menuItemNode);
+        var topMenuNode = window.document.XMLDocument
+            .selectSingleNode("//negeso:menu");
+        PopupEditor.innerHTML =
+            topMenuNode.transformNode(window.document.XSLDocument);
+        window.status = window.status;
+    }
+}
+
+
+function SaveMenuItem() {
+    var callObj = ClientManager.CMSCreateAuxCallOptions();
+    callObj.setCommand("update-menu-item-command");
+    callObj.setParam("id", menu_item_id);
+    callObj.setParam("title", StringUtil.str2xml(newTitle));
+    callObj.setParam("link", StringUtil.str2xml(newLink));
+	callObj.setParam("oldLink", StringUtil.str2xml(oldLink));	
+    callObj.setParam("publish", newPublish);
+    callObj.setParam("expire", newExpire);
+    callObj.setParam("container_id", newContainer);
+    callObj.setParam("page_title", StringUtil.str2xml(newPageTitle));
+    callObj.setParam("move", 0);
+    var result = ClientManager.CMSUpdateEntity(callObj);
+    if(result.error) return false;
+    
+    // Update XML
+    try{ menuItemNode.selectSingleNode("@title").text = newTitle; } catch(e){ }
+	try{ menuItemNode.selectSingleNode("@href").text = newLink; } catch(e){ }
+    try{
+        menuItemNode.selectSingleNode("@publish_date").text = newPublish;
+        menuItemNode.selectSingleNode("@expired_date").text = newExpire;
+    }catch(e){ }
+    try{ menuItemNode.selectSingleNode("@container_id").text = newContainer; }catch(e){ }
+    try{ menuItemNode.selectSingleNode("@page_title").text = newPageTitle; } catch(e){ }
+    
+    // Update variables
+    innerText = curTitle = newTitle;
+	curLink = newLink;
+    curPublish = newPublish;
+    curExpire = newExpire;
+    curContainer = newContainer;
+    curPageTitle = newPageTitle;
+    return true;
+}
+
+
+</script>

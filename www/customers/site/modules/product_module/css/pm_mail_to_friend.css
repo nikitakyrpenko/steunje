@@ -1,0 +1,49 @@
+.pmMailToFriend tr {
+	height: 30px;
+}
+
+.pmMailToFriend tr td {
+	vertical-align: top;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.pmMailToFriend tr td.bl-middle {
+	vertical-align: middle;
+}
+
+.pmMailToFriend {
+	border: 1px solid #b4b4b4; 
+	margin-bottom: 20px;
+	background-color: #FFFFFF;
+	width: 919px;
+}
+
+a.pmMailToFriendRedLink {
+	color: red;
+	text-decoration: none;
+}
+
+a.pmMailToFriendRedLink:hover {
+	color: red;
+	text-decoration: underline;
+}
+
+.pmMailToFriendBody{
+	background-color: #EBEBEB;
+	border-top:3px solid #FFFFFF;
+	border-bottom:3px solid #FFFFFF;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	width:100%;
+	heigth:100%;
+}
+
+.pmMailToFriendBody td{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+
+.pmMailToFriendBodyTop {
+	margin:15px;
+	margin-right:0px;
+	margin-bottom:0px;
+}

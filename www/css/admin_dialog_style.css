@@ -1,0 +1,171 @@
+body {
+	background-color: #E2F2E0;
+	overflow: hidden;
+	margin: 0px;
+	padding: 5px;
+	padding-bottom: 0px;
+	font: 12px Arial, Helvetica, Verdana, sans-serif;
+	font-size: 12px !important;
+	color: #000000;
+}
+
+td {
+	font: 12px Arial, Helvetica, Verdana, sans-serif;
+	font-size: 12px !important;
+	white-space: nowrap;
+}
+
+legend {
+	color: #000000;
+}
+
+.admBold {
+	font-weight: bold;
+}
+
+.admRight {
+	text-align: right;
+}
+
+.admLeft {
+	text-align: left;
+}
+
+.admCenter {
+	text-align: center;
+}
+
+.admRemark{
+	font-size: 10px;
+	position: reletave;
+	top: -1px;
+}
+
+.admFloat {
+	float: left; 
+	margin-left: 5px;
+}
+
+.admWidth_80 {
+	width: 80px;
+	margin: 1px;
+}
+
+.admWidth_100 {
+	width: 100px;
+}
+
+.admWidth_120 {
+	width: 120px;
+}
+
+.admWidth_135 {
+	width: 135px;
+}
+
+.admWidth_150 {
+	width: 150px;
+}
+
+.admWidth_225 {
+	width: 225px;
+}
+
+.admTextField {
+	width: 167px;
+}
+
+.admWidth_300 {
+	width: 300px;
+}
+.admHeight
+{
+ 	height: 58px;
+}
+ 
+.admMarginAll {
+	margin: 10px;
+}
+
+.admMargin_0 {
+	margin: 0px;
+	padding: 0px;
+}
+
+.admMargin_20 {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.admDiv {
+	margin: 10px 0px 0px 0px; 
+	width: 100%; 
+	text-align: center;
+	white-space: nowrap;
+}
+
+.admBorder {
+	border: 1px outset; 
+}
+
+.admMargin {
+	margin: 3px;
+}
+
+input, button {
+	width: 80px;
+	margin: 4px;
+}
+
+select {
+	width: 50px;
+	margin: 4px;
+	font-size: 10px;
+}
+
+select.admMedium {
+	width: 70px;
+	margin: 4px;
+}
+
+select.admBig{
+	width: 172px;
+	margin: 4px;
+}
+
+
+input.button_70 {
+	width: 70px;
+	margin: 4px;
+}
+
+input.radio {
+	width: auto;
+	margin: 0px;
+}
+
+.admReadonly  {
+	width: 163px; 
+	padding-left: 5px; 
+	border: 1px solid gray; 
+	background-color: #D4D0C8;
+	}
+	
+.admExplor {
+	width: 24px;
+	height: 21px;
+} 
+
+br {
+	line-height: 7px;
+}
+
+span {
+	position:relative;
+	top:-5px;
+	font-size: 10px;
+}
+
+.disable_field{
+	color: #828282;
+}

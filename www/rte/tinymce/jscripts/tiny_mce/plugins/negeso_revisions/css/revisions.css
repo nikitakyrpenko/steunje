@@ -1,0 +1,45 @@
+.panel_wrapper div.current {
+	height: 50px;
+}
+
+#width, #height {
+	width: 50px;
+}
+
+#file {
+	width: 250px;
+}
+.bodyRevisions .panel_wrapper div.current{
+	height: 450px;
+	overflow-y: scroll; 
+	overflow-x: hidden;
+}
+.tableBorder {
+	border: none;
+}
+
+.tableBorder thead tr th {
+	border: 1px solid gray;
+	border-top: none;
+	border-right: none;
+	padding-left: 5px;
+	font-size: 10px;
+    xfont-weight: normal;
+    text-align: left;
+} 
+
+.tableBorder tbody tr td {
+	border-left: 1px solid #D3E6FF;
+	cursor: pointer;
+	text-align: left;
+	padding-left: 5px;
+}
+
+.tableBorder tbody tr th {
+    border-left: none;
+    cursor: pointer;
+    text-align: left;
+    padding-left: 5px;
+    font-size: 10px;
+    font-weight: normal;
+}

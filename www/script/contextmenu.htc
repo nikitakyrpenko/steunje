@@ -1,0 +1,70 @@
+<PUBLIC:METHOD NAME="OpenContextMenu" />
+<PUBLIC:METHOD NAME="CloseContextMenu" />
+
+
+
+<script>
+
+
+var oPopup = window.createPopup();
+oPopup.document.write("<html><head><style>html{overflow:hidden;}body{overflow:hidden;margin:0px;background-color:threedface;border:outset 2px;font:12px Tahoma;}div{padding:3px;height:14px;line-height:14px;padding-left:15px;padding-right:15px;white-space:nowrap;cursor:default;}div.highlight{background-color:highlight;color:highlighttext;}div.disabled{color:graytext;filter:progid:DXImageTransform.Microsoft.DropShadow(OffX=1, OffY=1, Color='threedhighlight');}hr{margin:2px;margin-top:-1px;margin-bottom:-3px;}</style></head><body></body></html>");
+var oPopupbody = oPopup.document.body;
+oPopupbody.onselectstart = function(){return false;}
+oPopupbody.oncontextmenu = function(){return false;}
+
+function OpenContextMenu(e,arr,minw) {
+
+	/**
+	Takes three arguments...
+	e is a mouse event object and must contain .x and .y properties (location where menu will be displayed relative to the document).
+	arr is a 2-dimensional array (arr[j][k]), where j is the nomber of menu item, k is a property of menu item:
+	k=0: item's innerHTML. Should be NULL for delimeter. Tip: use <b></b> tags for default items.
+	k=1: string, used in method call (parent.document.all.~your_method~). If NULL -- menu item is disabled.
+	minw is optional minimum width of popup in pixels.
+	*/
+	
+	if (typeof(e) != "object" || typeof(arr) != "object") return false;
+
+	//populate popup
+	oPopupbody.innerHTML = "";
+	var mi; //menu item
+	
+	for (key in arr)   {
+		if (arr[key][0]!=null) {
+			mi = oPopup.document.createElement("DIV");
+			mi.innerHTML = arr[key][0];
+			mi.onmouseover = function(){if (this.className=="") this.className="highlight";}
+			mi.onmouseout = function(){if (this.className=="highlight") this.className="";}
+			if (arr[key][1] != null) {
+				eval('mi.onmouseup = function(){oPopup.hide();parent.document.all.'+arr[key][1]+';}');
+			} else {
+				mi.className="disabled";
+			}
+		} else { // delimeter
+			mi = oPopup.document.createElement("HR");
+		}
+		oPopupbody.appendChild(mi);
+	}
+	
+	// fix popup size
+	oPopup.show(e.clientX+2, e.clientY+2, 10, 10, window.document.body);
+	xSize=oPopup.document.body.scrollWidth + 4;
+	ySize=oPopup.document.body.scrollHeight + 4;
+	oPopup.hide();
+	if (typeof(minw)!="undefined" && xSize<160) xSize=minw;
+	
+	oPopup.show(e.clientX+2, e.clientY+2, xSize, ySize, window.document.body);
+	
+	e.returnValue = false;
+	e.cancelBubble = true;
+
+	return true;
+}
+
+function CloseContextMenu(e) {
+
+}
+
+
+
+</script>

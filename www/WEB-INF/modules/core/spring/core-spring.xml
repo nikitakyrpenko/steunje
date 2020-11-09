@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+	<bean id="messageSource" class="com.negeso.framework.i18n.DatabaseResourceBundleMessageSource">
+        <property name="basename" value="dict_common.xsl, dict_core.jsp, faq, dict_media_catalog.xsl,core, dict_dialogs.js, site_translation_module, thr_version_control, thr_push_marketing, thr_order"/>
+    </bean>
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10000000"/>
+	</bean>
+
+	<bean id="handlerMapping1" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+					<property name="paramName" value="interfaceLanguage"/>
+				</bean>
+				
+				<bean class="com.negeso.framework.security.SecurityInterceptor"/>
+				
+				 <ref bean="openSessionInViewInterceptor"  />  
+			</list>
+		
+		</property>
+		<property name="mappings">
+			<props> 
+				<prop key="/admin/parameters">parametersController</prop>
+				<prop key="/admin/visitor_parameters">customerParametersController</prop>
+				<prop key="/admin/site_settings">siteSettingsController</prop>
+				<prop key="/admin/menuEditor">menuItemController</prop>
+				<prop key="/admin/back.html">backController</prop>
+				<prop key="/admin/landing_pages">landingPagesController</prop>
+				<prop key="/admin/site_history">siteHistoryController</prop>
+				<prop key="/admin/site_overvies">siteOverviesController</prop>
+				<prop key="/admin/getHelpLink">helpLinkController</prop>
+				<prop key="/admin/manage_search.html">reindexController</prop>
+				<prop key="/admin/article_revisions">articleRevisionController</prop>
+				<prop key="/admin/edit_social_network">socialNetworksController</prop>
+				<prop key="/admin/site_placeholder.html">placeHolderController</prop>
+				<prop key="/admin/geoip_languages.html">geoIpLanguagesController</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="handlerMapping2" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/probe">probeController</prop>
+				<prop key="/qrcode">qRCodeController</prop>
+				<prop key="/captcha_check">captchaController</prop>	
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="captchaController" class="com.negeso.framework.captcha.CaptchaController"/>
+
+	<bean id="probeController" class="com.negeso.module.core.controller.ProbeController">
+		<property name="parameterService">
+			<ref bean="parameterService"/>
+		</property>
+	</bean>
+
+	<bean name="openSessionInViewInterceptor"  
+    	class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
+       <property name="sessionFactory"><ref bean="sessionFactory"/></property>
+      <property name="flushMode">
+         <bean id="org.springframework.orm.hibernate3.HibernateAccessor.FLUSH_AUTO"
+            class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean"/>
+      </property> 
+
+ 	 </bean>
+
+    <bean id="exceptionResolver" class="com.negeso.framework.ExceptionHandler">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">friendlyError</prop>
+			</props>
+		</property>
+	</bean>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+		<property name="prefix" value="/WEB-INF/modules/core/jsp/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+
+  <bean id="methodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+	<property name="paramName">
+		<value>act</value>
+	</property>
+	<property name="defaultMethodName">
+	   <value>getParameters</value>
+	</property>
+ </bean>
+
+  <bean id="parametersController" class="com.negeso.module.core.controller.ParametersController">
+    <property name="moduleService">
+		<ref bean="moduleService"/>    
+    </property>
+    <property name="parameterService">
+		<ref bean="parameterService"/>    
+    </property>
+	<property name="methodNameResolver">
+		<ref bean="methodNameResolver"/>
+	</property>
+  </bean>
+
+ <bean id = "customerParametersController" class="com.negeso.module.core.controller.CustomerParametersController">
+    <property name="moduleService">
+		<ref bean="moduleService"/>    
+    </property>
+    <property name="parameterService">
+		<ref bean="parameterService"/>    
+    </property>
+  </bean>	
+  
+  
+  
+ <bean id = "siteSettingsController" class="com.negeso.module.core.controller.SiteSettingsController">
+    <property name="methodNameResolver">
+            <bean class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">  
+                <property name="paramName">
+                    <value>action</value>
+                </property>
+                <property name="defaultMethodName" value="getEntryPage"/>
+              </bean>
+        </property>
+    
+    <property name="moduleService">
+		<ref bean="moduleService"/>
+    </property>
+    <property name="parameterService">
+		<ref bean="parameterService"/>
+    </property>
+	<property name="siteUrlService">
+		<ref bean="siteUrlService"/>
+    </property>
+    <property name="pageAliasService">
+        <ref bean="pageAliasService"/>
+    </property>
+    <property name="pageRedirectService" ref="pageRedirectService"/>
+    <property name="countryDao" ref="countryDao"/>
+  </bean>
+  
+  
+  <bean id="menuItemController" class="com.negeso.framework.menu.MenuItemController">
+	<property name="methodNameResolver">
+		<bean class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+			<property name="paramName" value="action" />
+			<property name="defaultMethodName" value="editMenu" />				
+		</bean>
+    </property>
+    <property name="menuService" ref="menuService"/>
+  </bean>
+ 
+  <bean id="articleRevisionController" class="com.negeso.module.core.controller.ArticleRevisionController">
+    <property name="articleRevisionService">
+        <ref bean="articleRevisionService"/>
+    </property>
+  </bean>
+  
+  <bean id="siteHistoryController" class="com.negeso.module.core.controller.SiteHistoryController">
+    <property name="articleRevisionService">
+        <ref bean="articleRevisionService"/>
+    </property>
+    <property name="sessionFactory">
+        <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  
+  <bean id="siteOverviesController" class="com.negeso.module.core.controller.SiteOverviesController">   
+  </bean>
+  
+  <bean id="socialNetworksController" class="com.negeso.module.social.web.controller.SocialNetworksController">
+    <property name="socialNetworkService">
+        <ref bean="socialNetworkService"/>
+    </property>
+  </bean>
+  
+  <bean id="placeHolderController" class="com.negeso.module.core.controller.PlaceHolderController">
+    <property name="placeHolderService">
+        <ref bean="placeHolderService"/>
+    </property>
+    <property name="methodNameResolver">
+        <bean class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+            <property name="paramName" value="action" />
+            <property name="defaultMethodName" value="list" />
+        </bean>
+    </property>
+  </bean>
+  
+  <bean id="qRCodeController" class="com.negeso.module.core.controller.QRCodeController"/>  
+ 
+  <bean id="backController" class="com.negeso.framework.navigation.BackController"/>
+  <bean id = "landingPagesController" class="com.negeso.module.core.controller.LandingPagesController"/>
+  
+  <bean id="helpLinkController" class="com.negeso.framework.module.web.HelpLinkController">
+	<property name="moduleService" ref="moduleService"/>
+  </bean>
+  
+  <bean id="reindexController" class="com.negeso.module.search.ReindexController"/> 
+  
+  <bean id="geoIpLanguagesController" class="com.negeso.module.core.controller.GeoIpLanguagesController">
+    <property name="languageService" ref="languageService"/>
+  </bean> 
+  
+</beans>
+  
+  

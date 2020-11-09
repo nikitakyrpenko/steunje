@@ -1,0 +1,122 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>{#negeso_twitter_widget.title}</title>
+	<script language="javascript" type="text/javascript" src="../../tiny_mce_popup.js"></script>
+	<script language="javascript" type="text/javascript" src="js/twitter_widget.js">/**/</script>
+	
+	
+	
+	<script language="javascript" type="text/javascript" src="../../utils/mctabs.js"></script>
+	<script language="javascript" type="text/javascript" src="../../utils/form_utils.js"></script>
+	<script language="javascript" type="text/javascript" src="/script/jquery.min.js"></script>
+	 
+	<base target="_self" />
+</head>
+<body style="display: none; margin: 0; padding: 6px" onload="init();">
+    <script language="javascript" type="text/javascript" src="/script/jscolor.js">/**/</script>
+    
+    <form onsubmit="insertTwitterWidget();return false;" action="#">
+		<div class="tabs">
+			<ul>
+				<li id="general_tab" class="current"><span><a href="javascript:mcTabs.displayTab('general_tab','general_panel');" onmousedown="return false;">{#negeso_twitter_widget.general}</a></span></li>
+			</ul>
+		</div>
+
+		
+
+		<div class="panel_wrapper">
+			<div id="general_panel" class="panel current" style="height: 340px;">
+				<fieldset>
+					<legend>{#negeso_twitter_widget.options}</legend>
+
+					
+					<table border="0" cellpadding="4" cellspacing="0">
+					       <tr>
+                                <td nowrap="nowrap"><label>{#negeso_twitter_widget.data_widget_id}</label></td>
+                                <td nowrap="nowrap"><input id="data_widget_id" type="text" value="" size="40"/></td>
+                            </tr>
+							<tr>
+								<td nowrap="nowrap"><label>{#negeso_twitter_widget.data_theme}</label></td>
+								<td nowrap="nowrap"><select id="data_theme"><option value="light">Light</option><option value="dark">Dark</option></select></td>
+							</tr>
+							
+							<tr>
+                                <td nowrap="nowrap"><label>{#negeso_twitter_widget.data_lang}</label></td>
+                                <td nowrap="nowrap">
+                                    <input id="data_lang" type="text" value="" size="7"/>
+                                </td>
+                            </tr>
+							
+							<tr>
+								<td nowrap="nowrap"><label>{#negeso_twitter_widget.height}</label></td>
+								<td nowrap="nowrap"><input id="height" type="text" value="300" size="4"/></td>
+							</tr>
+
+							<tr>
+								<td nowrap="nowrap"><label>{#negeso_twitter_widget.width}</label></td>
+								<td nowrap="nowrap"><input id="width" type="text" value="" size="4"/></td>
+							</tr>
+							
+							<tr>
+                                <td nowrap="nowrap"><label>{#negeso_twitter_widget.data_tweet_limit}</label></td>
+                                <td nowrap="nowrap"><input id="data_tweet_limit" type="text" value="5" size="2"/></td>
+                            </tr>
+							<tr>
+								<td nowrap="nowrap"><label>{#negeso_twitter_widget.data_link_color}</label></td>
+								<td nowrap="nowrap">
+								    <input id="data_link_color" type="text" class="color" value="cc0000" size="7"/>
+								</td>
+							</tr>
+							
+							<tr>
+                                <td nowrap="nowrap"><label>{#negeso_twitter_widget.data_border_color}</label></td>
+                                <td nowrap="nowrap">
+                                    <input id="data_border_color" type="text" class="color" value="E8E8E8" size="7"/>
+                                </td>
+                            </tr>
+							
+							<tr>
+								<td nowrap="nowrap"><label>{#negeso_twitter_widget.display_header}</label></td>
+								<td nowrap="nowrap"><input id="display_header" type="checkbox" checked="checked"/></td>
+							</tr>
+							
+							<tr>
+                                <td nowrap="nowrap"><label>{#negeso_twitter_widget.display_footer}</label></td>
+                                <td nowrap="nowrap"><input id="display_footer" type="checkbox" checked="checked"/></td>
+                            </tr>
+                            
+                            <tr>
+                                <td nowrap="nowrap"><label>{#negeso_twitter_widget.display_borders}</label></td>
+                                <td nowrap="nowrap"><input id="display_borders" type="checkbox" checked="checked"/></td>
+                            </tr>
+                            
+                            <tr>
+                                <td nowrap="nowrap"><label>{#negeso_twitter_widget.display_scrollbar}</label></td>
+                                <td nowrap="nowrap"><input id="display_scrollbar" type="checkbox" checked="checked"/></td>
+                            </tr>
+                            
+                            <tr>
+                                <td nowrap="nowrap"><label>{#negeso_twitter_widget.is_transparent}</label></td>
+                                <td nowrap="nowrap"><input id="is_transparent" type="checkbox"/></td>
+                            </tr>
+                            
+					</table>
+				</fieldset>
+			</div>
+		</div>
+	
+		<div class="mceActionPanel" style="padding-bottom: 20px">
+			<div style="float: left">
+				<input type="button" id="insert" name="insert" value="{#insert}" onclick="insertTwitterWidget();" />
+			</div>
+
+			<div style="float: right">
+				<input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="tinyMCEPopup.close();" />
+			</div>
+		</div>
+	</form>
+</body>
+
+
+</html>

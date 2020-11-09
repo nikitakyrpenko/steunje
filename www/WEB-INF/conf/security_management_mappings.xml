@@ -1,0 +1,37 @@
+
+<matcher uri="admin/user_mngr" command-name="manage-contributors-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="MANAGE_USERS_XSL"/>
+    </bind>
+</matcher>
+<matcher uri="admin/visitor_mngr" command-name="manage-visitors-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="MANAGE_VISITORS_XSL"/>
+    </bind>
+</matcher>
+<matcher uri="admin/container_mngr" command-name="manage-containers-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="MANAGE_CONTAINERS_XSL"/>
+    </bind>
+</matcher>
+<matcher uri="admin/group_mngr" command-name="manage-groups-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="MANAGE_GROUPS_XSL"/>
+    </bind>
+</matcher>
+<matcher uri="admin/visitor_group_mngr" command-name="manage-visitor-groups-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="MANAGE_VISITOR_GROUPS_XSL"/>
+    </bind>
+</matcher>
+<matcher uri="admin/select_container" command-name="select-container-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="SELECT_CONTAINER_XSL"/>
+    </bind>
+</matcher>
+<matcher uri="admin/set_container" command-name="set-container-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="SELECT_CONTAINER_XSL"/>
+    </bind>
+</matcher>
+

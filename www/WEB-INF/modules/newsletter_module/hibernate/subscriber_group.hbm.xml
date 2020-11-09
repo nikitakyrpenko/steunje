@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+  <class name="com.negeso.module.newsletter.bo.SubscriberGroup" table="nl_group">
+  
+  	<id name="id" type="long">
+	    <generator class="sequence">
+    	     <param name="sequence">nl_group_id_seq</param>
+        </generator>            
+	</id>
+	
+	<property name="internal" />
+	<property name="i18n"/>
+	<property name="siteId" column="site_id"/>
+	<property name="orderNumber" column="order_number"/>
+	
+	<bag name="subscribers" table="nl_subscriber2group" cascade="refresh,save-update" >
+		<key column="group_id" />
+        <many-to-many class="com.negeso.module.newsletter.bo.Subscriber"
+			column="subscriber_id" where="activated = 'true'">
+		</many-to-many>
+	</bag>
+	
+	<map name="customFields" cascade="all">
+		<key column="group_id" />
+		<map-key type="long" column="lang_id" />
+
+		<one-to-many class="com.negeso.module.newsletter.bo.GroupFields"/>
+	</map>
+	
+	<bag name="publications" table="nl_publication2group" cascade="all-delete-orphan" inverse="true">
+		<key column="group_id"/>
+		<many-to-many class="com.negeso.module.newsletter.bo.Publication"
+                      column="publication_id" foreign-key="fk_nl_publication2group_publication"/>
+	</bag>
+	
+  </class>
+  
+  <class name="com.negeso.module.newsletter.bo.GroupFields" table="nl_group_i18n_fields" >
+  	<id name="id" type="long" >
+	    <generator class="sequence">
+    	     <param name="sequence">nl_group_i18n_fields_id_seq</param>
+        </generator>            
+	</id>
+	
+	<property name="title"/>
+	<property name="description"/>
+	<property name="langId" column="lang_id"/>
+	
+	<many-to-one name="group" class="com.negeso.module.newsletter.bo.SubscriberGroup"
+                 column="group_id" foreign-key="fk_nl_group_i18n_fields_nl_group"/>
+	
+  </class>
+  
+  <query name="SubscriberGroup.listOrderedGroup"><![CDATA[
+        from SubscriberGroup group order by order_number asc
+    ]]></query>
+
+  <query name="SubscriberGroup.countNextOrderNumber"><![CDATA[
+		select max(g.orderNumber)+1 from SubscriberGroup g
+  ]]></query>
+  
+  <query name="SubscriberGroup.countSubscriberGroup"><![CDATA[
+  		select count(g) from SubscriberGroup g
+  ]]></query>
+    
+  <query name="SubscriberGroup.findByTitle"><![CDATA[
+        select g from SubscriberGroup as g left join g.customFields as fields where fields.title = ? 
+        and fields.langId = ?
+    ]]></query>  
+    
+</hibernate-mapping>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:tns="http://negeso.com/2003/Framework-v.1.1/wsdl/serviceAdmin/serviceAdmin"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:ns2="http://negeso.com/2003/Framework-v.1.1/wsdl/serviceAdmin/types/serviceAdmin"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="serviceAdmin"
+	targetNamespace="http://negeso.com/2003/Framework-v.1.1/wsdl/serviceAdmin/serviceAdmin">
+	<types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+			xmlns:tns="http://negeso.com/2003/Framework-v.1.1/wsdl/serviceAdmin/types/serviceAdmin"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+			xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/"
+			targetNamespace="http://negeso.com/2003/Framework-v.1.1/wsdl/serviceAdmin/types/serviceAdmin">
+			<import
+				namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+			<complexType name="ArrayOfstring">
+				<complexContent>
+					<restriction base="soap-enc:Array">
+						<attribute ref="soap-enc:arrayType"
+							wsdl:arrayType="string[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+		</schema>
+	</types>
+	<message name="AdminService_auxOperation">
+		<part name="operationKind" type="xsd:string" />
+		<part name="parameterNames" type="ns2:ArrayOfstring" />
+		<part name="parameterValues" type="ns2:ArrayOfstring" />
+	</message>
+	<message name="AdminService_auxOperationResponse">
+		<part name="result" type="xsd:string" />
+	</message>
+	<portType name="AdminService">
+		<operation name="auxOperation"
+			parameterOrder="operationKind parameterNames parameterValues">
+			<input message="tns:AdminService_auxOperation" />
+			<output message="tns:AdminService_auxOperationResponse" />
+		</operation>
+	</portType>
+	<binding name="AdminServiceBinding" type="tns:AdminService">
+		<operation name="auxOperation">
+			<input>
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					use="encoded"
+					namespace="http://negeso.com/2003/Framework-v.1.1/wsdl/serviceAdmin/serviceAdmin" />
+			</input>
+			<output>
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					use="encoded"
+					namespace="http://negeso.com/2003/Framework-v.1.1/wsdl/serviceAdmin/serviceAdmin" />
+			</output>
+			<soap:operation soapAction="" />
+		</operation>
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+	</binding>
+	<service name="ServiceAdmin">
+		<port name="AdminServicePort"
+			binding="tns:AdminServiceBinding">
+			<soap:address xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" location="WEBSERVICE_URL_HERE" />
+		</port>
+	</service>
+</definitions>

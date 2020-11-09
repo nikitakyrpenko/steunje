@@ -1,0 +1,25 @@
+<module id="picture_frame" name="Picture Frame">
+  <extension point="core">
+    <mapping-url>/admin/picture_frame.*|/picture_frame.*</mapping-url>
+    <!-- mapping-url>/admin/back.html</mapping-url -->
+    <page-components>
+    </page-components>
+  </extension>
+</module>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

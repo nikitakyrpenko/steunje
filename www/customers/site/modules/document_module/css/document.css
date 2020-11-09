@@ -1,0 +1,15 @@
+.dcDocTable th{
+	background-image: url(/site/modules/document_module/images/dc_big_title_bg.gif);
+	background-position:top;
+	background-repeat:repeat-x;
+}
+
+/*Main document catalogue*/
+.b-dcEmpty{}
+.b-dcForm{}
+.b-dcMain{}
+
+
+/*Search panel*/
+.b-dcSearch{}
+

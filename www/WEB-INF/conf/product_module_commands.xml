@@ -1,0 +1,20 @@
+
+<command name="pm-browse-category" class="com.negeso.module.product.command.BrowseCategoryCommand"/>
+<command name="pm-delete-category" class="com.negeso.module.product.command.DeleteCategoryCommand"/>
+<command name="pm-delete-product" class="com.negeso.module.product.command.DeleteProductCommand"/>
+<command name="pm-reorder-category" class="com.negeso.module.product.command.ReorderCategoryCommand"/>
+<command name="pm-reorder-product" class="com.negeso.module.product.command.ReorderProductCommand"/>
+<command name="pm-get-edit-category-page" class="com.negeso.module.product.command.GetEditCategoryPageCommand"/>
+<command name="pm-update-category" class="com.negeso.module.product.command.UpdateProductCategoryCommand"/>
+<command name="pm-get-edit-product-page" class="com.negeso.module.product.command.GetEditProductPageCommand"/>
+<command name="pm-get-edit-product-page-xml" class="com.negeso.module.product.command.GetEditProductPageCommand"/>
+<command name="pm-update-product" class="com.negeso.module.product.command.UpdateProductCommand"/>
+<command name="pm-browse-product-types" class="com.negeso.module.product.command.BrowseProductTypesCommand"/>
+<command name="pm-get-entry-page" class="com.negeso.module.product.command.GetPmEntryPageCommand"/>
+<command name="pm-get-edit-product-type-page" class="com.negeso.module.product.command.GetEditProductTypePage"/>
+<command name="pm-manage-customers" class="com.negeso.module.product.checkout.command.ManageCustomers"/>
+<command name="pm-manage-shop-preferences" class="com.negeso.module.product.command.ManageShopPreferences"/>
+<command name="pm-manage-delivery-methods" class="com.negeso.module.product.checkout.command.ManageDeliveryMethods"/>
+<command name="pm-manage-price-list" class="com.negeso.module.product.price.ManagePriceList"/>
+<command name="pm-manage-product" class="com.negeso.module.product.command.ManageProductCommand"/>
+

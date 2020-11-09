@@ -1,0 +1,200 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>{$lang_negeso_form_manager_title_input}</title>
+	<script language="javascript" src="/script/jquery.min.js" type="text/javascript"></script>
+	<script language="javascript" src="/script/jquery-ui.custom.min.js" type="text/javascript"></script>	
+	<script language="javascript" type="text/javascript" src="../../tiny_mce_popup.js"></script>
+	<script language="javascript" type="text/javascript" src="../../utils/mctabs.js"></script>
+	<script language="javascript" type="text/javascript" src="../../utils/form_utils.js"></script>
+	<script language="javascript" type="text/javascript" src="jscripts/input.js"></script>
+	<script language="javascript" type="text/javascript" src="/script/common_functions.js"></script>
+	<link href="css/form_manager.css" rel="stylesheet" type="text/css" />
+	<base target="_self" />
+</head>
+<body onLoad="tinyMCEPopup.executeOnLoad('init();'); checkIt(); changeHelpType();" style="display: none">
+    <form onSubmit="insertAction();return false;" action="#">
+		<div class="tabs">
+			<ul style="cursor: hand; cursor: pointer;">
+                <li id="general_tab" class="current" onclick="mcTabs.displayTab('general_tab','general_panel');">
+                    <span><a>{#negeso_form_manager.tab_general}</a></span>
+                </li>
+				<li id="advanced_tab">
+					<span><a href="javascript:mcTabs.displayTab('advanced_tab','advanced_panel');" onMouseDown="return false;">{$lang_negeso_form_manager_tab_advanced}</a></span>
+				</li>
+				<li id="validation_tab" title="{$lang_negeso_form_manager_readonly_hint}">
+					<span><a href="javascript:mcTabs.displayTab('validation_tab','validation_panel');" onMouseDown="return false;">{$lang_negeso_form_manager_tab_validation}</a></span>
+				</li>
+			</ul>
+		</div>
+
+		<div class="panel_wrapper">
+			<div id="general_panel" class="panel current">
+				<fieldset>
+					<legend>{$lang_negeso_form_manager_general_input}</legend>
+					<table class="properties">
+						<tr>
+							<td class="column1">
+								<label id="typelabel" for="type">{$lang_negeso_form_manager_type}</label>
+							</td>
+							<td>
+								<table border="0" cellspacing="0" cellpadding="0">
+									<tr> 
+										<td>
+									  		<select name="type" id="type" onChange="checkIt();">
+									  			<option value="text">text</option>
+									  			<option value="password">password</option>
+									  			<option value="checkbox">checkbox</option>
+									  			<option value="radio">radio</option>
+									  			<option value="submit">submit</option>
+									  			<option value="reset">reset</option>
+									  			<option value="file">file</option>
+									  			<option value="button">button</option>
+									  		</select>
+									  	</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr> 
+							<td class="column1"><label id="namelabel" for="name">{$lang_negeso_form_manager_name}</label></td> 
+							<td><input id="name" name="name" type="text" value="" /></td> 
+						</tr>
+						<tr> 
+							<td class="column1"><label id="idlabel" for="field_id">{$lang_negeso_form_manager_id}</label></td> 
+							<td><input id="field_id" name="field_id" type="text" value="" /></td> 
+						</tr>
+						<tr> 
+							<td class="column1"><label id="valuelabel" for="value">{$lang_negeso_form_manager_value}</label></td> 
+							<td><input id="value" name="value" type="text" value="" /></td> 
+						</tr>
+						<tr> 
+							<td class="column1"><label id="class_listlabel" for="class_list">{$lang_negeso_form_manager_class_list}</label></td> 
+							<td>
+								<select size="1" id="class_list" name="class_list">
+									<option value=""></option>
+								</select>
+							</td> 
+						</tr>
+					</table>
+				</fieldset>
+			</div>
+
+			<div id="advanced_panel" class="panel">
+				<fieldset>
+					<legend>{$lang_negeso_form_manager_general_input}</legend>
+					<table class="properties">
+						<tr> 
+							<td class="column1"><label id="titlelabel" for="title">{$lang_negeso_form_manager_title}</label></td> 
+							<td><input id="title" name="title" type="text" value="" /></td> 
+						</tr>
+						<tr> 
+							<td class="column1"><label id="sizelabel" for="size" title="{$lang_negeso_form_manager_readonly_hint}">{$lang_negeso_form_manager_size}</label></td> 
+							<td><input id="size" name="size" type="text" value="" /></td> 
+						</tr>
+						<tr> 
+							<td class="column1"><label id="maxlengthlabel" for="maxlength" title="{$lang_negeso_form_manager_readonly_hint}">{$lang_negeso_form_manager_maxlength}</label></td> 
+							<td><input id="maxlength" name="maxlength" type="text" value="" /></td> 
+						</tr>						
+						<tr> 
+							<td class="column1"><label id="stylelabel" for="style">{$lang_negeso_form_manager_style}</label></td> 
+							<td><input id="style" name="style" type="text" value="" /></td> 
+						</tr>
+						<tr> 
+							<td class="column1"><label id="tabindexlabel" for="tabindex">{$lang_negeso_form_manager_tabindex}</label></td> 
+							<td><input id="tabindex" name="tabindex" type="text" value="" /></td> 
+						</tr>
+						<tr> 
+							<td colspan="2">&#160;</td>	
+						</tr>					
+						<tr> 
+							<td colspan="2">
+								<table width="100%" border="0" cellspacing="0" cellpadding="0">
+									<tr>
+										<td align="center">
+											<input id="check" name="check" type="checkbox" class="checkbox" value="true" disabled="true" /><label id="checklabel" for="check" title="{$lang_negeso_form_manager_checked_hint}">{$lang_negeso_form_manager_checked}</label>
+										</td>
+										<td align="center">
+											<input id="readonly" name="readonly" type="checkbox" class="checkbox" value="true"/><label id="readonlylabel" for="readonly" title="{$lang_negeso_form_manager_readonly_hint}">{$lang_negeso_form_manager_readonly}</label>
+										</td>
+									</tr>
+								</table>
+							</td> 
+						</tr> 
+					</table>
+				</fieldset>
+			</div>
+
+			<div id="validation_panel" class="panel">
+				<fieldset>
+					<legend>{$lang_negeso_form_manager_general_input}</legend>
+					<table class="properties">
+						<tr> 
+							<td class="column1">
+								<label id="validtypelabel" for="validtype">{$lang_negeso_form_manager_validation}</label>
+							</td> 
+							<td colspan="2">
+								<table border="0" cellspacing="0" cellpadding="0">
+									<tr> 
+										<td>
+									  		<select name="validtype" id="validtype" onChange="changeHelpType()">
+									  			<option value="empty" selected="true">{$lang_negeso_form_manager_validation_empty}</option>
+									  			<option value="email">{$lang_negeso_form_manager_validation_email}</option>
+									  			<option value="numeric">{$lang_negeso_form_manager_validation_numeric}</option>
+									  			<option value="timedate">{$lang_negeso_form_manager_validation_timedate}</option>
+									  		</select>
+									  	</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td><label id="validparamslabel" for="validparams">{$lang_negeso_form_manager_validation_params}</label></td>
+							<td><input id="validparams" name="validparams" type="text" value="" disabled="true"/></td>
+							<td><img src="images/help.gif" alt="{$lang_negeso_form_manager_help}" title="{$lang_negeso_form_manager_help}" width="20px" height="20px" border="0" hspace="0" vspace="0" onMouseDown="showValidateHelp()"/></td>
+						</tr>
+						<tr>
+							<td colspan="3"><input type="checkbox" id="required" value="true" class="checkbox"/><label id="requiredlabel" for="required">{$lang_negeso_form_manager_validation_required}</label></td>
+						</tr>						
+					</table>
+					<div id="help_topic" style="visibility: hidden">
+						<div id="help_topic_1" style="position: absolute; z-index: 2; left: 50px; top: 80px; width: 400px; height: 150px; background-color: #666666; border: none; opacity: 0.5; -moz-opacity: 0.5; filter: alpha(opacity: 50)">&#160;</div>
+						<div id="help_topic_2" style="position: absolute; z-index: 3; left: 40px; top: 70px; width: 400px; height: 150px; background-color: #ffffff; border: 1px solid #000000; overflow: scroll">
+							<table width="100%" border="0" cellspacing="0" cellpadding="6px">
+								<tr>
+									<td style="text-align: left"><img src="images/close.gif" alt="{$lang_close}" title="{$lang_close}" width="20px" height="20px" border="0" hspace="0" vspace="0" onMouseDown="hideValidateHelp()" style="cursor: pointer"/></td>
+									<td style="text-align: left; font-weight: bold; height: 20px">{$lang_negeso_form_manager_help}</td>
+								</tr>
+								<tr>
+									<td style="width: 80px; text-align: right; height: 16px">{$lang_negeso_form_manager_validation_type}</td>
+									<td><span id="help_valid_type" style>{$lang_negeso_form_manager_validation_empty}</span></td>
+								</tr>
+								<tr>
+									<td style="text-align: right; vertical-align: top">{$lang_negeso_form_manager_validation_desc}</td>
+									<td style="vertical-align: top">
+										<span id="help_valid_text" style="white-space: nowrap">{$lang_negeso_form_manager_validation_empty_desc}</span>
+									</td>
+								</tr>
+								<tr>
+									<td style="text-align: left">&#160;</td>
+									<td style="text-align: left; color: #666666; font-weight: bold; height: 20px; cursor: pointer" onMouseDown="hideValidateHelp()">{$lang_close}</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+
+		</div>
+
+		<div class="mceActionPanel">
+			<div style="float: left">
+				<input type="button" id="insert" name="insert" value="{$lang_insert}" onClick="insertAction();" />
+			</div>
+
+			<div style="float: right">
+				<input type="button" id="cancel" name="cancel" value="{$lang_cancel}" onClick="cancelAction();" />
+			</div>
+		</div>
+    </form>
+</body> 
+</html> 

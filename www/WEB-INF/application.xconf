@@ -1,0 +1,1004 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE entities [
+    <!ENTITY security_management_mappings SYSTEM "/WEB-INF/conf/security_management_mappings.xml">
+    <!ENTITY product_module_commands SYSTEM "/WEB-INF/conf/product_module_commands.xml">
+    <!ENTITY product_module_mappings SYSTEM "/WEB-INF/conf/product_module_mappings.xml">
+    <!ENTITY newsletter_commands SYSTEM "/WEB-INF/conf/newsletter_commands.xml">
+    <!ENTITY newsletter_mappings SYSTEM "/WEB-INF/conf/newsletter_mappings.xml">
+    <!ENTITY development_mappings SYSTEM "/WEB-INF/conf/development_mappings.xml">
+    <!ENTITY list_commands SYSTEM "/WEB-INF/conf/list_commands.xml">
+    <!ENTITY list_mappings SYSTEM "/WEB-INF/conf/list_mappings.xml">
+    <!ENTITY photo_album_commands SYSTEM "/WEB-INF/conf/photo_album_commands.xml">
+    <!ENTITY photo_album_mappings SYSTEM "/WEB-INF/conf/photo_album_mappings.xml">
+    <!ENTITY contact_book_commands SYSTEM "/WEB-INF/conf/contact_book_commands.xml">
+    <!ENTITY contact_book_mappings SYSTEM "/WEB-INF/conf/contact_book_mappings.xml">
+    <!ENTITY glossary_commands SYSTEM "/WEB-INF/conf/glossary_commands.xml">
+    <!ENTITY glossary_mappings SYSTEM "/WEB-INF/conf/glossary_mappings.xml">
+    <!ENTITY job_commands SYSTEM "/WEB-INF/conf/job_commands.xml">
+    <!ENTITY job_mappings SYSTEM "/WEB-INF/conf/job_mappings.xml">
+    <!ENTITY document_module_commands SYSTEM "/WEB-INF/conf/document_module_commands.xml">
+    <!ENTITY document_module_mappings SYSTEM "/WEB-INF/conf/document_module_mappings.xml">
+    <!ENTITY statistics_commands SYSTEM "/WEB-INF/conf/statistics_commands.xml">
+    <!ENTITY statistics_mappings SYSTEM "/WEB-INF/conf/statistics_mappings.xml">
+    <!ENTITY superuser_mappings SYSTEM "/WEB-INF/conf/superuser_mappings.xml">
+    <!ENTITY captcha_commands SYSTEM "/WEB-INF/conf/captcha_commands.xml">
+    <!ENTITY captcha_mappings SYSTEM "/WEB-INF/conf/captcha_mappings.xml">
+	<!ENTITY dictionary_commands SYSTEM "/WEB-INF/conf/dictionary_commands.xml">
+    <!ENTITY dictionary_mappings SYSTEM "/WEB-INF/conf/dictionary_mappings.xml">
+
+    <!-- Remove Candidate -->
+    <!-- !ENTITY event_commands SYSTEM "/WEB-INF/conf/event_commands.xml" -->
+    <!-- !ENTITY event_mappings SYSTEM "/WEB-INF/conf/event_mappings.xml" -->
+]>
+
+<application>
+    <components>
+        <page-components>
+            <page-component name="menu-component" class="com.negeso.framework.menu.MenuComponent"/>
+            <page-component name="article-component" class="com.negeso.framework.page.ArticleComponent"/>
+			<page-component name="article-component-through" class="com.negeso.framework.page.ArticleComponent"/>
+
+            <page-component name="list-component" class="com.negeso.framework.list.component.ListComponent"/>
+            <page-component name="list-item-component" class="com.negeso.framework.list.component.ListItemComponent"/>
+            <page-component name="silver-newsletter-component" class="com.negeso.module.newsletter.web.component.SimpleNewsletterPageComponent"/>
+            <page-component name="poll-component" class="com.negeso.module.webpoll.component.PollComponent"/>
+            <page-component name="poll-result-component" class="com.negeso.module.webpoll.component.PollResultComponent"/>
+            <page-component name="news-line-component" class="com.negeso.module.newsline.component.NewsLineComponent"/>
+            <page-component name="advanced-search-component" class="com.negeso.module.search.AdvancedSearchComponent"/>
+            <page-component name="product-search-component" class="com.negeso.module.product.search.AdvancedSearchComponent"/>
+            <page-component name="store-locator-component" class="com.negeso.module.store_locator.component.StoreLocatorComponent"/>
+            <page-component name="store-locator-country" class="com.negeso.module.store_locator.component.StoreLocatorCountrySearch"/>
+            <page-component name="photo-album-component" class="com.negeso.module.photoalbum.component.PhotoAlbumComponent"/>
+            <page-component name="birthday-reminder-component" class="com.negeso.module.contact_book.component.BirthdayReminder"/>
+            <page-component name="contact-book-component" class="com.negeso.module.contact_book.component.ContactBook"/>
+            <page-component name="glossary-component" class="com.negeso.module.glossary.component.GlossaryComponent"/>
+            <page-component name="inquiry-component" class="com.negeso.module.inquiry.InquiryComponent"/>
+            <page-component name="job-module-component" class="com.negeso.module.job.component.JobModuleComponent"/>
+            <page-component name="document-catalog-component" class="com.negeso.module.document.component.DocumentCatalogComponent"/>
+            <page-component name="mail-to-a-friend-component" class="com.negeso.module.mail_to_a_friend.MailToAFriendComponent"/>            
+            <page-component name="identity-component" class="com.negeso.module.user.IdentityComponent"/> 
+            <page-component name="faq-component" class="com.negeso.module.faq.component.FaqComponent"/> 
+
+            <!-- Remove Candidate -->
+            <!-- page-component name="event-subscription-component" class="com.negeso.module.event.component.SubscriptionComponent"/ -->
+            <!-- page-component name="events-calendar-component" class="com.negeso.module.event.component.EventsCalendarComponent"/ -->
+            <!-- page-component name="upcoming-events-component" class="com.negeso.module.event.component.UpcomingEventsComponent"/ -->
+            <!-- page-component name="search-events-component" class="com.negeso.module.event.component.SearchEventsComponent"/ -->
+        </page-components>
+
+        <commands>
+            <command name="get-file-command" class="com.negeso.framework.command.GetFileCommand"/>
+            <command name="get-secure-file-command" class="com.negeso.framework.command.GetSecureFileCommand"/>
+            <command name="simple-command" class="com.negeso.framework.command.SimpleCommand"/>
+            <command name="list-containers-command" class="com.negeso.framework.command.ListContainersCommand"/>
+            <command name="version-info-command" class="com.negeso.framework.command.VersionInfoCommand"/>
+            <command name="reset-site-command" class="com.negeso.framework.site.ResetSite"/>
+            <command name="reset-cmscache-command" class="com.negeso.framework.command.ResetCmsCache"/>
+
+            <command name="get-page-command" class="com.negeso.framework.page.command.GetPageCommand"/>
+            <command name="get-editable-page-command" class="com.negeso.framework.page.command.GetEditablePageCommand"/>
+            <command name="logout-command" class="com.negeso.framework.command.LogoutCommand"/>
+            <command name="view-log-command" class="com.negeso.framework.log.command.ViewLogCommand"/>
+            <command name="view-su-log-command" class="com.negeso.framework.log.command.ViewSuLogCommand"/>
+            <command name="download-log-command" class="com.negeso.framework.log.command.DownloadLogCommand"/>
+            <command name="update-page-info-command" class="com.negeso.framework.page.command.UpdatePageInfoCommand"/>
+            <command name="update-article-text-command" class="com.negeso.framework.page.command.UpdateArticleTextCommand"/>
+            <command name="update-article-info-command" class="com.negeso.framework.page.command.UpdateArticleInfoCommand"/>
+            <command name="select-page-template-command" class="com.negeso.framework.page.command.SelectPageTemplateCommand"/>
+            <command name="get-pages-list-command" class="com.negeso.framework.page.explorer.GetPagesListCommand"/>
+
+            <command name="get-menu-command" class="com.negeso.framework.menu.command.GetMenuCommand"/>
+            <command name="get-menu-report-command" class="com.negeso.framework.menu.command.GetMenuReportCommand"/>            
+            <command name="get-special-pages-command" class="com.negeso.framework.page.command.PagePropertiesCommand"/>
+            <command name="edit-page-info-command" class="com.negeso.framework.page.command.PagePropertiesCommand"/>
+            <command name="create-page-command" class="com.negeso.framework.page.command.PagePropertiesCommand"/>
+            <command name="create-menu-item-command" class="com.negeso.framework.menu.command.creating.CreateMenuItemCommand"/>
+            <command name="update-menu-item-command" class="com.negeso.framework.menu.command.UpdateMenuItemCommand"/>
+            <command name="delete-menu-item-command" class="com.negeso.framework.menu.command.DeleteMenuItemCommand"/>            
+            <command name="create-menu-item-dialog-command" class="com.negeso.framework.menu.command.CreateMenuItemDialogCommand"/>
+			<command name="sort-menu-item-command" class="com.negeso.framework.menu.command.SortMenuItemCommand"/>
+
+            <command name="get-modules-command" class="com.negeso.framework.module.GetModulesCommand"/>			
+            <command name="get-modules-command-xml" class="com.negeso.framework.module.GetModulesCommand"/>
+
+            <command name="manage-contributors-command" class="com.negeso.module.user.command.ManageContributorsCommand"/>
+            <command name="manage-visitors-command" class="com.negeso.module.user.command.ManageVisitorsCommand"/>
+            <command name="manage-containers-command" class="com.negeso.module.user.command.ManageContainersCommand"/>
+            <command name="manage-groups-command" class="com.negeso.module.user.command.ManageGroupsCommand"/>
+            <command name="manage-visitor-groups-command" class="com.negeso.module.user.command.ManageVisitorGroupsCommand"/>
+            <command name="select-container-command" class="com.negeso.module.user.command.SelectContainerCommand"/>
+            <command name="set-container-command" class="com.negeso.module.user.command.SetContainerCommand"/>
+            <command name="ldap-login-command" class="com.negeso.framework.command.LdapLoginCommand"/>
+            <command name="get-categories-command" class="com.negeso.framework.module.GetCategoriesCommand"/>
+
+        <command name="list-review-command" class="com.negeso.module.product.review.ReviewListCommand"/>
+        <command name="edit-review-command" class="com.negeso.module.product.review.EditReviewCommand"/>
+            
+            <!-- MEDIA CATALOG BEGIN -->
+            <command name="list-directory-command" class="com.negeso.module.media_catalog.command.ListDirectoryCommand"/>
+            <command name="create-folder-command" class="com.negeso.module.media_catalog.command.CreateFolderCommand"/>
+            <command name="upload-file-command" class="com.negeso.module.media_catalog.command.UploadFileCommand"/>
+            <command name="remove-resource-command" class="com.negeso.module.media_catalog.command.RemoveResourceCommand"/>
+            <command name="move-resource-command" class="com.negeso.module.media_catalog.command.MoveResourceCommand"/>
+            <command name="get-move-resource-face" class="com.negeso.module.media_catalog.command.GetMoveResourceFace"/>
+            <command name="rename-resource-command" class="com.negeso.module.media_catalog.command.RenameResourceCommand"/>
+            <command name="get-rename-resource-face" class="com.negeso.module.media_catalog.command.GetRenameResourceFace"/>
+            <command name="get-resource-info-face" class="com.negeso.module.media_catalog.command.GetResourceInfoFace"/>
+            <command name="get-media-file-command" class="com.negeso.module.media_catalog.command.GetMediaFileCommand"/>
+            <command name="mc-set-container-command" class="com.negeso.module.media_catalog.command.SetContainerCommand"/>
+            <command name="mc-check-file-existence-command" class="com.negeso.module.media_catalog.command.CheckFileExistenceCommand"/>
+            <command name="mc-test-command" class="com.negeso.module.media_catalog.command.TestCommand"/>
+            <!-- MEDIA CATALOG END -->
+
+            <!-- UPDOWNLOAD module -->
+            <command name="get-updownload-info-command" class="com.negeso.module.updownload.command.GetModuleInfoCommand"/>
+            <command name="get-resource-chooser-command" class="com.negeso.module.updownload.command.GetResourceChooserCommand"/>
+            <command name="get-image-uploader-face" class="com.negeso.module.updownload.command.GetImageUploaderFace"/>
+            <command name="image-uploader-command" class="com.negeso.module.updownload.command.ImageUploaderCommand"/>
+            <command name="get-file-uploader-face" class="com.negeso.module.updownload.command.GetFileUploaderFace"/>
+            <command name="upload-thumbnail-command" class="com.negeso.module.updownload.command.UploadThumbnailCommand"/>			
+            <command name="upload-banner-command" class="com.negeso.module.updownload.command.UploadBannerCommand"/>
+            <command name="upload-file-command2" class="com.negeso.module.updownload.command.UploadFileCommand"/>
+            <command name="upload-document-command" class="com.negeso.module.updownload.command.UploadDocumentCommand"/>
+            <command name="mass-thumbnail-uploader" class="com.negeso.module.updownload.command.MassThumbnailUploader"/>
+            <command name="mass-file-uploader" class="com.negeso.module.updownload.command.MassFileUploader"/>
+            <command name="upload-flash-command" class="com.negeso.module.updownload.command.UploadFlashCommand"/>             
+            <!-- UPDOWNLOAD MODULE FINISH -->
+
+            <!-- NEW RTE MODULE -->
+            <command name="get-second-image-uploader-face" class="com.negeso.module.updownload.command.GetImageUploaderFace"/>
+            <command name="get-second-image-uploader-face-xml-view" class="com.negeso.module.updownload.command.GetImageUploaderFace"/>
+            <command name="second-image-uploader-command" class="com.negeso.module.updownload.command.ImageUploaderCommand"/>
+            <command name="second-image-uploader-command-xml-view" class="com.negeso.module.updownload.command.ImageUploaderCommand"/>
+            <command name="get-second-resource-chooser-command" class="com.negeso.module.updownload.command.GetResourceChooserCommand"/>
+            <command name="get-second-resource-chooser-command-xml-view" class="com.negeso.module.updownload.command.GetResourceChooserCommand"/>
+			<command name="second-choose-form" class="com.negeso.module.form_manager.command.ChooseFormCommand"/>
+			<command name="second-choose-form-xml-view" class="com.negeso.module.form_manager.command.ChooseFormCommand"/>
+			<command name="get-parametrized-links" class="com.negeso.module.parametrized_link.command.GetParametrizedLinksCommand"/>
+			<command name="get-parametrized-links-xml-view" class="com.negeso.module.parametrized_link.command.GetParametrizedLinksCommand"/>
+			<command name="get-auto-filled-attrs" class="com.negeso.module.newsletter.RTETemplatesCommand"/>
+            <!-- NEW RTE MODULE FINISH -->
+
+
+            <command name="site-dynamics-command" class="com.negeso.module.dynamics.command.GetDynamicsCommand"/>
+            <command name="inquiry-controller" class="com.negeso.module.inquiry.command.InquiryController"/>
+            <command name="inquiry-export-controller" class="com.negeso.module.inquiry.command.InquiryExportController"/>
+
+            <!-- START  GOOGLE SITEMAP -->
+            <command name="google-sitemap" class="com.negeso.framework.menu.GoogleSitemapCommand"/>
+            <!-- FINISH GOOGLE SITEMAP -->
+
+            <command name="pm-manage-types" class="com.negeso.module.product.workshop.ManageTypesController"/>
+            <command name="pm-manage-attributes" class="com.negeso.module.product.workshop.ManageAttributesController"/>			
+            
+            <command name="pl-decode-link" class="com.negeso.module.parametrized_link.command.DecodeParametrizedLinkCommand"/>
+
+            &product_module_commands;
+            
+            &newsletter_commands;
+
+            &list_commands;
+
+            &contact_book_commands;
+
+            &photo_album_commands;
+
+            &glossary_commands;
+
+            &job_commands;
+
+            &document_module_commands;
+            &statistics_commands;
+            &captcha_commands;
+			&dictionary_commands;
+
+            
+            
+            <!-- FORM MANAGER -->
+            <command name="manage-forms" class="com.negeso.module.form_manager.command.ManageFormsCommand"/>  
+            <command name="choose-form" class="com.negeso.module.form_manager.command.ChooseFormCommand"/>
+            <command name="process-form-command" class="com.negeso.module.form_manager.command.ProcessForm"/>
+            <!-- END FORM MANAGER -->
+            
+            <!-- WCMS ATTRIBUTES -->
+            <command name="browse-wcms-attributes" class="com.negeso.module.wcmsattributes.command.BrowseAttributes"/>
+            <command name="create-attribute-from-template" class="com.negeso.module.wcmsattributes.command.CreateAttributesFromTemplate"/>
+            <command name="update-wcsm-attributes" class="com.negeso.module.wcmsattributes.command.UpdateWcsmAttributes"/>
+			<command name="update-wcsm-link" class="com.negeso.module.wcmsattributes.command.UpdateImageLink"/>
+			<command name="browse-animation-properties" class="com.negeso.module.wcmsattributes.command.BrowseAnimationProperties"/>			
+            <!-- WCMS ATTRIBUTES -->
+            
+            <!-- Guestbook -->
+            <command name="gb-manage-guestbook" class="com.negeso.module.guestbook.web.command.ManageRecordsCommand"/>
+            <!-- Guestbook -->
+			
+			<command name="ajax" class="com.negeso.framework.page.command.GetComponentCommand"/>
+			<command name="ajax-xml" class="com.negeso.framework.page.command.GetComponentCommand"/>
+			
+			<command name="process-pm-friendly-url-command" class="com.negeso.framework.friendly_url.ProcessFriendlyUrlCommand"/>
+            
+        </commands>
+        
+        <views>
+            <view name="get-file-view" class="com.negeso.framework.view.GetFileView"/>
+            <view name="resource-not-found-view" class="com.negeso.framework.view.ResourceNotFoundView"/>
+            <view name="access-denied-view" class="com.negeso.framework.view.AccessDeniedView"/>
+            <view name="xml-view" class="com.negeso.framework.view.XmlView"/>
+            <view name="html-view" class="com.negeso.framework.view.HtmlView"/>
+            <view name="stream-view" class="com.negeso.framework.view.StreamView"/>
+            <view name="jsp-view" class="com.negeso.framework.view.JspView"/>
+            <view name="text-view" class="com.negeso.framework.log.TextView"/>
+            <view name="redirection-view" class="com.negeso.framework.view.RedirectView"/>
+            <view name="updownload-info-view" class="com.negeso.module.updownload.view.ModuleInfoView"/>
+            <view name="move-resource-view" class="com.negeso.module.media_catalog.view.MoveResourceView"/>
+            <view name="rename-resource-view" class="com.negeso.module.media_catalog.view.RenameResourceView"/>
+            <view name="list-directory-view" class="com.negeso.module.media_catalog.view.ListDirectoryView"/>
+            <view name="resource-info-view" class="com.negeso.module.media_catalog.view.ResourceInfoView"/>
+            <view name="statistics-csv-view" class="com.negeso.module.statistics.views.StatisticsCSVView"/>
+            <view name="statistics-html-cache-view" class="com.negeso.module.statistics.views.StatisticsHTMLCacheView"/>
+            
+        </views>
+        
+    </components>
+    <controller>
+        <!--
+            Default bindings for result names "failure" and "denied":
+                <bind result="failure" view="resource-not-found-view"/>
+                <bind result="denied" view="access-denied-view"/>
+         -->
+         
+            <matcher uri="/pl_link" command-name="pl-decode-link">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="PL_PARAMETRIZED_LINK"/>
+                </bind>                
+                <bind result="failure" view="resource-not-found-view"/>
+                <bind result="denied"  view="html-view"><parameter name="xsl" value="LOGIN_XSL"/></bind>
+            </matcher>
+         
+         
+            <matcher uri="/robots.txt" command-name="get-file-command">
+                <parameter name="file" value="/robots.txt"/>
+                <bind result="success" view="get-file-view"/>
+            </matcher>
+            <matcher uri="/admin/uploadify.swf" command-name="get-file-command">
+                <parameter name="file" value="/uploadify.swf"/>
+                <bind result="success" view="get-file-view"/>
+            </matcher>
+            <matcher uri="/admin/multiFileUpload" command-name="upload-file-command">
+                <bind result="success" view="list-directory-view"/>
+            </matcher>
+
+           <matcher uri="/error.html" command-name="get-file-command">
+                <parameter name="file" value="/error.html"/>
+                <bind result="success" view="get-file-view"/>
+            </matcher>
+
+            <!-- BEGIN HELP FILES -->
+                <matcher uri="/admin/help/**" command-name="get-secure-file-command">
+                    <parameter name="file" value="/help/{1}"/>
+                    <bind result="success" view="get-file-view"/>
+                    <bind result="failure" view="redirection-view">
+                        <parameter name="destination" value="/admin/"/>
+                    </bind>
+                </matcher>
+            <!-- END HELP FILES -->
+                
+            <!-- BEGIN FORM MANAGER  -->
+                <matcher uri="/send_email" command-name="process-form-command">
+                    <bind result="success" view="html-view"><parameter name="xsl" value="SITE_XSL"/></bind>
+                </matcher>
+				<matcher uri="/admin/send_email" command-name="process-form-command">
+                    <bind result="success" view="html-view"><parameter name="xsl" value="SITE_XSL"/></bind>
+                </matcher>
+            <!-- END FORM MANAGER -->
+            
+             &statistics_mappings;
+            
+            <!-- BEGIN DIALOGS -->
+            <matcher uri="/dialogs/dialog_change_page_properties.html" command-name="list-containers-command">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="PAGE_PROPERTIES_XSL"/>
+                </bind>
+            </matcher>
+            <matcher uri="/dialogs/*.html" command-name="get-file-command">
+                <parameter name="file" value="/dialogs/{1}.html"/>
+                <bind result="success" view="get-file-view"/>
+            </matcher>
+            <!-- END DIALOGS -->
+                
+            <!-- BEGIN GENERATION OF REGULAR PAGES -->
+            <matcher uri="/" command-name="get-page-command">
+                <bind result="success" view="html-view"><parameter name="xsl" value="SITE_XSL"/></bind>
+            </matcher>
+            <matcher uri="" command-name="get-page-command">
+                <bind result="success" view="html-view"><parameter name="xsl" value="SITE_XSL"/></bind>
+            </matcher>
+            <matcher uri="*.htm*" command-name="get-page-command">
+                <parameter name="filename" value="{1}.html"/>
+                <bind result="success" view="html-view"><parameter name="xsl" value="SITE_XSL"/></bind>
+            </matcher>
+			
+			<matcher uri="/@lang/*.htm*" command-name="get-page-command">
+				<parameter name="langCode" value="{1}"/>
+                <parameter name="filename" value="{2}.html"/>
+                <bind result="success" view="html-view"><parameter name="xsl" value="SITE_XSL"/></bind>
+            </matcher>
+			<matcher uri="/@lang/*" command-name="get-page-command">
+				<parameter name="langCode" value="{1}"/>
+                <parameter name="filename" value="{2}.html"/>
+                <bind result="success" view="html-view"><parameter name="xsl" value="SITE_XSL"/></bind>
+            </matcher>
+			
+			
+			
+			
+			<matcher uri="/admin/@lang/*.xml" command-name="get-editable-page-command">
+				<parameter name="langCode" value="{1}"/>
+                <parameter name="filename" value="{2}.html"/>
+                <bind result="success" view="xml-view"></bind>
+            </matcher>
+			
+			<matcher uri="/admin/@lang/*.htm*" command-name="get-editable-page-command">
+				<parameter name="langCode" value="{1}"/>
+                <parameter name="filename" value="{2}.html"/>
+                <bind result="success" view="html-view"><parameter name="xsl" value="SITE_XSL"/></bind>
+                <bind result="denied"  view="html-view"><parameter name="xsl" value="LOGIN_XSL"/></bind>
+            </matcher>
+			
+            
+            <matcher uri="/admin/@lang/*" command-name="get-editable-page-command">
+				<parameter name="langCode" value="{1}"/>
+                <parameter name="filename" value="{2}.html"/>
+                <bind result="success" view="html-view"><parameter name="xsl" value="SITE_XSL"/></bind>
+                <bind result="denied"  view="html-view"><parameter name="xsl" value="LOGIN_XSL"/></bind>
+            </matcher>
+            
+            <!-- START GOOGLE SITEMAP -->
+            <matcher uri="/sitemap.xml" command-name="google-sitemap">
+                <bind result="success" view="xml-view"/>
+            </matcher>
+            <matcher uri="/sitemap_*.xml" command-name="google-sitemap">
+                <parameter name="langCode" value="{1}"/>
+                <bind result="success" view="xml-view"/>
+            </matcher>
+            <!-- END GOOGLE SITEMAP -->
+            <!-- Attention! matcher uri="*.xml" must go after the GOOGLE SITEMAP matcher!!!  -->
+            <matcher uri="*.xml" command-name="get-page-command">
+                <parameter name="filename" value="{1}.html"/>
+                <bind result="success" view="xml-view"></bind>
+            </matcher>
+            <matcher uri="/admin/" command-name="get-editable-page-command">
+                <bind result="success" view="html-view"><parameter name="xsl" value="SITE_XSL"/></bind>
+                <bind result="denied"  view="html-view"><parameter name="xsl" value="LOGIN_XSL"/></bind>
+            </matcher>
+			<matcher uri="/admin" command-name="get-editable-page-command">
+                <bind result="success" view="html-view"><parameter name="xsl" value="SITE_XSL"/></bind>
+                <bind result="denied"  view="html-view"><parameter name="xsl" value="LOGIN_XSL"/></bind>
+            </matcher>
+            <matcher uri="/admin/logout" command-name="logout-command">
+                <bind result="success" view="html-view"><parameter name="xsl" value="SITE_XSL"/></bind>
+            </matcher>
+            <matcher uri="/admin/*.html" command-name="get-editable-page-command">
+                <parameter name="filename" value="{1}.html"/>
+                <bind result="success" view="html-view"><parameter name="xsl" value="SITE_XSL"/></bind>
+                <bind result="denied"  view="html-view"><parameter name="xsl" value="LOGIN_XSL"/></bind>
+            </matcher>
+            <matcher uri="/admin/*.xml" command-name="get-editable-page-command">
+                <parameter name="filename" value="{1}.html"/>
+                <bind result="success" view="xml-view" />
+                <bind result="denied"  view="html-view"><parameter name="xsl" value="LOGIN_XSL"/></bind>
+            </matcher>
+            <matcher uri="/admin/viewlog" command-name="view-log-command">
+               <parameter name="log-filename" value="/WEB-INF/generated/logs/framework.log"/>
+               <bind result="success" view="text-view">
+                <parameter name="result" value= "text"/>
+               </bind>
+               <bind result="denied"  view="html-view"><parameter name="xsl" value="LOGIN_XSL"/></bind>
+            </matcher>
+            
+            <matcher uri="/admin/setlog" command-name="simple-command">
+                <bind result="success" view="jsp-view">
+                    <parameter name="jsp" value="/WEB-INF/jsp/workshop/change-log-level.jsp"/>
+                </bind>
+            </matcher>
+            
+           
+            <matcher uri="/admin/getlog" command-name="download-log-command">
+                <parameter name="log-filename" value="/WEB-INF/generated/logs/main_framework.log"/>
+                <bind result="success" view="text-view">
+                    <parameter name="result" value= "file"/>
+                </bind>
+                <bind result="denied"  view="html-view"><parameter name="xsl" value="LOGIN_XSL"/></bind>
+            </matcher>
+                   
+            &superuser_mappings;
+
+            <matcher uri="/admin/listreview" command-name="list-review-command">
+                <bind result="success" view="jsp-view">
+                    <parameter name="jsp" value="/WEB-INF/jsp/modules/product/review/review_list.jsp"/>
+                </bind>
+            </matcher>     
+            <matcher uri="/admin/editreview" command-name="edit-review-command">
+                <bind result="success" view="jsp-view">
+                    <parameter name="jsp" value="/WEB-INF/jsp/modules/product/review/review_edit.jsp"/>
+                </bind>
+            </matcher>             
+            
+            <!-- END GENERATION OF REGULAR PAGES -->
+
+            <matcher uri="/admin/reset_cache" command-name="reset-cmscache-command">
+                <bind result="success" view="xml-view"/>
+            </matcher>
+
+            <matcher uri="/admin/reset_site" command-name="reset-site-command">
+                <bind result="success" view="html-view"><parameter name="xsl" value="SITE_XSL"/></bind>
+                <bind result="denied"  view="html-view"><parameter name="xsl" value="LOGIN_XSL"/></bind>
+            </matcher>
+            
+            
+            <matcher uri="/admin/workshop" command-name="version-info-command">
+                <bind result="success" view="jsp-view">
+                    <parameter name="jsp" value="/WEB-INF/jsp/workshop/base_point.jsp"/>
+                </bind>
+                <!--bind result="denied"  view="html-view"><parameter name="xsl" value="LOGIN_XSL"/></bind-->
+            </matcher>
+            
+            <matcher uri="/admin/pm_manage_types" command-name="pm-manage-types">
+                <bind result="success" view="jsp-view">
+                    <parameter name="jsp" value="/WEB-INF/jsp/workshop/pm_manage_types.jsp"/>
+                </bind>
+            </matcher>
+
+            <matcher uri="/admin/pm_manage_attributes" command-name="pm-manage-attributes">
+                <bind result="success" view="jsp-view">
+                    <parameter name="jsp" value="/WEB-INF/jsp/workshop/pm_manage_attributes.jsp"/>
+                </bind>
+            </matcher>
+
+
+            <!-- BEGIN MENU AND POPUP LIST EDITOR -->
+            <matcher uri="/admin/menu_editor" command-name="get-menu-command">
+                <bind result="success" view="html-view"><parameter name="xsl" value="MENU_EDITOR"/></bind>
+            </matcher>
+            <matcher uri="/admin/special_pages_editor" command-name="get-special-pages-command">
+                <bind result="success" view="html-view">
+                	<parameter name="xsl" value="SPECIAL_PAGES_EDITOR"/>
+                </bind>
+            </matcher>
+            <matcher uri="/admin/create_page" command-name="create-page-command">
+                <bind result="success" view="html-view">
+                	<parameter name="xsl" value="CREATE_PAGE_DIALOG"/>
+                </bind>
+            </matcher>
+             <matcher uri="/admin/edit_page_info" command-name="edit-page-info-command">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="PAGE_INFO_EDITOR"/>
+                </bind>
+            </matcher>
+            
+            
+            <matcher uri="/admin/menu_report.txt" command-name="get-menu-report-command">
+                <bind result="success" view="get-file-view"/>
+            </matcher>
+            <matcher uri="/admin/special_pages_editor_xml" command-name="get-special-pages-command">
+                <bind result="success" view="xml-view"></bind>
+            </matcher>
+             <matcher uri="/admin/edit_page_info_xml" command-name="edit-page-info-command">
+                <bind result="success" view="xml-view"></bind>
+            </matcher>
+              <matcher uri="/admin/create_page_xml" command-name="create-page-command">
+                <bind result="success" view="xml-view"></bind>
+            </matcher>
+            
+            
+            <!-- END MENU AND POPUP LIST EDITOR -->
+
+            <!-- dictionary for localized JavaScript constants -->
+            <matcher uri="/dictionaries/*" command-name="get-file-command">
+                <parameter name="file" value="/WEB-INF/generated/dictionaries/{1}"/>
+                <bind result="success" view="get-file-view"/>
+            </matcher>
+
+            <!-- BEGIN RTECOM EDITOR -->
+            <matcher uri="**rtecom/*" command-name="get-file-command">
+                <parameter name="file" value="rtecom/{2}"/>
+                <bind result="success" view="get-file-view"/>
+            </matcher>
+            <matcher uri="**rtecom/images/*" command-name="get-file-command">
+                <parameter name="file" value="rtecom/images/{2}"/>
+                <bind result="success" view="get-file-view"/>
+            </matcher>
+            
+            <matcher uri="/auto_filled_attrs" command-name="get-auto-filled-attrs">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="RTE_AUTO_FILLED_ATTRS_XSL"/>
+                </bind>
+            </matcher>
+            
+            <!-- END RTECOM EDITOR -->
+			
+			<!-- BEGIN NEW RTE EDITOR -->
+            <matcher uri="**rte/**" command-name="get-file-command">
+                <parameter name="file" value="rte/{2}"/>
+                <bind result="success" view="get-file-view"/>
+            </matcher>
+            <!-- END NEW RTE EDITOR -->
+			
+			<!-- BEGIN MEDIA_CATALOG -->
+            <matcher uri="**/media/**" command-name="get-media-file-command">
+                <parameter name="file" value="media/{2}"/>
+                <bind result="success" view="get-file-view"/>
+            </matcher>
+            <!-- END MEDIA_CATALOG -->			         
+            
+            <!-- BEGIN PRODUCT MODULE -->
+            <matcher uri="**product/images/*.*" command-name="get-file-command">
+                <parameter name="file" value="modules/product/images/{2}.{3}"/>
+                <bind result="success" view="get-file-view"/>
+            </matcher>
+            <!-- END PRODUCT MODULE -->
+            
+            &security_management_mappings;
+
+            &contact_book_mappings;
+            
+            &glossary_mappings;
+
+            &job_mappings;
+            
+            &document_module_mappings;
+            &captcha_mappings;
+						
+			&dictionary_mappings;
+            
+
+			<matcher uri="/admin/modules" command-name="get-modules-command">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="MODULES_LIST_XSL"/>
+                </bind>
+            </matcher>
+
+            <matcher uri="/admin/mass_th_uploader" command-name="mass-thumbnail-uploader">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="MASS_THUMBNAIL_UPLOADER_XSL"/>
+                </bind>
+            </matcher>
+            
+            <matcher uri="/admin/mass_th_uploader_xml" command-name="mass-thumbnail-uploader">
+                <bind result="success" view="xml-view"/>
+            </matcher>
+            
+            <matcher uri="/admin/mass_file_uploader" command-name="mass-file-uploader">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="MASS_FILE_UPLOADER_XSL"/>
+                </bind>
+            </matcher>
+            
+            <matcher uri="/admin/mass_file_uploader_xml" command-name="mass-file-uploader">
+                <bind result="success" view="xml-view"/>
+            </matcher>
+
+            
+            <!-- EVENT MODULE -->
+            <matcher uri="/admin/event_details" command-name="get-event-command">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="EVENT_EDIT_EVENT_XSL"/>
+                </bind>
+            </matcher>
+
+            <matcher uri="/admin/add_event" command-name="create-event-command">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="EVENT_EDIT_EVENT_XSL"/>
+                </bind>
+            </matcher>
+
+            <matcher uri="/admin/search_events" command-name="search-events-command">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="EVENT_SEARCH_XSL"/>
+                </bind>
+            </matcher>
+            <!-- EVENT MODULE -->
+
+            <!-- BEGIN WCMS_ATTIRBUTES -->
+            <matcher uri="/admin/browse_wcms_attrs" command-name="browse-wcms-attributes">
+                <bind result="success" view="html-view"><parameter name="xsl" value="WCMS_IMAGES"/></bind>
+            </matcher>
+            <matcher uri="/admin/create_wcms_attrs_from_templ" command-name="create-attribute-from-template">
+                <bind result="success" view="html-view"><parameter name="xsl" value="SITE_XSL"/></bind>
+            </matcher>
+            <matcher uri="/admin/update_wcsm_attributes" command-name="update-wcsm-attributes">
+                <bind result="success" view="html-view"><parameter name="xsl" value="WCMS_IMAGES"/></bind>
+            </matcher>
+            <!-- END WCMS_ATTIRBUTES -->                
+            
+            
+            
+            <!-- BEGIN RESOURCES -->
+            
+            <!-- CUSTOMER SITE RESOURCES BEGINS-->
+            <matcher uri="/site/modules/**" command-name="get-file-command">
+                <parameter name="is_site_file" value="true"/>
+                <parameter name="file" value="/site/modules/{1}"/>
+                <bind result="success" view="get-file-view"/>
+            </matcher>
+            <matcher uri="/site/core/**" command-name="get-file-command">
+                <parameter name="is_site_file" value="true"/>
+                <parameter name="file" value="/site/core/{1}"/>
+                <bind result="success" view="get-file-view"/>
+            </matcher>
+            <matcher uri="/site/resellers/*/public/**" command-name="get-file-command">
+                <parameter name="is_site_file" value="true"/>
+                <parameter name="file" value="/site/resellers/{1}/public/{2}"/>
+                <bind result="success" view="get-file-view"/>
+            </matcher>
+            <!-- CUSTOMER SITE RESOURCES ENDS-->
+            
+            <matcher uri="/css/*" command-name="get-file-command">
+                <parameter name="file" value="/css/{1}"/>
+                <bind result="success" view="get-file-view"/>
+            </matcher>
+            <matcher uri="/images/**" command-name="get-file-command">
+                <parameter name="file" value="/images/{1}"/>
+                <bind result="success" view="get-file-view"/>
+            </matcher>
+	    <matcher uri="/admin/images/**" command-name="get-file-command">
+                <parameter name="file" value="/images/{1}"/>
+                <bind result="success" view="get-file-view"/>
+            </matcher>
+            <matcher uri="/script/*" command-name="get-file-command">
+                <parameter name="file" value="/script/{1}"/>
+                <bind result="success" view="get-file-view"/>
+            </matcher>
+            <matcher uri="/xsl/*" command-name="get-file-command">
+                <parameter name="file" value="/xsl/{1}"/>
+                <bind result="success" view="get-file-view"/>
+            </matcher>
+            
+            <!-- END RESOURCES -->
+            
+            <matcher uri="**create_menu_item" command-name="create-menu-item-dialog-command">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="CREATE_MENU_ITEM_DIALOG_XSL"/>
+                </bind>
+            </matcher>
+                
+            <!-- INQUIRY MODULE -->
+            <matcher uri="/admin/inquiry" command-name="inquiry-controller">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="INQUIRY_XSL"/>
+                </bind>
+            </matcher>
+            <matcher uri="/admin/inquiry_export.csv" command-name="inquiry-export-controller">
+                <bind result="success" view="stream-view">
+                    <parameter name="cache-private" value="0"/>
+                    <parameter name="cache-minutes" value="0"/>
+                </bind>
+            </matcher>
+            <!-- INQUIRY MODULE -->
+
+            <!-- Guestbook -->
+            <matcher uri="/admin/guest_book_xsl" command-name="gb-manage-guestbook">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="GUESTBOOK"/>
+                </bind>
+            </matcher>
+            <!-- Guestbook -->
+
+            <!-- BEGIN RESOURCE NOT FOUND -->
+			
+			<matcher uri="*" command-name="get-page-command">
+                <parameter name="filename" value="{1}.html"/>
+                <bind result="success" view="html-view"><parameter name="xsl" value="SITE_XSL"/></bind>
+            </matcher>
+			
+			
+            <!--matcher uri="*" command-name="simple-command"> // old matcher
+                <bind result="success" view="redirection-view">
+                    <parameter name="destination" value="page_resource_not_found.html"/>
+                </bind>
+            </matcher-->
+
+            <matcher uri="**/*" command-name="simple-command">
+                <bind result="success" view="redirection-view">
+                    <parameter name="destination" value="../page_resource_not_found.html"/>
+                </bind>
+            </matcher>
+            <!-- END RESOURCE NOT FOUND -->
+
+
+
+
+            <!-- *********** BEGIN NAMED COMMANDS ************************** -->
+            <command name="simple-command">
+                <bind result="success" view="html-view"/>
+            </command>
+            
+            <command name="get-modules-command">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="MODULES_LIST_XSL"/>
+                </bind>
+            </command>
+            
+            <command name="get-modules-command-xml">
+                <bind result="success" view="xml-view">                
+                </bind>
+            </command>
+
+            <command name="get-categories-command">
+                <bind result="news_module" view="html-view">
+                    <parameter name="xsl" value="NEWS_CATEGORIES_XSL"/>
+                </bind>
+                <bind result="faq" view="html-view">
+                    <parameter name="xsl" value="CATEGORIES_LIST_XSL"/>
+                </bind>
+                <bind result="Photo album" view="html-view">
+                    <parameter name="xsl" value="CATEGORIES_LIST_XSL"/>
+                </bind>
+                <bind result="web_poll" view="html-view">
+                    <parameter name="xsl" value="CATEGORIES_LIST_XSL"/>
+                </bind>
+				<bind result="dynamic_item" view="html-view">
+                    <parameter name="xsl" value="DYNAMIC_ITEMS_XSL"/>
+                </bind>
+            </command>
+
+            <command name="list-directory-command">
+                <bind result="success" view="list-directory-view"/>
+            </command>
+
+            <command name="create-folder-command">
+                <bind result="success" view="list-directory-view"/>
+            </command>
+
+            <command name="upload-file-command">
+                <bind result="success" view="list-directory-view"/>
+            </command>
+
+            <command name="remove-resource-command">
+                <bind result="success" view="list-directory-view"/>
+            </command>
+
+            <command name="get-rename-resource-face">
+                <bind result="success" view="rename-resource-view"/>
+            </command>
+
+            <command name="rename-resource-command">
+                <bind result="success" view="list-directory-view"/>
+            </command>
+
+            <command name="get-move-resource-face">
+                <bind result="success" view="move-resource-view"/>
+                <bind result="user-error" view="list-directory-view"/>
+            </command>
+
+            <command name="move-resource-command">
+                <bind result="success" view="list-directory-view"/>
+            </command>
+
+            <command name="get-resource-info-face">
+                <bind result="success" view="resource-info-view"/>
+                <bind result="user-error" view="list-directory-view"/>
+                </command>
+
+            <command name="get-resource-chooser-command">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="REPOSITORY_CHOOSE_RESOURCE"/>
+                </bind>
+            </command>
+
+            <!-- Custom commands for new RTE : BEGIN -->
+			<command name="delete-menu-item-command">
+                <bind result="success" view="html-view"/>
+            </command>
+			
+			<command name="create-menu-item-command">
+                <bind result="success" view="xml-view"/>
+            </command>			
+			
+            <command name="get-second-resource-chooser-command">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="SECOND_REPOSITORY_CHOOSE_RESOURCE"/>
+                </bind>
+            </command>
+
+            <command name="get-second-resource-chooser-command-xml-view">
+                <bind result="success" view="xml-view"/>
+            </command>
+
+            <command name="get-second-image-uploader-face-xml-view">
+                <bind result="success" view="xml-view"/>
+            </command>
+            
+            <command name="second-choose-form">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="SECOND_CHOOSE_FORM_XSL"/>
+                </bind>
+            </command>
+            
+            <command name="second-choose-form-xml-view">
+                <bind result="success" view="xml-view"/>
+            </command>
+            
+            <command name="get-parametrized-links">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="RTE_PARAMETRIZED_LINKS_XSL"/>
+                </bind>
+            </command>
+            
+            <command name="get-parametrized-links-xml-view">
+                <bind result="success" view="xml-view"/>
+            </command>
+
+
+            <command name="get-auto-filled-attrs">
+                <bind result="success" view="xml-view">
+                    <parameter name="xsl" value="RTE_AUTO_FILLED_ATTRS_XSL"/>
+                </bind>
+            </command>
+
+            <command name="get-auto-filled-attrs-xml">
+                <bind result="success" view="xml-view">
+                    <parameter name="xsl" value="RTE_AUTO_FILLED_ATTRS_XSL"/>
+                </bind>
+            </command>
+            
+            
+            <command name="get-second-image-uploader-face">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="SECOND_IMAGE_UPLOADER_XSL"/>
+                </bind>
+            </command>
+            
+            <command name="second-image-uploader-command">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="SECOND_IMAGE_UPLOADER_XSL"/>
+                </bind>
+            </command>
+
+            <command name="second-image-uploader-command-xml-view">
+                <bind result="success" view="xml-view"/>
+            </command>
+            <!-- Custom commands for new RTE : END -->
+
+            <command name="mc-set-container-command">
+                <bind result="success" view="list-directory-view"/>
+            </command>
+
+            <command name="mc-check-file-existence-command">
+                <bind result="success" view="list-directory-view"/>
+            </command>
+
+            <command name="mc-test-command">
+                <bind result="success" view="xml-view"/>
+            </command>
+
+            <command name="get-file-uploader-face">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="UPLOAD_FILE_XSL"/>
+                </bind>
+            </command>            
+
+            <command name="update-wcsm-link">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="WCMS_IMAGE_LINK_XSL"/>
+                </bind>
+            </command>
+
+			<command name="browse-animation-properties">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="WCMS_ANIMATION_PROP_XSL"/>
+                </bind>
+            </command>
+
+            <command name="get-file-uploader-face-xml">
+                <bind result="success" view="xml-view"/>
+            </command>
+
+            <command name="get-image-uploader-face">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="IMAGE_UPLOADER_XSL"/>
+                </bind>
+            </command>
+
+            <command name="image-uploader-command">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="IMAGE_UPLOADER_XSL"/>
+                </bind>
+            </command>
+
+            <command name="get-updownload-info-command">
+                <bind result="success" view="updownload-info-view"/>
+            </command>
+
+            <command name="upload-thumbnail-command">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="UPLOAD_FILE_XSL"/>
+                </bind>
+            </command>
+            
+            <command name="upload-banner-command">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="UPLOAD_FILE_XSL"/>
+                </bind>
+            </command>
+
+            <command name="upload-file-command2">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="UPLOAD_FILE_XSL"/>
+                </bind>
+            </command>
+
+            <command name="upload-document-command">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="UPLOAD_FILE_XSL"/>
+                </bind>
+            </command>
+
+            <command name="upload-flash-command"> 
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="UPLOAD_FILE_XSL"/>
+                </bind>
+            </command>
+                
+           <command name="get-pages-list-command">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="PAGES_LIST_XSL"/>
+                </bind>
+            </command>
+            
+            <command name="site-dynamics-command">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="SITE_DYNAMICS_XSL"/>
+                </bind>
+            </command>
+			
+			<command name="update-menu-item-command">
+                <bind result="success" view="xml-view"/>				
+            </command>
+			
+
+            &product_module_mappings;
+
+            &newsletter_mappings;
+            
+            &list_mappings;
+
+            &photo_album_mappings;
+
+            <!-- BEGIN FORM MANAGER -->
+            <command name="manage-forms">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="MANAGE_FORMS_XSL"/>
+                </bind>
+            </command>
+
+            <command name="choose-form">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="CHOOSE_FORM_XSL"/>
+                </bind>
+            </command>
+            <!-- END FORM MANAGER -->
+
+            <command name="select-page-template-command">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="SELECT_PAGE_TEMPLATE_XSL"/>
+                </bind>
+            </command>
+
+            <!-- **************** END NAMED COMMANDS ******************** -->
+            
+            <!-- &development_mappings; -->
+			
+			<command name="ajax">
+                <bind result="success" view="html-view">
+                    <parameter name="xsl" value="SITE_XSL"/>
+                </bind>
+            </command>
+			
+			<command name="ajax-xml">
+               <bind result="success" view="xml-view"></bind>
+            </command>
+            
+    </controller>
+</application>

@@ -1,0 +1,286 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+  <class name="com.negeso.framework.domain.Article" table="article">
+    <id name="id"  type="long" >
+      <generator class="sequence">
+        <param name="sequence">article_id_seq</param>
+      </generator>
+    </id>
+    
+    <property name="lang_id"/>
+    <property name="head"/>
+    <property name="text" column="text"/>
+    <property name="class_" column="class"/>
+    <property name="containerId" column="container_id"/>
+  </class>
+  
+  <class name="com.negeso.module.core.domain.ArticleRevision" table="article_revision">
+    <id name="id"  type="long" >
+      <generator class="sequence">
+        <param name="sequence">article_revision_id_seq</param>
+      </generator>
+    </id>
+    
+    <property name="articleId" column="article_id" type="long"/>
+    <property name="date" type="timestamp"/>
+    <property name="text"/>
+    <property name="author"/>
+  </class>
+
+  <class name="com.negeso.framework.domain.Language" table="language">
+  	<!--cache usage="read-only"/-->
+
+    <id name="id"  type="long" >
+      <generator class="sequence">
+        <param name="sequence">language_id_seq</param>
+      </generator>
+    </id> 
+    <property name="code"/>
+    <property name="language"/>
+    <map name="countries" table="language_geoip">
+        <key column="lang_id" foreign-key="fk_language_geoip_2_language" not-null="true"></key>
+        <map-key column="country_code" type="string"></map-key>
+        <element column="country_name" type="string"></element>
+    </map>
+  </class>
+
+
+
+  <class name="com.negeso.module.core.domain.ConfigurationParameter" table="core_property">
+    <id name="id"  type="long" >
+      <generator class="sequence">
+        <param name="sequence">core_property_id_seq</param>
+      </generator>
+    </id> 
+    <property name="name"/>
+    <property name="value"/>
+    <property name="description"/>
+    <property name="moduleId" column="module_id"/>
+    <property name="title"/>
+    <property name="visible" type="boolean"/>
+    <property name="readonly" type="boolean"/>
+    <property name="required" type="boolean"/>    
+    <property name="resetCache" column="reset_cache" type="boolean"/>    
+    <property name="siteId" type="long" column="site_id"/>
+	<property name="fieldType" column="field_type"/>
+  </class>
+	
+  <class name="com.negeso.framework.module.Module" table="module">
+    <id name="id"  type="long" >
+      <generator class="sequence">
+        <param name="sequence">module_id_seq</param>
+      </generator>
+    </id> 
+
+    <property name="title"/>
+    <property name="name"/>
+   
+	<set name="configurationParameters" 
+	    inverse="true" 
+	    order-by="name"
+		cascade="save-update">
+		<key column="module_id"/>
+		<one-to-many class="com.negeso.module.core.domain.ConfigurationParameter"/>
+	</set>
+	
+	<set name="items" order-by="order_number" cascade="all-delete-orphan" inverse="true">
+        <key column="module_id" foreign-key="fk_module_setting_2_module"/>
+        <one-to-many class="com.negeso.framework.module.domain.ModuleItem"/>
+    </set>
+    <property name="dictionaryKey" column="dict_key"/>
+    <property name="url"/>
+    <property name="golive" type="timestamp"/>
+    <property name="orderNumber" column="order_number" type="long"/>
+    <property name="expiredDate" column="expired" type="timestamp"/>
+    <property name="image"/>
+    <property name="helpUrl" column="help_url"/>
+    <property name="parametersCount" 
+        formula="(SELECT count(*) FROM core_property c WHERE c.module_id = id)"></property>
+    <property name="visibleParametersCount" 
+        formula="(SELECT count(*) FROM core_property c WHERE c.module_id = id AND c.visible)"></property>
+    <property name="constsCount" 
+        formula="(SELECT count(*) FROM dic_custom_const d WHERE d.module_id = id)"></property>
+  </class>
+  
+   <class name="com.negeso.framework.module.domain.ModuleItem" table="module_setting">
+        <id name="id"  type="long" >
+          <generator class="sequence">
+            <param name="sequence">module_setting_id_seq</param>
+          </generator>
+        </id>
+        <many-to-one name="module" class="com.negeso.framework.module.Module"
+            column="module_id"
+            foreign-key="fk_module_setting_2_module" />
+        <property name="dictionaryKey" column="dict_key"/>
+        <property name="url"/>
+        <property name="hideFromUser" column="hide_from_user" type="boolean"/>
+        <property name="orderNumber" column="order_number" type="long"/>
+        <property name="helpUrl" column="help_url"/>
+   </class>
+	
+	<class name="com.negeso.module.core.domain.Reference" table="core_reference" >
+	    <id name="id"  type="long" >
+	      <generator class="sequence">
+	        <param name="sequence">core_reference_id_seq</param>
+	      </generator>
+	    </id> 
+		<property name="referenceType" column="reference_type"/>
+		<property name="code"/>
+		<property name="name"/>
+	</class>
+	
+	<class name="com.negeso.framework.domain.Country" table="country">
+	    <id name="id"  type="long" >
+	      <generator class="sequence">
+	        <param name="sequence">country_id_seq</param>
+	      </generator>
+	    </id> 
+	    <property name="name"/>
+	    <property name="code"/>
+	    <property name="alpha2"/>
+	    <property name="alpha3"/>
+  	</class>
+  	
+  	<class name="com.negeso.framework.site.SiteUrl" table="site_url">
+        <id name="id" type="long" column="id">
+            <generator class="sequence">
+                <param name="sequence">site_url_id_seq</param>
+            </generator>
+        </id>
+
+        <property name="url" />
+        <property name="siteId" column="site_id" type="long"/>
+        <property name="main" column="is_main" type="boolean"/>
+        <property name="langId" column="lang_id" type="long"/>
+        <property name="singleLanguage" column="is_single_lang" type="boolean"/>
+        <property name="showLangSelector" column="show_lang_selector" type="boolean"/>
+        <bag name="langIds" table="site_url_2_lang">
+	        <key column="site_url_id" foreign-key="fk_site_url_2_lang_2_site_url" not-null="true"></key>
+	        <element column="lang_id" type="long"></element>
+	    </bag>
+	    <property name="bing" column="bing_code"/>
+	    <property name="analytic" column="google_analytic_code"/>
+	    <property name="verification" column="google_verification_code"/>
+        <property name="tagManager" column="google_tag_manager_code"/>
+    </class>
+    
+    <class name="com.negeso.framework.site.PageAlias" table="page_alias">
+        <id name="id" type="long" column="id">
+            <generator class="sequence">
+                <param name="sequence">page_alias_id_seq</param>
+            </generator>
+        </id>
+
+        <property name="langId" column="lang_id" type="long"/>
+        <property name="fileName" column="filename"/>
+        <property name="pageId" column="page_id" type="long"/>
+        <property name="entityId" column="entity_id" type="long"/>
+        <property name="entityTypeId" column="entity_type_id" type="long"/>
+        <property name="link"/>
+        <property name="siteId" column="site_id" type="long"/>
+        <property name="inSiteMap" column="is_in_sitemap" type="boolean"></property>
+    </class>
+  	
+  	<class name="com.negeso.framework.site.PageRedirect" table="page_redirect">
+        <id name="id" type="long" column="id">
+            <generator class="sequence">
+                <param name="sequence">page_redirect_id_seq</param>
+            </generator>
+        </id>
+
+        <property name="langId" column="lang_id" type="long"/>
+        <property name="countryCode" column="country_code" />
+        <property name="siteId" column="site_id" type="long"/>
+        <property name="order" column="order_number" type="long"/>
+        <property name="maskUrlFrom" column="mask_url_from"/>
+        <property name="redirectUrl" column="redirect_url"/>
+    </class>
+    
+    <class name="com.negeso.module.core.domain.I18nCoreProperty" table="core_property_i18n">
+		<id name="id" type="long">
+			<generator class="sequence">
+				<param name="sequence">core_property_i18n_id_seq</param>
+			</generator>
+		</id>
+		<property name="name" />
+		<property name="title" />
+		<property name="moduleId" column="module_id" type="long"/>
+		<property name="siteId" column="site_id" type="long"/>
+		<map name="customFields" cascade="all-delete-orphan" inverse="true">
+			<key column="property_id" not-null="true"
+				foreign-key="fk_core_property_i18n_value_2_property" />
+			<map-key type="long" column="lang_id" />
+			<one-to-many class="com.negeso.module.core.domain.I18nCorePropertyValue" />
+		</map>
+	</class>
+
+	<class name="com.negeso.module.core.domain.I18nCorePropertyValue" table="core_property_i18n_value">
+		<id name="id" type="long">
+			<generator class="sequence">
+				<param name="sequence">core_property_i18n_value_id_seq</param>
+			</generator>
+		</id>
+		<property name="value" type="string" />
+		<property name="langId" column="lang_id" type="long" />
+		<many-to-one name="I18nCoreProperty"
+			class="com.negeso.module.core.domain.I18nCoreProperty" column="property_id"
+			not-null="true" cascade="save-update" foreign-key="fk_core_property_i18n_value_2_property" />
+	</class>
+	
+	<class name="com.negeso.module.core.domain.PlaceHolder" table="core_placeholder">
+        <id name="id" type="long">
+            <generator class="sequence">
+                <param name="sequence">core_placeholder_id_seq</param>
+            </generator>
+        </id>
+        <property name="key" />
+        <property name="value" />
+        <property name="siteId" column="site_id" type="long"/>
+    </class>
+
+  	
+  	
+  	
+  	<query name="Module.getModuleByName"><![CDATA[
+        from Module m where m.name = ?
+    ]]></query>
+    
+    <query name="SiteUrl.listBySiteId"><![CDATA[
+        from SiteUrl s where s.siteId = ? order by id
+    ]]></query>
+    
+    <query name="SiteUrl.listBySiteIdLangId"><![CDATA[
+        from SiteUrl s where s.siteId = ? order by s.langId
+    ]]></query>
+    
+    <query name="PageAlias.listSortedById"><![CDATA[
+        from PageAlias p where p.siteId = ? order by id
+    ]]></query>
+    
+    <query name="PageRedirect.listByLangId"><![CDATA[
+        from PageRedirect p where (p.langId = ?  or p.langId = 0) and p.siteId = ?  order by p.order
+    ]]></query>
+
+    <query name="PageRedirect.listByLangAndCountry"><![CDATA[
+        from PageRedirect p where (p.langId = ?  or p.langId = 0) and (p.countryCode = ? or p.countryCode = '*') and p.siteId = ?  order by p.order
+    ]]></query>
+    
+     <query name="PageRedirect.listAll"><![CDATA[
+        from PageRedirect p where p.siteId = ? order by p.order
+    ]]></query>
+    
+    <query name="PageAlias.listByPageIdSorted"><![CDATA[
+        from PageAlias p where p.siteId = ? and p.pageId = ? order by id
+    ]]></query>
+    
+    <query name="ArticleRevision.listByArticleId"><![CDATA[
+        from ArticleRevision ar where ar.articleId = ? order by ar.date DESC
+    ]]></query>
+    
+	
+</hibernate-mapping>

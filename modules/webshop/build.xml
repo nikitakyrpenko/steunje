@@ -1,0 +1,10 @@
+<project name="WebCMS-Webshop" basedir="../.." default="compile-module">
+    <property file="ant/compile.properties" />
+	<property name="module.version" value="0.37.12"/>
+
+	<property name="module.key" value="webshop"/>
+	<property name="module.title" value="Webshop Module"/>
+
+    <path id="module.classpath"/>
+	<import file="../../ant/compile.xml"/>
+</project>

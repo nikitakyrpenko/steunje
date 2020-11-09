@@ -1,0 +1,5 @@
+<module id="job_module" name="Job Module">
+  <extension point="core">
+    <mapping-url>/admin/job_regions.html</mapping-url>
+  </extension>
+</module>

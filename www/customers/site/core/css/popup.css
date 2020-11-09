@@ -1,0 +1,24 @@
+body {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.popupContainer {
+	width: 100%;
+	height: 100%;
+}
+
+.popupContent {
+	vertical-align: top;
+	padding: 5px;
+}
+
+.popupFoot {
+	vertical-align: bottom;
+	height: 15px;
+	border-top: 1px solid #0939A9;
+	font-family: arial;
+	color: #0939A9;
+	font-size: 11px;
+}

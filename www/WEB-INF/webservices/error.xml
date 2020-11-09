@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<env:Envelope
+	xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:enc="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ns0="http://negeso.com/2003/Framework-v.1.1/wsdl/serviceAdmin/types/serviceAdmin"
+	env:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+	<env:Body>
+		<env:Fault>
+			<faultcode>env:Server</faultcode>
+			<faultstring/>
+		</env:Fault>
+	</env:Body>
+</env:Envelope>

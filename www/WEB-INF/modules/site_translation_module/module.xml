@@ -1,0 +1,5 @@
+<module id="site_translation_module" name="site_translation_module">
+  <extension point="core">
+	<mapping-url>/admin/stm_settings.html</mapping-url>
+  </extension>  
+</module>

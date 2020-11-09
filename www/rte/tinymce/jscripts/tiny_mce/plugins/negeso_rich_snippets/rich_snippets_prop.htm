@@ -1,0 +1,72 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Negeso Rich Snipets Props</title>
+	<script language="javascript" type="text/javascript" src="../../tiny_mce_popup.js"></script>
+	<script language="javascript" type="text/javascript" src="rich_snippets.js">/**/</script>
+	
+	
+	
+	<script language="javascript" type="text/javascript" src="../../utils/mctabs.js"></script>
+	<script language="javascript" type="text/javascript" src="../../utils/form_utils.js"></script>
+	
+	 
+	<base target="_self" />
+</head>
+<body style="display: none; margin: 0; padding: 6px">
+    <script language="javascript" type="text/javascript" src="/script/jscolor.js">/**/</script>
+    
+    <form action="#">
+		<div class="tabs">
+			<ul>
+				<li id="general_tab" class="current"><span><a href="javascript:mcTabs.displayTab('general_tab','general_panel');" onmousedown="return false;">General</a></span></li>
+			</ul>
+		</div>
+
+		
+
+		<div class="panel_wrapper">
+			<div id="general_panel" class="panel current" style="height: 110px;">
+				<fieldset>
+					<legend>Options</legend>
+
+					
+					<table border="0" cellpadding="4" cellspacing="0">
+						<tr>
+							<td nowrap="nowrap"><label>Item property</label></td>
+							<td nowrap="nowrap">
+							    <select id="itemProp" onchange="onchangeActions(this);">
+							    </select>
+							</td>
+						</tr>
+						<tr style="display: none;" id="dataBlock">
+                            <td nowrap="nowrap"><label>Data</label></td>
+                            <td nowrap="nowrap">
+                                <input name="data" id="data" type="text" value="">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td nowrap="nowrap"><label>Text</label></td>
+                            <td nowrap="nowrap">
+                                <div id="propertyText" style="white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word; "></div>
+                            </td>
+                        </tr>
+					</table>
+				</fieldset>
+			</div>
+		</div>
+	
+		<div class="mceActionPanel" style="padding-bottom: 20px">
+			<div style="float: left">
+				<input type="button" id="insert" name="insert" value="{#insert}" onclick="insertOrUpdateProp();" />
+			</div>
+
+			<div style="float: right">
+				<input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="tinyMCEPopup.close();" />
+			</div>
+		</div>
+	</form>
+</body>
+
+
+</html>

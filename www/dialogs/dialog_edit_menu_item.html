@@ -1,0 +1,87 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<title>Negeso W/CMS</title>
+	<link rel="stylesheet" type="text/css" href="/css/admin_dialog_style.css">
+	<META http-equiv=Content-Type content="text/html; charset=UTF-8">
+ <script type="text/javascript" src="/script/jquery.min.js"></script>
+	<script language="JavaScript" src="/script/common_functions.js"></script>
+
+	<!-- script block for localization mechanism -->
+    <script id="localization"></script>
+	<script language="JavaScript">
+		document.all["localization"].src =
+            "/dictionaries/dict_dialogs_" + getInterfaceLanguage() + ".js";
+	</script>
+
+	<script>
+	
+        var callingWindow = window.dialogArguments;
+        
+		document.onkeypress = function(){
+			if(window.event.keyCode == 27) returnCancel();
+		}
+		
+		window.onload = function(){
+            link_alias.value = callingWindow.edit_alias_title;
+            link_alias.text = callingWindow.edit_alias_filename;
+			buttonYes.blur();
+			buttonCancel.blur();
+		}
+        
+		function returnYes(){
+            callingWindow.edit_alias_title = link_alias.value;
+            callingWindow.edit_alias_filename = link_alias.text;
+			window.returnValue='yes';
+			window.close();
+		}
+		
+		function returnCancel(){
+			window.returnValue='cancel';
+			window.close();
+		}
+        
+        function openPageExplorer() {
+            window.showModalDialog(
+                "?command=get-pages-list-command",
+                 this,
+                "dialogHeight: 540px; dialogWidth: 540px; help: No; scroll: Yes; status: No;"
+            ).then(function(answer){
+                try{
+                    if(typeof(answer) != "undefined" && answer != null){
+                        link_alias.value = answer[0];
+                        link_alias.text = answer[1];
+                    }
+                }catch(e){}
+            });
+        }
+        attachEvent ("onload", resizeDialogWindow); //resize dialog window height
+	</script>
+
+</head>
+<body>
+<fieldset>
+	<legend class="admBold" id="POINT_TO"></legend>
+
+	<table class="admMarginAll">
+		<tr>
+			<td class="admWidth_300" id="SELECT_PAGE">
+	            <input type="text" id="link_alias" text="" readonly class="admReadonly"><input type="button" id="link_alias_btn" value="..." onclick="openPageExplorer()" class="admExplor">
+	        </td>
+		</tr>
+	</table>
+
+</fieldset>
+<div class="admDiv">
+	<input type="button" onclick="returnYes()" id="buttonYes" value="OK"> 
+	<input type="button" onclick="returnCancel()" id="buttonCancel" value="Cancel">
+</div>
+
+<script>
+	window.document.all.POINT_TO.innerHTML = Strings.SELECT_PAGE_THIS_MENU_ITEM_WILL_POINT_TO;
+	window.document.all.link_alias.value = Strings.PLEASE_SELECT_PAGE;
+	window.document.all.buttonYes.value = Strings.OK;
+	window.document.all.buttonCancel.value = Strings.CANCEL;
+</script>
+</body>
+</html>

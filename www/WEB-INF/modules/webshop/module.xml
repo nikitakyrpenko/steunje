@@ -1,0 +1,9 @@
+<module id="webshop" name="Webshop Module">
+  <extension point="core">	
+	<mapping-url>/admin/webshop</mapping-url>
+	<mapping-url>/admin/webshop/.*</mapping-url>
+	<mapping-url>/webshop/api/.+</mapping-url>
+	<!--<mapping-url>/thr_get_version</mapping-url>-->
+	<!--<mapping-url>/thr_get_ios_version</mapping-url>-->
+  </extension>
+</module>

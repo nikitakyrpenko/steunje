@@ -1,0 +1,28 @@
+<module id="newsletter_module" name="newsletter_module">
+  <extension point="core">
+	<mapping-url>/admin/nl_list</mapping-url>
+    <mapping-url>/admin/nl_categorylist</mapping-url>
+    <mapping-url>/admin/nl_editcategory</mapping-url>
+    <mapping-url>/admin/nl_publicationlist</mapping-url>
+    <mapping-url>/admin/nl_editpublication</mapping-url>
+    <mapping-url>/admin/nl_grouplist</mapping-url>
+    <mapping-url>/admin/nl_editgroup</mapping-url>
+    <mapping-url>/admin/nl_subscriberslist</mapping-url>
+    <mapping-url>/admin/nl_import</mapping-url>
+    <mapping-url>/admin/nl_import_details</mapping-url>
+    <mapping-url>/admin/nl_mailtemplates</mapping-url>
+    <mapping-url>/admin/nl_statistics</mapping-url>
+    <mapping-url>/admin/nl_editmailtemplate</mapping-url>
+    <mapping-url>/admin/nl_editsubscriber</mapping-url>
+    <mapping-url>/admin/nl_editsubscriber</mapping-url>
+    <mapping-url>/nl_read_notify.gif</mapping-url>
+    <mapping-url>/admin/nl_settings</mapping-url>
+    <mapping-url>/admin/nl_export_subscribers</mapping-url>
+    <page-components>
+        <page-component name="newsletter-component" class="com.negeso.module.newsletter.web.component.NewsletterComponent"/>              
+    </page-components>
+  </extension>
+  <extension point="import">								
+  	<importer id="importer" name="Subscribers import" class="com.negeso.module.newsletter.service.SubscriberImporter" />
+  </extension>
+</module>

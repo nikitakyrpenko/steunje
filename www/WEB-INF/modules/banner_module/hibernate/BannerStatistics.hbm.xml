@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.negeso.module.banner_module.bo.BannerStatistics" table="bm_statistics">
+        <id name="id"  type="long">
+          <generator class="sequence">
+            <param name="sequence">bm_statistics_id_seq</param>
+          </generator>
+        </id>
+
+        <property name="bannerId" not-null="true" column="banner_id"/>
+        <property name="clicks" />
+        <property name="views" />
+        <property name="date" type="timestamp"/>
+    </class>
+    
+    <query name="BannerStatistics.findByDate"><![CDATA[
+        from BannerStatistics bStat where bStat.bannerId = ? and bStat.date = ?
+    ]]></query>
+    
+    <query name="BannerStatistics.listByDates"><![CDATA[
+        from BannerStatistics bStat where bStat.bannerId = ? and bStat.date >= ? and bStat.date <= ?
+    ]]></query>
+    
+</hibernate-mapping>

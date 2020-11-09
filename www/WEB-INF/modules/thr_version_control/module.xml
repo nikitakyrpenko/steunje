@@ -1,0 +1,7 @@
+<module id="thr_version_control" name="Thr Version Control module for android app">
+  <extension point="core">	
+	<mapping-url>/admin/version_control.html</mapping-url>
+	<mapping-url>/thr_get_version</mapping-url>
+	<mapping-url>/thr_get_ios_version</mapping-url>
+  </extension>
+</module>

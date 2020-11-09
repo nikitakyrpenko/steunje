@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean id="messageSource" class="com.negeso.framework.i18n.DatabaseResourceBundleMessageSource">
+		<property name="basename" value="dict_common.xsl, rich_snippet, core, dict_modules.xsl" />
+	</bean>
+
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/modules/rich_snippet/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+					<property name="paramName" value="interfaceLanguage" />
+				</bean>
+			</list>
+		</property>
+		<property name="mappings">
+			<props>
+				<prop key="/admin/rich_snippet.html">richSnippetModuleController</prop>
+				<prop key="/admin/rs_review_list.html">reviewRichSnippetController</prop>
+				<prop key="/admin/rs_edit_review.html">reviewRichSnippetController</prop>
+				<prop key="/admin/rs_product_list.html">productRichSnippetController</prop>
+				<prop key="/admin/rs_edit_product.html">productRichSnippetController</prop>
+				<prop key="/admin/rs_video_list.html">videoRichSnippetController</prop>
+				<prop key="/admin/rs_edit_video.html">videoRichSnippetController</prop>
+				<prop key="/admin/rs_aggregate_review_list.html">aggregateReviewRichSnippetController</prop>
+				<prop key="/admin/rs_edit_aggregate_review.html">aggregateReviewRichSnippetController</prop>
+				<prop key="/admin/rs_choose_rich_snippet.html">chooseRichSnippetController</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="richSnippetModuleController" class="com.negeso.module.rich_snippet.web.controller.RichSnippetModuleController">
+		<property name="richSnippetService" ref="richSnippetService" />
+	</bean>
+	
+	<bean id="abstractRichSnippetController" class="com.negeso.module.rich_snippet.web.controller.AbstractRichSnippetController" abstract="true">
+		<property name="methodNameResolver">
+			<bean class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+				<property name="paramName">
+					<value>action</value>
+				</property>
+				<property name="defaultMethodName" value="list" />
+			</bean>
+		</property>
+		<property name="richSnippetService" ref="richSnippetService" />
+	</bean>
+
+	<bean id="reviewRichSnippetController" class="com.negeso.module.rich_snippet.web.controller.AbstractRichSnippetController" parent="abstractRichSnippetController">
+		<property name="discriminator" value="review" />
+	</bean>
+
+	<bean id="productRichSnippetController" class="com.negeso.module.rich_snippet.web.controller.AbstractRichSnippetController" parent="abstractRichSnippetController">
+		<property name="discriminator" value="product" />
+	</bean>
+
+	<bean id="videoRichSnippetController" class="com.negeso.module.rich_snippet.web.controller.AbstractRichSnippetController" parent="abstractRichSnippetController">
+		<property name="discriminator" value="video" />
+	</bean>
+	
+	<bean id="aggregateReviewRichSnippetController" class="com.negeso.module.rich_snippet.web.controller.AbstractRichSnippetController" parent="abstractRichSnippetController">
+		<property name="discriminator" value="aggregate_review" />
+	</bean>
+
+	<bean id="chooseRichSnippetController" class="com.negeso.module.rich_snippet.web.controller.ChooseRichSnippetController">
+		<property name="methodNameResolver">
+			<bean class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+				<property name="paramName">
+					<value>action</value>
+				</property>
+				<property name="defaultMethodName" value="list" />
+			</bean>
+		</property>
+		<property name="richSnippetService" ref="richSnippetService" />
+	</bean>
+
+</beans>

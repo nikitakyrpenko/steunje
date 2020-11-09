@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+  <class name="com.negeso.module.parametrized_link.domain.ParametrizedLink" table="pl_parametrized_link">
+    <id name="id" type="long">
+	    <generator class="sequence">
+    	     <param name="sequence">pl_parametrized_link_id_seq</param>
+        </generator>            
+	</id>
+   
+    <property name="title" 				column="title"/>
+    <property name="url" 				column="url"/>
+    <property name="isSecured"			column="secured"/>
+    <property name="langId" 			column="lang_id"/>
+    <property name="siteId" 			column="site_id"/>
+    
+  </class>
+
+</hibernate-mapping>

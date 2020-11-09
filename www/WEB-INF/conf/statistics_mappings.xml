@@ -1,0 +1,94 @@
+<command name="statistics-list">
+     <bind result="success" view="html-view">
+           <parameter name="xsl" value="STATISTICS_LIST_FORM_XSL"/>
+     </bind>
+</command>
+        
+<matcher uri="admin/stats_list" command-name="statistics-list">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="STATISTICS_LIST_FORM_XSL"/>
+    </bind>
+    <bind result="access-denied" view="html-view">
+        <parameter name="xsl" value="ACCESS_DENIED_XSL"/>
+    </bind>
+</matcher>
+
+<matcher uri="admin/stats_page" command-name="statistics-page">
+    <bind result="success" view="statistics-html-cache-view">
+        <parameter name="xsl" value="STATISTICS_PAGE_FORM_XSL"/>
+    </bind>
+    <bind result="access-denied" view="html-view">
+        <parameter name="xsl" value="ACCESS_DENIED_XSL"/>
+    </bind>
+</matcher>
+<matcher uri="admin/stats_user" command-name="statistics-user-page">
+    <bind result="success" view="statistics-html-cache-view">
+        <parameter name="xsl" value="STATISTICS_USER_PAGE_FORM_XSL"/>
+    </bind>
+    <bind result="access-denied" view="html-view">
+        <parameter name="xsl" value="ACCESS_DENIED_XSL"/>
+    </bind>
+</matcher>
+
+<matcher uri="admin/stats_select_user" command-name="statistics-select-user">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="STATISTICS_SELECT_USER_XSL"/>
+    </bind>
+    <bind result="access-denied" view="html-view">
+        <parameter name="xsl" value="ACCESS_DENIED_XSL"/>
+    </bind>
+</matcher>
+
+<matcher uri="admin/stats_page.csv" command-name="statistics-page">
+    <bind result="success" view="statistics-csv-view">
+    </bind>
+    <bind result="access-denied" view="html-view">
+        <parameter name="xsl" value="ACCESS_DENIED_XSL"/>
+    </bind>
+</matcher>
+
+<matcher uri="admin/stats_user_page.csv" command-name="statistics-user-page">
+    <bind result="success" view="statistics-csv-view">
+    </bind>
+    <bind result="access-denied" view="html-view">
+        <parameter name="xsl" value="ACCESS_DENIED_XSL"/>
+    </bind>
+</matcher>
+
+
+<matcher uri="admin/statistics_xml" command-name="statistics-page">
+	          <bind result="success" view="xml-view"/>
+	          <bind result="access-denied" view="html-view">
+            		<parameter name="xsl" value="ACCESS_DENIED_XSL" />
+              </bind>
+       	  </matcher>
+           <matcher uri="admin/statistics_user_xml" command-name="statistics-user-page">
+	          <bind result="success" view="xml-view"/>
+	          <bind result="access-denied" view="html-view">
+            		<parameter name="xsl" value="ACCESS_DENIED_XSL" />
+              </bind>
+       	  </matcher>
+           <matcher uri="admin/statistics_user_list_xml" command-name="statistics-select-user">
+	          <bind result="success" view="xml-view"/>
+	          <bind result="access-denied" view="html-view">
+            		<parameter name="xsl" value="ACCESS_DENIED_XSL" />
+              </bind>
+</matcher>
+
+
+
+
+<!-- Counters matchers begin -->
+<matcher uri="admin/counter_mngr" command-name="manage-counters-command">
+  <bind result="success" view="html-view">
+    <parameter name="xsl" value="MANAGE_COUNTERS_XSL"/>
+  </bind>
+</matcher>
+
+<matcher uri="admin/add_page" command-name="get-menu-tree-command">
+  <bind result="success" view="html-view">
+    <parameter name="xsl" value="PAGES_LIST_XSL"/>
+  </bind>
+</matcher>
+<!-- Counters matchers end -->
+

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+  <class name="com.negeso.module.store_locator.domain.Region" table="sl_region">
+    <id name="id"  type="long" >
+      <generator class="sequence">
+        <param name="sequence">sl_region_id_seq</param>
+      </generator>
+    </id>
+    <property name="title"/>
+
+    <!-- set name="companies" inverse="true" fetch="join">
+      <key column="region_id"/> 
+        <one-to-many  class=" com.negeso.module.store_locator.domain.Company"/>
+    </set-->
+
+    <bag name="companies" order-by="title">
+      <key column="region_id"/>
+        <one-to-many  class="com.negeso.module.store_locator.domain.Company"/>
+    </bag>   
+
+  </class>
+  
+  <class name="com.negeso.module.store_locator.domain.Company" table="sl_company">
+    <id name="id"  type="long" >
+      <generator class="sequence">
+        <param name="sequence">sl_company_id_seq</param>
+      </generator>
+    </id>
+    <property name="regionId" column="region_id" />
+    <property name="title"/>
+    <property name="image"/>
+    <property name="link"/>
+
+    <bag name="shops" order-by="country">
+      <key column="company_id"/>
+        <one-to-many  class="com.negeso.module.store_locator.domain.Shop"/>
+    </bag>   
+
+  </class>
+
+  <class name="com.negeso.module.store_locator.domain.Shop" table="sl_shop">
+    <id name="id"  type="long" >
+      <generator class="sequence">
+        <param name="sequence">sl_shop_id_seq</param>
+      </generator>
+    </id>
+    <property name="companyId" column="company_id"/>
+    <property name="country"/>
+    <property name="link"/>
+  </class>
+
+</hibernate-mapping>

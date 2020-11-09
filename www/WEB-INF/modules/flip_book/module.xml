@@ -1,0 +1,12 @@
+<module id="flip_book" name="flip_book">
+  <extension point="core">
+	<mapping-url>.*/xml/Pages.xml</mapping-url>
+	<mapping-url>.*/txt/Lang.txt</mapping-url>
+	<mapping-url>.*/swf/Pages.swf</mapping-url>
+	<mapping-url>/admin/flipbook</mapping-url>
+	<mapping-url>/flipbook</mapping-url>
+	<mapping-url>/admin/fbm_settings.html</mapping-url>
+	<mapping-url>/mp3/.*</mapping-url>
+    <mapping-url>/admin/mp3/.*</mapping-url>
+  </extension>
+</module>

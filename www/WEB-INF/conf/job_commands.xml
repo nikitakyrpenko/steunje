@@ -1,0 +1,2 @@
+<command name="j-manage-jobs" class="com.negeso.module.job.command.ManageJobs"/>
+<command name="j-field-repository" class="com.negeso.module.job.extra_field.ManageFieldRepository"/>

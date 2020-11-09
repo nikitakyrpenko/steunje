@@ -1,0 +1,10 @@
+<project name="WebCMS-Cache" basedir="../.." default="compile-module">
+
+	<property name="module.version" value="1.0.8"/>
+	
+	<property name="module.key" value="cache"/>
+	<property name="module.title" value="Cache Module"/>
+	<path id="module.classpath"/>
+	<import file="../../ant/compile.xml"/>
+
+</project>

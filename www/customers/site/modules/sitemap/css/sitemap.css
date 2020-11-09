@@ -1,0 +1,40 @@
+/*Sitemap Start*/
+.smBody a{
+	color: #ff0000;
+}
+
+.smBody a:hover{
+	color: #ff0000;
+}
+
+.smBody{
+	background-color: #EBEBEB;
+	border-top: 3px solid #FFFFFF;
+	border-bottom: 3px solid #FFFFFF;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	width: 100%;
+	heigth: 100%;
+}
+
+.smBodyTop {
+	margin: 15px;
+}
+
+.smContent {
+	background-color: #FFFFFF;
+	border: 1px solid #b4b4b4; 
+}
+
+ul.sitemap {
+        list-style: disc outside url(../images/disc.gif);
+}
+
+ul.sitemap ul {
+	list-style: circle outside none;
+}
+
+
+ul.sitemap ul ul {
+	list-style: square outside none;                    
+}
+/*Sitemap End*/

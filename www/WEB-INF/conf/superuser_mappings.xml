@@ -1,0 +1,35 @@
+<matcher uri="/su/media/**" command-name="get-media-file-command">
+    <parameter name="file" value="media/{1}"/>
+	<bind result="success" view="get-file-view"/>
+</matcher>
+
+<matcher uri="/su**" command-name="ldap-login-command">
+		<bind result="success" view="redirection-view"/>
+		<bind result="denied" view="html-view">
+				 <parameter name="xsl" value="SUPERUSER_LOGIN_XSL"/>
+		</bind>
+</matcher>
+
+
+<matcher uri="/su/login.xml" command-name="ldap-login-command">
+        <bind result="success" view="xml-view"/>
+        <bind result="denied" view="xml-view"/>
+</matcher>
+
+<!-- COMMENTED: viewsulog can be available on special sites only!!! -->
+<!-- matcher uri="/su/viewsulog" command-name="view-su-log-command">
+	   <bind result="success" view="html-view">
+		   	<parameter name="xsl" value="SUPERUSER_LOG"/>
+	   </bind>
+		<bind result="denied" view="redirection-view">
+			 <parameter name="destination" value="/su/login.html"/>
+		</bind>
+</matcher>
+			
+<matcher uri="/su/viewsulog.xml" command-name="view-su-log-command">
+ 	    <bind result="success" view="xml-view"/>
+		<bind result="denied" view="redirection-view">
+			 <parameter name="destination" value="/su/login.html"/>
+		</bind>
+
+</matcher -->

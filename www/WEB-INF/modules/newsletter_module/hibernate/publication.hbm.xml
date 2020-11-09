@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+  <class name="com.negeso.module.newsletter.bo.Publication" table="nl_publication">
+  	
+    <id name="id" type="long">
+        <generator class="sequence">
+             <param name="sequence">nl_publication_id_seq</param>
+        </generator>            
+    </id>
+
+    <property name="feedbackEmail"  column="feedback_email"/>
+	<property name="feedbackName"  column="feedback_name"/>    
+    <property name="i18n" />
+    <property name="accessCode"     column="access_code"/>
+    <property name="publishDate"    column="publish_date"/>
+	
+	<property name="subscribersNumber" type="long" 
+	 	formula="(
+	 	select 
+	 		count(distinct s2g.subscriber_id) 
+	 	from nl_publication2group p2g 
+	 	join nl_subscriber2group s2g 
+	 		on s2g.group_id = p2g.group_id
+	 	join nl_subscriber sub
+	 		on sub.activated = 'true'
+	 		and sub.id = s2g.subscriber_id
+	 	where p2g.publication_id = id )">
+	</property>
+	    
+    <many-to-one name="subscriptionCategory" class="com.negeso.module.newsletter.bo.SubscriptionCategory" 
+    	column="category_id" cascade="persist,merge,save-update" foreign-key="fk_nl_publication_subscription_category"/>
+
+	<bag name="subscriberGroups" table="nl_publication2group" cascade="persist,merge,save-update" >
+		<key column="publication_id" foreign-key="fk_nl_publication2group_publication"/>
+		<many-to-many class="com.negeso.module.newsletter.bo.SubscriberGroup"
+                      column="group_id" foreign-key="fk_nl_publication2group_group"/>
+	</bag>
+
+    <map name="customFields" table="nl_publication_i18n_fields" inverse="true" cascade="all-delete-orphan">
+        <key column="publication_id" />
+        <map-key type="long" column="lang_id" />
+        <one-to-many class="com.negeso.module.newsletter.bo.PublicationFields" />
+    </map>
+    
+    <bag name="attachments" table="nl_attachment" cascade="all-delete-orphan" inverse="true">
+    	<key column="publication_id" />
+    	<one-to-many class="com.negeso.module.newsletter.bo.Attachment"/>
+    </bag>
+    
+    <many-to-one name="mailTemplate" column="mail_template_id" class="com.negeso.module.newsletter.bo.MailTemplate"
+            foreign-key="fk_nl_publication_mail_template"/>
+    
+    <many-to-one name="publicationState" class="com.negeso.module.newsletter.bo.PublicationState" 
+    	column="state_id" cascade="persist,merge,save-update" foreign-key="fk_nl_publication_publication_state"/>
+    
+  </class>
+  
+  <class name="com.negeso.module.newsletter.bo.PublicationFields" table="nl_publication_i18n_fields">
+    <id name="id" type="long">
+        <generator class="sequence">
+             <param name="sequence">nl_publication_i18n_fields_id_seq</param>
+        </generator>            
+    </id>
+    <property name="title"/>
+    <property name="description"/>
+    <property name="plainText" column="plain_text"/>
+    <property name="langId" column="lang_id"/>
+    
+	<many-to-one name="article" class="com.negeso.framework.domain.Article" 
+			column="article_id" cascade="all" foreign-key="fk_nl_publication_i18n_fields_article_id"/>
+	
+    <many-to-one name="publication" class="com.negeso.module.newsletter.bo.Publication" 
+    		column="publication_id" not-null="true" foreign-key="fk_nl_publication_i18n_fields_publication"/>
+	
+  </class>
+  
+  <class name="com.negeso.module.newsletter.bo.PublicationState" table="nl_publication_state">
+  
+    <id name="id" type="long">
+        <generator class="sequence">
+             <param name="sequence">nl_publication_state_id_seq</param>
+        </generator>            
+    </id>
+    
+    <property name="name"/>
+    
+  </class>
+  
+  <class name="com.negeso.module.newsletter.bo.Publ2Article" table="nl_publication2article">
+  
+    <id name="id" type="long">
+        <generator class="sequence">
+             <param name="sequence">nl_publication2article_id_seq</param>
+        </generator>            
+    </id>
+
+    <many-to-one name="publication"
+    	class="com.negeso.module.newsletter.bo.Publication"
+    	column="publication_id" cascade="persist,merge,save-update"
+            foreign-key="fk_nl_publ2_reference_nl_publi"/>
+
+    <property name="langId" column="lang_id"/>
+    <property name="articleId" column="article_id"/>
+    <property name="pageId" column="page_id"/>
+    
+  </class>
+  
+  <query name="Publ2Article.findByPublicationIdLangId"><![CDATA[
+        from Publ2Article p2A where p2A.publication.id = ? and p2A.langId = ?
+  ]]></query>
+
+  <query name="PublicationState.findPublicationStateByName"><![CDATA[
+        from PublicationState state where state.name = ?
+  ]]></query>
+
+  <query name="Publication.listPublication"><![CDATA[
+        select pub from Publication as pub 
+		join pub.subscriberGroups subGroup 		
+		where pub.publicationState.id = ? and subGroup.internal=false 
+		group by pub.id, pub.subscriptionCategory, pub.publicationState, pub.mailTemplate, pub.feedbackEmail, pub.feedbackName, pub.i18n, pub.accessCode, pub.publishDate 
+		order by publish_date desc
+  ]]></query>
+  
+  <query name="Publication.findByTitle"><![CDATA[
+        select p from Publication as p join p.customFields as fields where fields.title = ? and fields.langId = ?
+  ]]></query>
+  
+</hibernate-mapping>

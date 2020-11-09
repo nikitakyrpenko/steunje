@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.negeso.module.form_manager.domain.Forms" table="forms">
+        <id name="id"  type="long">
+          <generator class="sequence">
+            <param name="sequence">forms_id_seq</param>
+          </generator>
+        </id>
+        <property name="langId" column="lang_id" type="long"/>        
+        <many-to-one name="article" class="com.negeso.framework.domain.Article" column="article_id" cascade="all" foreign-key="forms_article_id_fkey"/>
+        <property name="siteId" column="site_id" type="long"/>
+        <property name="formId" column="form_id"/>
+        <property name="name"/>
+        <property name="description"/>
+        <property name="email"/>
+        <property name="creationDate" column="creation_date" type="timestamp"/>
+        <property name="lastModificationDate" column="last_modification_date" type="timestamp"/>               
+        <property name="ex"/>
+        <property name="pageId" column="mail_success_page_id" type="long"/>
+        <bag name="fields" inverse="true" order-by="id" cascade="all-delete-orphan"> 
+            <key column="form_id" foreign-key="forms_archive_fk"/>
+            <one-to-many  class="com.negeso.module.form_manager.domain.FormField"/>
+        </bag>
+    </class>
+    
+    <class name="com.negeso.module.form_manager.domain.FormField" table="forms_field">
+        <id name="id"  type="long">
+          <generator class="sequence">
+            <param name="sequence">forms_field_id_seq</param>
+          </generator>
+        </id>
+         <version name="version" column="version"/>
+		<property name="formId" column="form_id" type="long"/>
+        <property name="name"/>
+        <property name="visible" type="boolean"/>
+        <property name="orderNumber" column="order_number" type="integer"/>
+    </class>
+	
+	 <query name="FormField.findByNameAndFormId"><![CDATA[
+        from FormField fF where fF.name = ? AND fF.formId = ?
+    ]]></query>
+    
+    <query name="FormField.listFormFields"><![CDATA[
+        from FormField fF where fF.formId = ? order by fF.orderNumber
+    ]]></query>
+    
+    
+</hibernate-mapping>

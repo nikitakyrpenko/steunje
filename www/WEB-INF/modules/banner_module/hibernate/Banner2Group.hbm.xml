@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.negeso.module.banner_module.bo.Banner2Group" table="bm_banner2group">
+        <id name="id"  type="long" >
+          <generator class="sequence">
+            <param name="sequence">bm_banner2group_id_seq</param>
+          </generator>
+        </id>
+        <property name="bannerId" column="banner_id"/>
+        <property name="groupId" column="group_id"/>
+    </class>
+    
+    <query name="Banner2Group.listBannerGroups"><![CDATA[
+        from Banner2Group b2G where b2G.bannerId = ? order by id asc
+    ]]></query>
+	
+    <query name="Banner2Group.listBanner2GroupIds"><![CDATA[
+        select b2G.id from Banner2Group b2G where b2G.bannerId = ? order by id asc
+    ]]></query>
+    
+    <query name="Banner2Group.findByBannerIdByGroupId"><![CDATA[
+        from Banner2Group b2G where b2G.bannerId = ? and b2G.groupId = ?
+    ]]></query>
+	
+</hibernate-mapping>

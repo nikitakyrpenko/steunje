@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <bean id="guestbookService" class="com.negeso.module.guestbook.service.GuestbookService">
+        <property name="dao">
+            <ref bean="guestbookDao"/>     
+        </property>
+    </bean>
+    
+    <bean id="messageService" class="com.negeso.module.guestbook.service.MessageService">
+        <property name="dao">
+            <ref bean="messageDao"/>     
+        </property>
+    </bean>
+    
+</beans>

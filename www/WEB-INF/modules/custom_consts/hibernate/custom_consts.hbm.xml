@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+  <class name="com.negeso.module.custom_consts.domain.CustomConst" table="dic_custom_const">
+    <id name="id"  type="long" >
+      <generator class="sequence">
+        <param name="sequence">dic_custom_const_id_seq</param>
+      </generator>
+    </id> 
+    <property name="key"/>
+    <property name="moduleId" column="module_id"/>
+    
+    <set name="translations" 
+		 inverse="true"    
+		 cascade="all"
+         order-by="lang_id"
+         >
+		<key column="const_id"/>
+		<one-to-many class="com.negeso.module.custom_consts.domain.CustomTranslation"/>
+	</set>
+  </class>
+
+  <class name="com.negeso.module.custom_consts.domain.CustomTranslation" table="dic_custom_translation">
+    <id name="id"  type="long" >
+      <generator class="sequence">
+        <param name="sequence">dic_custom_translation_id_seq</param>
+      </generator>
+    </id> 
+    
+	<property name="translation"/>
+	
+    <many-to-one name="customConst" 
+		column="const_id"
+		class="com.negeso.module.custom_consts.domain.CustomConst"
+		not-null="true"/>
+	
+	<many-to-one name="language" 
+		column="lang_id"
+		class="com.negeso.module.core.domain.Reference"
+		not-null="true"
+    /> 
+	
+  </class>
+	
+</hibernate-mapping>

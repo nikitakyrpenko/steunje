@@ -1,0 +1,10 @@
+<project name="WebCMS-Inquiry" basedir="../.." default="compile-module">
+
+	<property name="module.version" value="3.2.0.RC1"/>
+	
+	<property name="module.key" value="inquiry"/>
+	<property name="module.title" value="Inquiry Module"/>
+	<path id="module.classpath"/>
+	<import file="../../ant/compile.xml"/>
+
+</project>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	version="2.4">
+	
+    <display-name>Negeso W/CMS-based site</display-name>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/spring/applicationContext.xml</param-value>
+    </context-param>
+
+    <filter>
+        <description>
+            - runs lazy and urgent initialization;
+            - sets siteId in Env.
+            - redirects one URL to another if necessary (according to a map of redirections)
+        </description>
+        <filter-name>Initializer</filter-name>
+        <filter-class>com.negeso.framework.Initializer</filter-class>
+    </filter>
+	<filter>
+	    <filter-name>Charset Filter</filter-name>
+	    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+        </init-param>
+  	</filter>
+	<filter>
+        <filter-name>Hibernate Filter</filter-name>
+        <filter-class>com.negeso.framework.filter.FlushedOpenSessionInViewFilter</filter-class>
+    </filter>
+
+     <filter>
+	    <filter-name>RedirectFilter</filter-name>
+	    <filter-class>com.negeso.framework.site.RedirectFilter</filter-class>
+  	</filter>
+    <!--
+	<filter>
+	    <filter-name>MegaBoost</filter-name>
+	    <filter-class>com.negeso.framework.boost.CacheFilter</filter-class>
+  	</filter>
+    -->
+    
+    <filter-mapping>
+        <filter-name>Initializer</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>Charset Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+  	<!--	
+	<filter-mapping>
+        <filter-name>MegaBoost</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+	-->
+  	<filter-mapping>
+        <filter-name>Hibernate Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter>
+	    <filter-name>get_real_ip_filter</filter-name>
+	    <filter-class>com.negeso.framework.GetRealIPFilter</filter-class>
+    </filter>
+    <filter-mapping>
+            <filter-name>get_real_ip_filter</filter-name>
+            <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+	    <filter-name>non_cacheable_pages</filter-name>
+	    <filter-class>com.negeso.framework.FileExtensionFilter</filter-class>
+    </filter>
+    <filter-mapping>
+            <filter-name>non_cacheable_pages</filter-name>
+            <url-pattern>*.html</url-pattern>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>RedirectFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <listener>
+        <listener-class>com.negeso.framework.InitialConfigListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+	 <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
+    
+    <servlet>
+        <description>Front controller</description>
+        <servlet-name>wcms</servlet-name>
+        <servlet-class>com.negeso.framework.controller.WebFrontController</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>anchorlink</servlet-name>
+        <servlet-class>com.negeso.framework.rte.AnchorLink</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>adminwebservice</servlet-name>
+        <servlet-class>com.negeso.framework.controller.AdminServiceServlet</servlet-class>
+    </servlet>    
+	 <servlet>
+        <servlet-name>aliasservice</servlet-name>
+        <servlet-class>com.negeso.framework.controller.AliasServiceServlet</servlet-class>
+		 <load-on-startup>2</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>help</servlet-name>
+        <servlet-class>com.negeso.module.help.HelpServlet</servlet-class>
+    </servlet>
+    
+    
+    <servlet-mapping>
+        <servlet-name>wcms</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>wcms</servlet-name>
+        <url-pattern>*.html</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>wcms</servlet-name>
+        <url-pattern>*.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>adminwebservice</servlet-name>
+        <url-pattern>/adminwebservice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>anchorlink</servlet-name>
+        <url-pattern>/anchorlink</url-pattern>
+    </servlet-mapping>    
+    <servlet-mapping>
+        <servlet-name>wcms</servlet-name>
+        <url-pattern>/su/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>aliasservice</servlet-name>
+        <url-pattern>/aliasservice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+		<servlet-name>help</servlet-name>
+		<url-pattern>/admin/help/*</url-pattern>
+	</servlet-mapping>
+	
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error.html</location>
+    </error-page>
+	
+
+    <!-- FOR CACTUS TEST PURPOSES -->
+    <!--filter>
+        <filter-name>FilterRedirector</filter-name>
+        <filter-class>org.apache.cactus.server.FilterTestRedirector</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FilterRedirector</filter-name>
+        <url-pattern>/FilterRedirector</url-pattern>
+    </filter-mapping>
+    <servlet>
+        <servlet-name>ServletRedirector</servlet-name>
+        <servlet-class>org.apache.cactus.server.ServletTestRedirector</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>JspRedirector</servlet-name>
+        <jsp-file>/jspRedirector.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletRedirector</servlet-name>
+        <url-pattern>/ServletRedirector</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>JspRedirector</servlet-name>
+        <url-pattern>/JspRedirector</url-pattern>
+    </servlet-mapping-->
+  
+</web-app>
+      

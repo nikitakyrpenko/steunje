@@ -1,0 +1,156 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>{#negeso_form_manager.title_input_text}</title>
+	<script language="javascript" type="text/javascript" src="/script/jquery.min.js"></script>
+	<script language="javascript" type="text/javascript" src="/script/jquery-ui.custom.min.js"></script>
+    <script language="javascript" type="text/javascript" src="../../tiny_mce_popup.js"></script>
+	<script language="javascript" type="text/javascript" src="../../utils/mctabs.js"></script>
+	<script language="javascript" type="text/javascript" src="../../utils/form_utils.js"></script>
+	<script language="javascript" type="text/javascript" src="js/input_text.js"></script>
+	<script language="javascript" type="text/javascript" src="/script/common_functions.js"></script>
+	<link href="css/form_manager.css" rel="stylesheet" type="text/css" />
+	<base target="_self" />
+	<script language="javascript" type="text/javascript">
+		function chk(val) {
+			if (typeof(val) == "undefined" || val == null)
+				val = document.forms[0].elements["name"].value;
+			if (/^\s*$/.test(val)) document.forms[0].elements["insert"].disabled = true;
+			else document.forms[0].elements["insert"].disabled = false;
+		}
+		
+		function  sw_tdp() {
+			if (document.getElementById('timedate_valid').checked)
+				document.getElementById('t_d_params').disabled = false;
+			else
+				document.getElementById('t_d_params').disabled = true;
+		}
+	</script>
+</head>
+<body onload="tinyMCEPopup.executeOnLoad('init();'); chk(); sw_tdp();" style="display: none">
+    <form onsubmit="return false;" action="#">
+		<div class="tabs">
+			<ul style="cursor: hand; cursor: pointer;">
+				<li id="general_tab" class="current">
+					<span onclick="mcTabs.displayTab('general_tab','general_panel');"><a>{#negeso_form_manager.tab_general}</a></span>
+				</li>
+				<li id="advanced_tab">
+					<span onclick="mcTabs.displayTab('advanced_tab','advanced_panel');"><a>{#negeso_form_manager.tab_advanced}</a></span>
+				</li>
+				<li id="validation_tab" title="{#negeso_form_manager.readonly_hint}">
+					<span onclick="mcTabs.displayTab('validation_tab','validation_panel');"><a>{#negeso_form_manager.tab_validation}</a></span>
+				</li>
+			</ul>
+		</div>
+
+		<div class="panel_wrapper">
+			<div id="general_panel" class="panel current">
+				<input type="hidden" name="type" id="type" value="text" />
+				<fieldset>
+					<legend>{#negeso_form_manager.desc_input_text}</legend>
+					<table class="properties">
+						<tr> 
+							<td class="column1"><label id="namelabel" for="name">{#negeso_form_manager.name}<span style="color:red">*</span></label></td> 
+							<td><input id="name" name="name" type="text" value="" onkeyup="chk();"/></td> 
+						</tr>
+						<tr> 
+							<td class="column1"><label id="valuelabel" for="value">{#negeso_form_manager.value}</label></td> 
+							<td><input id="value" name="value" type="text" value="" /></td> 
+						</tr>
+						<tr> 
+							<td class="column1"><label id="class_listlabel" for="class_list">{#negeso_form_manager.class_list}</label></td> 
+							<td>
+								<select size="1" id="class_list" name="class_list">
+									<option value=""></option>
+								</select>
+							</td> 
+						</tr>
+						<tr style="height:20px"> 
+							<td colspan="2"><span style="color:red">*</span> - {#negeso_form_manager.validation_required}</td> 
+						</tr>
+					</table>
+				</fieldset>
+			</div>
+
+			<div id="advanced_panel" class="panel">
+				<fieldset>
+					<legend>{#negeso_form_manager.desc_input_text}</legend>
+					<table class="properties">
+						<tr> 
+							<td class="column1"><label id="titlelabel" for="title">{#negeso_form_manager.title}</label></td> 
+							<td><input id="title" name="title" type="text" value="" /></td> 
+						</tr>
+						<tr> 
+							<td class="column1"><label id="sizelabel" for="size" title="{#negeso_form_manager.readonly_hint}">{#negeso_form_manager.size}</label></td> 
+							<td><input id="size" name="size" type="text" value="" /></td> 
+						</tr>
+						<tr> 
+							<td class="column1"><label id="maxlengthlabel" for="maxlength" title="{#negeso_form_manager.readonly_hint}">{#negeso_form_manager.maxlength}</label></td> 
+							<td><input id="maxlength" name="maxlength" type="text" value="" /></td> 
+						</tr>						
+						<!--<tr> 
+							<td class="column1"><label id="stylelabel" for="style">{#negeso_form_manager.style}</label></td> 
+							<td><input id="style" name="style" type="text" value="" /></td> 
+						</tr>
+						<tr> 
+							<td class="column1"><label id="tabindexlabel" for="tabindex">{#negeso_form_manager.tabindex}</label></td> 
+							<td><input id="tabindex" name="tabindex" type="text" value="" /></td> 
+						</tr>-->
+						<tr> 
+							<td colspan="2" style="height: 5px">
+								<input id="style" name="style" type="hidden" value="" />
+								<input id="tabindex" name="tabindex" type="hidden" value="" />
+							</td>	
+						</tr>					
+						<tr> 
+							<td colspan="2">
+								<input id="readonly" name="readonly" type="checkbox" class="checkbox" value="true" onclick="change_readonly(this);"/><label id="readonlylabel" for="readonly">{#negeso_form_manager.readonly}</label>
+							</td> 
+						</tr> 
+					</table>
+				</fieldset>
+			</div>
+			
+			<div id="validation_panel" class="panel">
+				<fieldset>
+					<legend>{#negeso_form_manager.desc_input_text}</legend>
+					<table class="properties">
+						<tr> 
+							<td>
+								<input type="radio" style="width: auto; height: auto; border: none" id="no_valid" name="valid" value="no" checked="true" onclick="sw_tdp()"/>{#negeso_form_manager.no_validation}<br/>
+								<input type="radio" style="width: auto; height: auto; border: none" id="email_valid" name="valid" value="email"  onclick="sw_tdp()"/>{#negeso_form_manager.validation_as_email}<br/>
+								<input type="radio" style="width: auto; height: auto; border: none" id="numeric_valid" name="valid" value="numeric"  onclick="sw_tdp()"/>{#negeso_form_manager.validation_as_numeric}<br/>
+								<input type="radio" style="width: auto; height: auto; border: none" id="phone_valid" name="valid" value="phone"  onclick="sw_tdp()"/>{#negeso_form_manager.validation_as_phone}<br/>
+								<input id="numeric_valid_params" name="numeric_validparams" type="hidden" value="no;no;no;no"/>
+								<input type="radio" style="width: auto; height: auto; border: none" id="timedate_valid" name="valid" value="timedate"  onclick="sw_tdp()"/>{#negeso_form_manager.validation_as_timedate}<br/>
+								<span style="margin-left: 20px"><label for="t_d_params">{#negeso_form_manager.validation_as_timedate_type}:</label></span>
+								<select name="t_d_params" id="t_d_params" style="width: 300px" disabled="disabled">
+									<option value="hh:mm YYYY-MM-DD">{#negeso_form_manager.validation_as_timedate_timedate}</option>
+									<option value="hh:mm DD-MM-YYYY">{#negeso_form_manager.validation_as_timedate_timedate1}</option>
+									<option value="hh:mm">{#negeso_form_manager.validation_as_timedate_time}</option>
+									<option value="YYYY-MM-DD">{#negeso_form_manager.validation_as_timedate_date}</option>
+									<option value="DD-MM-YYYY">{#negeso_form_manager.validation_as_timedate_date1}</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td style="border-top: 1px solid #8e8e8e; padding-top: 4px">
+								<input type="checkbox" id="required" value="true" class="checkbox"/><label id="requiredlabel" for="required">{#negeso_form_manager.validation_required}</label>
+							</td>
+						</tr>						
+					</table>
+				</fieldset>
+			</div>
+		</div>
+
+		<div class="mceActionPanel">
+			<div style="float: left">
+				<input type="button" id="insert" name="insert" value="{#insert}" onclick="insertAction()" />
+			</div>
+
+			<div style="float: right">
+				<input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="cancelAction();" />
+			</div>
+		</div>
+    </form>
+</body> 
+</html> 

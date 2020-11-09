@@ -1,0 +1,10 @@
+<project name="WebCMS-Dynamics" basedir="../.." default="compile-module">
+
+	<property name="module.version" value="3.2.0.RC1"/>
+	
+	<property name="module.key" value="dynamics"/>
+	<property name="module.title" value="Dynamics Module"/>
+	<path id="module.classpath"/>
+	<import file="../../ant/compile.xml"/>
+
+</project>

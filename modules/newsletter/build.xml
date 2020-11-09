@@ -1,0 +1,9 @@
+<project name="WebCMS-Newsletter" basedir="../.." default="compile-module">
+	<property name="module.version" value="3.3.0.RC1"/>
+
+	<property name="module.key" value="newsletter"/>
+	<property name="module.title" value="Newsletter Module"/>
+	<path id="module.classpath"/>
+	<import file="../../ant/compile.xml"/>
+
+</project>

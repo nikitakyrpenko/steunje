@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean id="messageSource"
+		class="com.negeso.framework.i18n.DatabaseResourceBundleMessageSource">
+		<property name="basename" value="dict_common.xsl, core, flip_book, dict_modules.xsl" />
+     
+	</bean>
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix"
+			value="/WEB-INF/modules/flip_book/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="**/xml/Pages.xml">pagesXmlController</prop>
+                <prop key="**/txt/Lang.txt">languageController</prop>
+                <prop key="**/swf/Pages.swf">pagesSwfController</prop>
+                <prop key="/flipbook">pageImageController</prop>
+                <prop key="/admin/flipbook">pageImageController</prop>
+                <prop key="/mp3/**">soundController</prop>
+                <prop key="/admin/mp3/**">soundController</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <bean id="adminHandlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="interceptors">
+            <list>
+                <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+                    <property name="paramName" value="interfaceLanguage"/>
+                </bean>
+                
+                <bean class="com.negeso.framework.security.SecurityInterceptor"/>
+                
+            </list>
+        </property>
+        <property name="mappings">
+            <props>
+                <prop key="/admin/fbm_settings.html">flipBookManagementController</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <bean id="pagesXmlController" class="com.negeso.module.flipbook.web.controller.PagesXmlController"/>
+    <bean id="languageController" class="com.negeso.module.flipbook.web.controller.LanguageController"/>
+    <bean id="pagesSwfController" class="com.negeso.module.flipbook.web.controller.PagesSwfController"/>
+    <bean id="pageImageController" class="com.negeso.module.flipbook.web.controller.PageImageController"/>
+    <bean id="flipBookManagementController" class="com.negeso.module.flipbook.web.controller.FlipBookManagementController"/>
+    <bean id="soundController" class="com.negeso.module.flipbook.web.controller.SoundController"/>
+    
+</beans>	

@@ -1,0 +1,35 @@
+<module id="lite_event" name="Event module">
+  <extension point="core">
+    <mapping-url>/admin/back.html</mapping-url>
+    <mapping-url>/admin/eventslist.html</mapping-url>
+    <mapping-url>/admin/subscribers.html</mapping-url>
+    <mapping-url>/admin/event_details.html</mapping-url>
+    <mapping-url>/admin/event_subscribers.csv</mapping-url>
+    <mapping-url>/admin/categorieslist.html</mapping-url>
+    <mapping-url>/admin/category_details.html</mapping-url>
+    <page-components>
+		<page-component name="event-component" class="com.negeso.module.lite_event.component.EventViewComponent"/>              
+		<page-component name="near-events-component" class="com.negeso.module.lite_event.component.NearEventsComponent"/>                  
+		<page-component name="event-calendar-component" class="com.negeso.module.lite_event.component.EventCalendarComponent"/>              		
+    </page-components>
+  </extension>
+</module>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

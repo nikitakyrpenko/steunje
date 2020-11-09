@@ -1,0 +1,10 @@
+<project name="WebCMS-Lite_Event" basedir="../.." default="compile-module">
+
+	<property name="module.version" value="3.2.0.RC1"/>
+	
+	<property name="module.key" value="lite_event"/>
+	<property name="module.title" value="Lite Event Module"/>
+	<path id="module.classpath"/>
+	<import file="../../ant/compile.xml"/>
+
+</project>

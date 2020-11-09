@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.negeso.framework.menu.bo">
+	<class name="Menu" table="menu">
+		<id name="id" type="long">
+			<generator class="sequence">
+				<param name="sequence">menu_id_seq</param>
+			</generator>
+		</id>
+		<property name="parentId" column="parent_id" type="long" />
+		<property name="pageId" column="page_id" type="long" />		
+		<property name="langId" column="lang_id" type="long" />
+		<property name="title" />
+		<property name="titlePage" formula="( SELECT p.title FROM page p WHERE p.id = page_id )"/>
+		<property name="link" />
+		<property name="linkPage" formula="( SELECT p.filename FROM page p WHERE p.id = page_id )"/>
+		<property name="order" column="order_number" type="long" />		
+		<property name="keepMenu" column="keep_menu"  type="boolean"/>
+		<property name="siteId" column="site_id" type="long" />
+		<property name="containerId" formula="( SELECT p.container_id FROM page p WHERE p.id = page_id )"/>
+		<property name="publishDate" column="publish_date" type="timestamp" />
+		<property name="publishDatePage" type="timestamp" formula="( SELECT p.publish_date FROM page p WHERE p.id = page_id )"/>
+		<property name="expiredDate" column="expired_date" type="timestamp" />
+		<property name="expiredDatePage" type="timestamp" formula="( SELECT p.expired_date FROM page p WHERE p.id = page_id )"/>
+		<property name="visible" type="boolean" 
+            formula="( page_id IS  NULL OR  (SELECT not ((p.expired_date IS NOT NULL AND NOW() &gt; p.expired_date) OR (p.publish_date IS NOT NULL AND NOW() &lt; p.publish_date)) FROM page p WHERE p.id = page_id ))"/>       
+		<property name="forceVisibility" type="boolean" formula="( SELECT p.visible FROM page p WHERE p.id = page_id )"/>
+		<bag name="menuItems" cascade="delete" inverse="true" order-by="order_number ASC">
+			<key column="parent_id" not-null="true"/>
+			<one-to-many class="com.negeso.framework.menu.bo.Menu"  />
+		</bag>
+	</class>
+	
+	<query name="Menu.listMenuByLink"><![CDATA[		
+		from Menu m where m.linkPage like :link ||'%'
+    ]]></query>
+    <query name="Menu.listMainMenu"><![CDATA[        
+		select m from Menu as m where m.parentId in (select m.id from Menu as m where m.parentId is null and m.langId = ? and m.siteId = ?) order by m.order		
+    ]]></query>
+    <query name="Menu.listByPageId"><![CDATA[        
+		select m from Menu as m where m.pageId = ? 		
+    ]]></query>    
+	<query name="Menu.countItems"><![CDATA[
+		select count(*) from Menu as m where m.langId = ? and m.siteId = ?
+    ]]></query>
+    
+    <sql-query name="Menu.listAllMenuForLanguage">
+        <return alias="menu" class="Menu"/>
+        <![CDATA[
+         SELECT m.id AS {menu.id},
+                m.parent_id AS {menu.parentId},
+                m.page_id AS {menu.pageId}, 
+                m.lang_id AS {menu.langId}, 
+                m.title AS {menu.title},
+                p.title AS {menu.titlePage},
+                m.link AS {menu.link},
+                p.filename AS {menu.linkPage},
+                m.order_number AS {menu.order},
+                m.keep_menu AS {menu.keepMenu},
+                m.site_id AS {menu.siteId},
+                p.container_id AS {menu.containerId},
+                m.publish_date AS {menu.publishDate},
+                p.publish_date AS {menu.publishDatePage},
+                m.expired_date AS {menu.expiredDate},
+                p.expired_date AS {menu.expiredDatePage},
+                not ((p.expired_date IS NOT NULL AND NOW() > p.expired_date) OR (p.publish_date IS NOT NULL AND NOW() < p.publish_date)) AS {menu.visible},
+                p.visible AS {menu.forceVisibility}
+        FROM menu m
+        LEFT JOIN page p ON p.id = m.page_id
+        WHERE m.lang_id = ? AND m.site_id = ? AND m.parent_id IS NOT NULL
+        ORDER BY m.parent_id, m.order_number
+    ]]>                            
+</sql-query>
+	
+</hibernate-mapping>

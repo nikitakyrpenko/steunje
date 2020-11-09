@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+    
+    <bean id="bannerCategoryDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.negeso.module.banner_module.dao.BannerCategoryDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.negeso.module.banner_module.bo.BannerCategory</value>
+                </constructor-arg>
+            </bean>
+        </property>    
+    </bean>
+    
+    <bean id="bannerDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.negeso.module.banner_module.dao.BannerDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.negeso.module.banner_module.bo.Banner</value>
+                </constructor-arg>
+            </bean>
+        </property>    
+    </bean>
+    
+    <bean id="banner2PageDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.negeso.module.banner_module.dao.Banner2PageDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.negeso.module.banner_module.bo.Banner2Page</value>
+                </constructor-arg>
+            </bean>
+        </property>   
+    </bean>
+    
+    <bean id="hibernateBannerDao"
+		class="com.negeso.module.banner_module.dao.HibernateBannerDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+    
+    <bean id="bannerTypeDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.negeso.module.banner_module.dao.BannerTypeDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.negeso.module.banner_module.bo.BannerType</value>
+                </constructor-arg>
+            </bean>
+        </property>   
+    </bean>
+    
+    <bean id="banner2GroupDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.negeso.module.banner_module.dao.Banner2GroupDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.negeso.module.banner_module.bo.Banner2Group</value>
+                </constructor-arg>
+            </bean>
+        </property>   
+    </bean>
+    
+    <bean id="bannerStatisticsDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.negeso.module.banner_module.dao.BannerStatisticsDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.negeso.module.banner_module.bo.BannerStatistics</value>
+                </constructor-arg>
+            </bean>
+        </property>   
+    </bean>
+
+</beans>

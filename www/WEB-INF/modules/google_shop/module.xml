@@ -1,0 +1,6 @@
+<module id="google_shop" name="google_shop">
+  <extension point="core">
+	<mapping-url>/admin/google_shop.html</mapping-url>
+	<mapping-url>/admin/gm_edit_merchant.html</mapping-url>
+  </extension>  
+</module>

@@ -1,0 +1,42 @@
+<beans xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-2.0.xsd"
+xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:aop="http://www.springframework.org/schema/aop"
+xmlns:tx="http://www.springframework.org/schema/tx">
+
+    <tx:annotation-driven transaction-manager="hibernateTransactionManager"/>
+    <bean id="bannerCategoryService" class="com.negeso.module.banner_module.service.BannerCategoryService">
+        <property name="bannerCategoryDao">
+            <ref bean="bannerCategoryDao"/>
+        </property>
+        <property name="orderHelper">
+            <bean class="com.negeso.framework.domain.OrderControlHelper">
+                <constructor-arg>
+                    <value>bm_category</value>
+                </constructor-arg>
+                <constructor-arg>
+                    <value>parent_id</value>
+                </constructor-arg>
+            </bean> 
+        </property>
+    </bean>
+
+    <bean id="bannerService" class="com.negeso.module.banner_module.service.BannerService">
+        <property name="bannerDao" ref="bannerDao"/>
+        <property name="banner2GroupDao" ref="banner2GroupDao"/>
+        <property name="banner2PageDao" ref="banner2PageDao"/>
+        <property name="bannerTypeService" ref="bannerTypeService"/>
+        <property name="hibernateBannerDao" ref="hibernateBannerDao" />
+        <property name="bannerStatisticsDao" ref="bannerStatisticsDao" />
+    </bean>
+
+    <bean id="bannerTypeService" class="com.negeso.module.banner_module.service.BannerTypeService">
+        <property name="bannerTypeDao" ref="bannerTypeDao"/>
+    </bean>
+
+</beans>

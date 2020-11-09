@@ -1,0 +1,7 @@
+<matcher uri="/captcha.jpg"  command-name="get-captcha">
+    <bind result="success" view="stream-view">
+           <parameter name="mime-type" value="image/jpeg"/>
+           <parameter name="cache-private" value="0"/>
+           <parameter name="cache-minutes" value="0"/>
+    </bind>
+</matcher>>

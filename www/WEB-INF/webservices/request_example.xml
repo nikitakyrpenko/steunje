@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='utf-8'?>
+<SOAP-ENV:Envelope
+	SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://negeso.com/2003/Framework-v.1.1/wsdl/serviceAdmin/serviceAdmin"
+	xmlns:ns2="http://negeso.com/2003/Framework-v.1.1/wsdl/serviceAdmin/types/serviceAdmin"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<SOAP-ENV:Header/>
+	<SOAP-ENV:Body>
+		<mswsb:auxOperation xmlns="" xmlns:mswsb="http://negeso.com/2003/Framework-v.1.1/wsdl/serviceAdmin/serviceAdmin">
+			<operationKind xsi:type="xsd:string">update-page-info-command</operationKind>
+			<parameterNames xsi:type="soapenc:Array" soapenc:arrayType="xsd:string[10]">
+				<string xsi:type="xsd:string">id</string>
+				<string xsi:type="xsd:string">title</string>
+				<string xsi:type="xsd:string">meta_description</string>
+				<string xsi:type="xsd:string">meta_keywords</string>
+				<string xsi:type="xsd:string">property_value</string>
+				<string xsi:type="xsd:string">google_script</string>
+				<string xsi:type="xsd:string">publish</string>
+				<string xsi:type="xsd:string">expire</string>
+				<string xsi:type="xsd:string">container_id</string>
+				<string xsi:type="xsd:string">force_visibility</string>
+			</parameterNames>
+			<parameterValues xsi:type="soapenc:Array" soapenc:arrayType="xsd:string[10]">
+				<string xsi:type="xsd:string">1</string>
+				<string xsi:type="xsd:string">Welcome</string>
+				<string xsi:type="xsd:string"></string>
+				<string xsi:type="xsd:string"></string>
+				<string xsi:type="xsd:string"></string>
+				<string xsi:type="xsd:string"></string>
+				<string xsi:type="xsd:string"></string>
+				<string xsi:type="xsd:string"></string>
+				<string xsi:type="xsd:string"></string>
+				<string xsi:type="xsd:string">true</string>
+			</parameterValues>
+		</mswsb:auxOperation>
+	</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

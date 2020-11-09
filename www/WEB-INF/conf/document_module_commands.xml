@@ -1,0 +1,12 @@
+<command name="dc-browse-category" class="com.negeso.module.document.command.BrowseCategory"/>
+<command name="dc-get-category-details" class="com.negeso.module.document.command.GetCategoryDetails"/>
+<command name="dc-get-document-details" class="com.negeso.module.document.command.GetDocumentDetails"/>
+<command name="dc-add-documents" class="com.negeso.module.document.command.AddDocumentsCommand"/>
+<command name="dc-change-category-container" class="com.negeso.module.document.command.ChangeCategoryContainerCommand"/>
+<command name="dc-copy-document" class="com.negeso.module.document.command.CopyDocumentCommand"/>
+<command name="dc-delete-category" class="com.negeso.module.document.command.DeleteCategoryCommand"/>
+<command name="dc-delete-document" class="com.negeso.module.document.command.DeleteDocumentEntryCommand"/>
+<command name="dc-get-categories-tree" class="com.negeso.module.document.command.GetCategoriesTreeCommand"/>
+<command name="dc-update-category" class="com.negeso.module.document.command.UpdateCategoryCommand"/>
+<command name="dc-update-document" class="com.negeso.module.document.command.UpdateDocumentEntryCommand"/>
+<command name="dc-reorder" class="com.negeso.module.document.command.ReorderCommand"/>

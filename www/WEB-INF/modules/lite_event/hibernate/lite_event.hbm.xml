@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+  <class name="com.negeso.module.lite_event.domain.Event" table="em_event">
+    <id name="id" type="long">
+	    <generator class="sequence">
+    	     <param name="sequence">em_event_id_seq</param>
+        </generator>            
+	</id>
+   
+    <property name="date"/>
+    <property name="publishDate"	 	column="publishing_date"/>
+    <property name="expiredDate"	 	column="expired_date"/>
+    <property name="siteId" 			column="site_id"/>
+    <property name="fieldSetId" 		column="field_set_id"/>
+    <property name="categoryId" 		column="category_id"/>
+
+    <many-to-one name="category" class="com.negeso.module.lite_event.domain.Category"
+         column="category_id" insert="false" update="false"/> 
+
+  </class>
+  
+  <class name="com.negeso.module.lite_event.domain.Category" table="em_category">
+    <id name="id" type="long">
+	    <generator class="sequence">
+    	     <param name="sequence">em_category_id_seq</param>
+        </generator>            
+	</id>
+   
+    <property name="publishDate"	 	column="publishing_date"/>
+    <property name="expiredDate"	 	column="expired_date"/>
+    <property name="siteId" 			column="site_id"/>
+    <property name="orderNumber" 		column="order_number"/>
+    <property name="leaf" 				column="is_leaf"/>
+ 
+    <many-to-one name="parentCategory" class="com.negeso.module.lite_event.domain.Category" 
+      column="parent_id"  not-null="false"/>
+   
+    <bag name="subCategories" inverse="true" order-by="order_number"> 
+      <key column="parent_id"/> 
+        <one-to-many  class="com.negeso.module.lite_event.domain.Category"/>
+    </bag>
+
+    <bag name="events" order-by="date"> 
+      <key column="category_id"/> 
+        <one-to-many  class="com.negeso.module.lite_event.domain.Event"/>
+    </bag>
+
+    <map name="titles" table="em_category_details">
+      <key column="category_id"/>
+      <map-key column="lang_id" type="long" />
+      <element column="title" type="string"/>     
+    </map>
+
+  </class>
+  
+  <class entity-name="EventDetails" table="em_event_details">
+    <id name="id" type="long">
+      <generator class="sequence">
+           <param name="sequence">em_event_details_id_seq</param>
+        </generator>            
+	</id>
+   
+    <property name="langId" column="language_id" type="long"/>
+    <property name="eventId" 	column="event_id" 	 type="long"/>
+
+	<!-- !! set custom event fields here !! -->
+    <property name="name"         column="field1" type="string"/>
+    <property name="description"  column="field2" type="string"/>
+  </class>
+   
+  <class name="com.negeso.module.lite_event.domain.Subscription" table="em_subscription">
+    <id name="id" type="long">
+	    <generator class="sequence">
+    	     <param name="sequence">em_subscription_id_seq</param>
+        </generator>            
+	</id>
+   
+    <property name="eventId"		column="event_id"/>
+    <property name="peopleAmount" 	column="people_amount"/>
+    <property name="userId" 		column="user_id"/>
+    <property name="date"/>    
+  </class>
+
+  <class name="com.negeso.wcms.field_configuration.FieldConfiguration" table="core_field">
+    <id name="id" type="long">
+	    <generator class="sequence">
+    	     <param name="sequence">core_field_id_seq</param>
+        </generator>            
+	</id>
+   
+    <property name="name"/>    
+    <property name="type"/>    
+    <property name="orderNumber" 	column="order_number"/>    
+    <property name="requiredField" 	column="is_required"/>
+
+    <map name="titles" table="core_field_details" >
+      <key column="field_id"/>
+      <map-key column="lang_id" type="long" />
+      <element column="title" type="string"/>     
+    </map>
+    
+  </class>
+
+</hibernate-mapping>

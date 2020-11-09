@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.negeso.module.banner_module.bo.BannerCategory" table="bm_category">
+        <id name="id"  type="long">
+          <generator class="sequence">
+            <param name="sequence">bm_category_id_seq</param>
+          </generator>
+        </id>
+        <property name="title" not-null="true"/>
+        <property name="orderNumber" column="order_number"/>
+        <property name="isLeaf" column="is_leaf" type="boolean"/>
+        
+        <!-- <many-to-one name="parentId" column="parent_id" class="com.negeso.module.banner_module.bo.BannerCategory"/> -->
+        <property name="parentId" column="parent_id"/>
+      	
+      	<property name="siteId" column="site_id" />
+    </class>
+    
+    <query name="BannerCategory.listTopCategories"><![CDATA[
+        from BannerCategory c where c.parentId is null order by order_number asc
+    ]]></query>
+
+    <query name="BannerCategory.listCategoriesByParentId"><![CDATA[
+        from BannerCategory c where c.parentId = ? order by order_number asc
+    ]]></query>
+
+	<query name="BannerCategory.countTopCategory"><![CDATA[
+        select count(c) from BannerCategory c where c.parentId is null
+    ]]></query>
+
+    <query name="BannerCategory.countCategory"><![CDATA[
+        select count(c) from BannerCategory c where c.parentId = ?
+    ]]></query>
+    
+    <query name="BannerCategory.countBanners"><![CDATA[
+        select count(b) from Banner b where b.categoryId = ?
+    ]]></query>
+    
+    <query name="BannerCategory.findCategoryByTitleParentId"><![CDATA[
+        from BannerCategory c where c.title = ? and c.parentId = ?
+    ]]></query>
+    
+    <query name="BannerCategory.findRootCategoryByTitle"><![CDATA[
+        from BannerCategory c where c.title = ? and c.parentId is null
+    ]]></query>
+    
+</hibernate-mapping>

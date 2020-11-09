@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean id="messageSource"
+		class="com.negeso.framework.i18n.DatabaseResourceBundleMessageSource">
+		<property name="basename" value="dict_common.xsl, dict_form_manager.xsl, core" />
+     
+	</bean>
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10000000" />
+	</bean>
+
+	<bean id="exceptionResolver"
+		class="com.negeso.framework.ExceptionHandler">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">friendlyError</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix"
+			value="/WEB-INF/modules/form_manager/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<bean id="handlerMapping2" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+	   <property name="interceptors">
+            <list>
+                <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+                    <property name="paramName" value="interfaceLanguage"/>
+                </bean>
+                <bean class="com.negeso.framework.security.SecurityInterceptor"/>
+            </list>
+        </property>      
+        <property name="mappings">
+            <props>
+                <prop key="/admin/forms_archive">formArchiveController</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <bean id="paramResolver" class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+	   <property name="paramName"><value>todo</value></property>
+	</bean>
+    
+    <bean id="formArchiveController" class="com.negeso.module.form_manager.web.controller.FormArchiveController">
+        <property name="formFieldService"><ref bean="formFieldService"/></property>
+        <property name="formArchiveService"><ref bean="formArchiveService"/></property>
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <!--<property name="methodNameResolver">-->
+		  <!--<ref bean="paramResolver"/>-->
+		<!--</property>-->
+    </bean>
+		
+</beans>	

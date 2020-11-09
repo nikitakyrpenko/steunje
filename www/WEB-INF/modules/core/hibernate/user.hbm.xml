@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.negeso.framework.domain.User" table="user_list">
+        <id name="login"/>
+        <property name="password"/>
+        <property name="type"/>
+        <property name="name" column="username"/>
+        <property name="siteId" column="site_id"/>
+    </class>
+
+    <class name="com.negeso.framework.domain.Contact" table="contact" dynamic-update="true">
+        <id name="id" type="long">
+            <generator class="sequence">
+                <param name="sequence">contact_id_seq</param>
+            </generator>
+        </id>
+        <property name="firstName" type="string" column="first_name" />
+        <property name="secondName" type="string" column="second_name" />
+        <property name="companyName" type="string" column="company_name"/>
+        <property name="addressLine" type="string" column="address_line" />
+        <property name="zipCode" type="string" column="zip_code" />
+        <property name="state" type="string" column="state" />
+        <property name="city" type="string" column="city" />
+        <property name="country" type="string" column="country" />
+        <property name="phone" type="string" column="phone" />
+        <property name="fax" type="string" />
+        <property name="type" type="string" />
+        <property name="webLink" type="string" column="web_link" />
+        <property name="email" type="string" />
+        <property name="imageLink" type="string" column="image_link" />
+        <property name="department" type="string" />
+        <property name="jobTitle" type="string" column="job_title" />
+        <property name="birthDate" type="timestamp" column="birth_date" />
+        <property name="nickname" type="string" />
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,44 @@
+﻿.constantsList
+{
+	list-style-type:none;
+	font-size:14px;
+	margin-left:0;
+}
+.constantsList LI
+{
+	margin:3px 0;
+}
+
+.constantsList LI SPAN.edit, .constantsList LI SPAN.find
+{
+	color:#1975a7;
+	font-size:11px;
+	cursor:pointer;
+}
+
+#transl_dialog IMG.loader
+{
+	margin-top:50px;
+}
+#transl_dialog 
+{
+	text-align:center;
+}
+
+#transl_dialog FORM
+{
+	text-align:left;
+}
+
+#transl_dialog FORM TEXTAREA
+{
+	border:solid 1px #666;
+}
+
+#transl_dialog TD, #transl_dialog TH
+{
+	
+	padding:3px;
+	font-size:12px;
+	vertical-align:top;
+}

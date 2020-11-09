@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    
+    <bean id="siteUrlDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.negeso.framework.site.dao.SiteUrlDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.negeso.framework.site.SiteUrl</value>
+                </constructor-arg>
+            </bean>
+        </property>    
+    </bean>
+    
+    <bean id="countryDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.negeso.framework.dao.CountryDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.negeso.framework.domain.Country</value>
+                </constructor-arg>
+            </bean>
+        </property>    
+    </bean>
+    
+    <bean id="pageAliasDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.negeso.framework.site.dao.PageAliasDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.negeso.framework.site.PageAlias</value>
+                </constructor-arg>
+            </bean>
+        </property>    
+    </bean>
+    
+    <bean id="pageRedirectDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.negeso.framework.site.dao.PageRedirectDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.negeso.framework.site.PageRedirect</value>
+                </constructor-arg>
+            </bean>
+        </property>    
+    </bean>
+    
+    
+    <bean id="articleRevisionDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.negeso.module.core.dao.ArticleRevisionDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.negeso.module.core.domain.ArticleRevision</value>
+                </constructor-arg>
+            </bean>
+        </property>    
+    </bean>
+
+    <bean id="pageDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.negeso.framework.page.PageDao</value>
+        </property>
+        <property name="target">
+            <bean parent="pageDaoImpl"/>
+        </property>    
+    </bean>
+    
+    <bean id="pageDaoImpl" class="com.negeso.framework.page.PageDaoImpl" abstract="true">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+        <property name="namingStrategy">
+            <ref bean="simpleFinderNamingStrategy" />
+        </property>
+        <property name="argumentTypeFactory">
+            <ref bean="simpleFinderArgumentTypeFactory" />
+        </property>
+    </bean>
+    
+    <bean id="socialNetworkDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.negeso.module.social.dao.SocialNetworkDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.negeso.module.social.bo.SocialNetwork</value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    
+    <bean id="listItemDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.negeso.framework.list.dao.ListItemDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.negeso.framework.list.domain.ListItem</value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    
+    <bean id="placeHolderDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.negeso.module.core.dao.PlaceHolderDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.negeso.module.core.domain.PlaceHolder</value>
+                </constructor-arg>
+            </bean>
+        </property>    
+    </bean>
+    
+    <bean id="languageDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.negeso.module.core.dao.LanguageDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.negeso.framework.domain.Language</value>
+                </constructor-arg>
+            </bean>
+        </property>    
+    </bean>
+    
+    
+
+</beans>

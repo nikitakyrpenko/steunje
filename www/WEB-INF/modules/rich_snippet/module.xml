@@ -1,0 +1,14 @@
+<module id="rich_snippet" name="rich_snippet">
+  <extension point="core">
+	<mapping-url>/admin/rich_snippet.html</mapping-url>
+	<mapping-url>/admin/rs_review_list.html</mapping-url>
+	<mapping-url>/admin/rs_product_list.html</mapping-url>
+	<mapping-url>/admin/rs_video_list.html</mapping-url>
+	<mapping-url>/admin/rs_edit_review.html</mapping-url>
+	<mapping-url>/admin/rs_edit_product.html</mapping-url>
+	<mapping-url>/admin/rs_edit_video.html</mapping-url>
+	<mapping-url>/admin/rs_aggregate_review_list.html</mapping-url>
+	<mapping-url>/admin/rs_edit_aggregate_review.html</mapping-url>
+	<mapping-url>/admin/rs_choose_rich_snippet.html</mapping-url>
+  </extension>  
+</module>

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.negeso.module.banner_module.bo.BannerType" table="bm_type">
+        <id name="id"  type="long">
+          <generator class="sequence">
+            <param name="sequence">bm_type_id_seq</param>
+          </generator>
+        </id>
+        <property name="title" not-null="true"/>
+        <property name="width" />
+        <property name="height" />
+    </class>
+    
+    <query name="BannerType.findById"><![CDATA[
+        from BannerType bT where bT.id = ? order by title asc
+    ]]></query>
+
+    <query name="BannerType.listAllTypes"><![CDATA[
+        from BannerType bT order by title asc
+    ]]></query>
+    
+    <query name="BannerType.findByTitle"><![CDATA[
+        from BannerType bT where bT.title = ? order by title asc
+    ]]></query>
+    
+    <query name="BannerType.findByBannerId"><![CDATA[
+        select bT from BannerType bT, Banner b where b.id = ? and b.bannerTypeId = bT.id
+    ]]></query>
+    
+</hibernate-mapping>

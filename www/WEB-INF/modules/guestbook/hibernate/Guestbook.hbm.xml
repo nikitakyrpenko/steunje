@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.negeso.module.guestbook.bo.Guestbook" table="guestbook_enumerator">
+        <id name="id" type="long">
+            <generator class="sequence">
+                <param name="sequence">guestbook_enumerator_id_seq</param>
+            </generator>
+        </id>
+        <property name="name"/>
+        <property name="siteId" column="site_id"/>
+    </class>
+
+    <query name="Guestbook.listGuestbooks"><![CDATA[
+        from Guestbook g where g.siteId = ?
+    ]]></query>
+
+</hibernate-mapping>

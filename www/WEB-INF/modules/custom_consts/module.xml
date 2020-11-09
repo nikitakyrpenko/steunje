@@ -1,0 +1,8 @@
+<module id="custom_consts" name="Custom internationalized consts">
+  <extension point="core">
+      <mapping-url>/admin/back.html</mapping-url>
+      <mapping-url>/admin/consts</mapping-url>
+      <mapping-url>/admin/module_consts</mapping-url>
+    <page-components/>
+  </extension>
+</module>

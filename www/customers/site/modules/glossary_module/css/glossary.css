@@ -1,0 +1,15 @@
+.gmTable{
+	width: 100%;
+}
+
+.gmTable td{
+	margin-bottom: 10px;
+	border: 1px solid #b4b4b4;
+	height: 31px;
+	text-align:left;
+	vertical-align: middle;
+	background-color:#FFFFFF;
+	padding-left: 4px;
+	padding-right: 5px;
+	font-weight: normal;
+}

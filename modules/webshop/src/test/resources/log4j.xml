@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="ConsoleAppender" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%p %d{ISO8601} %m%n"/>
+        </layout>
+    </appender>
+
+     <category name="com.negeso.framework.util.logging.RequestLogger" additivity="false">
+        <priority value="INFO" />
+        <appender-ref ref="ConsoleAppender" />
+    </category>
+
+    <category name="com.negeso.framework.adminwebservice.AdminServiceImpl" additivity="false">
+        <priority value="INFO" />
+        <appender-ref ref="ConsoleAppender" />
+    </category>
+
+    <category name="com.negeso.framework.domain.Article" additivity="false">
+        <priority value="INFO" />
+        <appender-ref ref="ConsoleAppender" />
+    </category>
+
+    <category name="com.negeso.module.menu.domain.MenuItem" additivity="false">
+        <priority value="INFO" />
+        <appender-ref ref="ConsoleAppender" />
+    </category>
+
+    <category name="com.negeso.framework.CmsContextListener" additivity="false">
+        <priority value="INFO" />
+        <appender-ref ref="ConsoleAppender" />
+    </category>
+
+    <category name="com.negeso.module.user.command" additivity="false">
+        <priority value="INFO" />
+        <appender-ref ref="ConsoleAppender" />
+    </category>
+
+    <category name="com.negeso.module.portal.component.CustomerPortalComponent" additivity="false">
+        <priority value="INFO" />
+        <appender-ref ref="ConsoleAppender" />
+    </category>
+
+    <category name="com.negeso.module.payment.controller.PaymentStatusController" additivity="false">
+        <priority value="INFO" />
+        <appender-ref ref="ConsoleAppender" />
+    </category>
+
+    <category name="com.negeso.module.payment.command.RedirectPaymentCommand" additivity="false">
+        <priority value="INFO" />
+        <appender-ref ref="ConsoleAppender" />
+    </category>
+    <category name="com.negeso.module.portal.invoicing.service.DnsReplicationExecutor" additivity="false">
+        <priority value="INFO" />
+        <appender-ref ref="ConsoleAppender" />
+    </category>
+    <category name="com.negeso.module.portal.service.SitementrixSiteService" additivity="false">
+        <priority value="DEBUG" />
+        <appender-ref ref="ConsoleAppender" />
+    </category>
+
+    <category name="nl.phidias.domreg.client.HttpDomRegClient" additivity="false">
+        <priority value="INFO" />
+        <appender-ref ref="ConsoleAppender" />
+    </category>
+
+    <category name="com.negeso.module.portal.service.TldPricesUpdateService" additivity="false">
+        <priority value="INFO" />
+        <appender-ref ref="ConsoleAppender" />
+    </category>
+
+    <category name="com.negeso.module.portal.cron.ExpirationRenewableProductsCron" additivity="false">
+        <priority value="INFO" />
+        <appender-ref ref="ConsoleAppender" />
+    </category>
+
+    <category name="com.negeso.module.portal.cron.mail.ExpirationMailSenderService" additivity="false">
+        <priority value="INFO" />
+        <appender-ref ref="ConsoleAppender" />
+    </category>
+
+    <category name="com.negeso.module.portal.invoicing.service.InvoiceDeliveryService" additivity="false">
+        <priority value="INFO" />
+        <appender-ref ref="ConsoleAppender" />
+    </category>
+
+    <category name="com.negeso.module.portal.google.service.CheckSeoSiteService" additivity="false">
+        <priority value="DEBUG" />
+        <appender-ref ref="ConsoleAppender" />
+    </category>
+
+    <category name="com.negeso.google.keywords.GoogleSearchPageParser" additivity="false">
+        <priority value="DEBUG" />
+        <appender-ref ref="ConsoleAppender" />
+    </category>
+
+    <category name="com.negeso.module.portal.google.service.RevisionService" additivity="false">
+        <priority value="DEBUG" />
+        <appender-ref ref="ConsoleAppender" />
+    </category>
+
+    <category name="com.negeso.module.newsletter" additivity="false">
+        <priority value="DEBUG" />
+        <appender-ref ref="ConsoleAppender" />
+    </category>
+
+    <category name="org.apache.http" additivity="false">
+        <priority value="INFO" />
+        <appender-ref ref="ConsoleAppender" />
+    </category>
+
+    <root>
+        <priority value="ERROR" />
+        <appender-ref ref="ConsoleAppender" />
+    </root>
+
+</log4j:configuration>

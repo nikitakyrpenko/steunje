@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+    <!--
+    Element <template> has the next attributes:
+        name    - (mandatory) identifier; used in SQL dump and server-side code
+        title   - (mandatory) user-friendly description; TODO: localize it
+        default - (optional) indicates if the template is the default selection;
+                  "true" or "false" (default). Exactly one template should
+                  have this attribute equal to "true"
+    -->
+
+<templates xmlns="http://negeso.com/2003/Framework" version="2">
+    <template name="special" title="Special page" default="true"/>
+    <template name="popup" title="Popup page"/>
+	<template name="mail" title="Mail success page"/>
+</templates>

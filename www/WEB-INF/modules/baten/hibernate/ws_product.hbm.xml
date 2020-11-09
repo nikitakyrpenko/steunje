@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.negeso.module.baten.entity.ArticleInfo" table="ws_product">
+        <id name="id" type="long">
+        </id>
+        <property name="available"          type="boolean"/>
+        <property name="stock"              type="string"/>
+        <property name="image"              type="string"/>
+        <property name="description"        type="string"/>
+        <property name="price"              type="big_decimal" />
+        <property name="purchaseprice"      type="big_decimal" />
+        <property name="mincount"           type="integer"/>
+        <property name="increment"          type="integer"/>
+        <property name="lockedminount"      type="boolean"/>
+    </class>
+</hibernate-mapping>

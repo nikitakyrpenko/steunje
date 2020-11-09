@@ -1,0 +1,31 @@
+/*Main*/
+.b-contactBody{}
+
+
+/*Birthday*/
+.b-contactBirthday{}
+.b-contactBirthday h1{}
+
+.b-contactBirthdayDetails{}
+
+/*Contact book*/
+.b-contactBook{}
+.b-contactDetails{}
+.b-contactDetails th.b-contactDetails-Title{}
+
+
+/*Contact form*/
+.b-contactForm{}
+.b-contactForm h1{}
+
+
+/*Navigation*/
+table.b-contactNavigation{}
+table.b-contactNavigation th{}
+table.b-contactNavigation td{}
+
+/*Search*/
+.b-contactSearchResult{}
+.b-contactSearchResult th{}
+.b-contactSearchResult td{}
+.b-contactHead{}

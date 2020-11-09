@@ -1,0 +1,2 @@
+<command name="cb-manage-groups" class="com.negeso.module.contact_book.command.ManageGroups"/>
+<command name="cb-manage-contacts" class="com.negeso.module.contact_book.command.ManageContacts"/>

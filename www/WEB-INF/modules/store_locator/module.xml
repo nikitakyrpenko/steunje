@@ -1,0 +1,25 @@
+<module id="store_locator" name="Store Locator">
+  <extension point="core">
+    <mapping-url>/admin/store_locator.*|/store_locator.*</mapping-url>
+    <mapping-url>/admin/back.html</mapping-url>
+    <page-components>
+    </page-components>
+  </extension>
+</module>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

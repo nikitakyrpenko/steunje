@@ -1,0 +1,6 @@
+<module id="thr_push_marketing" name="Thr Push Marketing module for android app">
+  <extension point="core">	
+	<mapping-url>/admin/push_marketing.html</mapping-url>
+	<mapping-url>/get_push_marketing</mapping-url>
+  </extension>
+</module>

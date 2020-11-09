@@ -1,0 +1,41 @@
+/*Main*/
+.b-inquiryMain{}
+.b-inquiryMain h1{}
+.b-inquiryMain h2 {}
+
+ul.b-inquiryList{}
+ul.b-inquiryList li{}
+ul.b-inquiryList li a{}
+
+
+/*Questions*/
+.b-inquiryForm{}
+
+.b-inquiryStep{}
+.b-inquiryStep h2{}
+
+.b-inquiryIntro{}
+
+.b-inquiryQuestTitle{}
+
+/*Answers*/
+.b-inquiryAnswer{}
+.b-inquiryAnswer input.form_radio{}
+.b-inquiryAnswer input.form_checkbox{}
+.b-inquiryAnswer input.text{}
+.b-inquiryAnswer input.textarea{}
+
+.b-inquirySelect{}
+.b-inquirySelect option{}
+
+
+/*Empty*/
+.b-inquiryEmpty{}
+
+/*Result table*/
+.b-inquiryBack{}
+.b-inquiryBack a{}
+
+.b-inquiryResult-Answers{}
+
+.b-inquiryConclusion{}

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.negeso.module.guestbook.bo.Message" table="guestbook">
+        <id name="id" type="long">
+            <generator class="sequence">
+                <param name="sequence">guestbook_id_seq</param>
+            </generator>
+        </id>
+        <property name="authorName" column="author_name"/>
+        <property name="authorEmail" column="author_email"/>
+        <property name="message"/>
+        <property name="posted"/>
+        <property name="published"/>
+        <property name="gbId" column="gb_id"/>
+    </class>
+
+    <query name="Message.countPublishedRecords"><![CDATA[
+        select count(m) from Message m where m.gbId = ? and published is not null
+    ]]></query>
+
+    <query name="Message.countRecords"><![CDATA[
+        select count(m) from Message m where m.gbId = ?
+    ]]></query>
+
+    <query name="Message.listPublishedMessagesInRange"><![CDATA[
+        from Message m where m.gbId = ? and published is not null order by posted desc
+    ]]></query>
+    
+    <query name="Message.listMessagesInRange"><![CDATA[
+        from Message m where m.gbId = ? order by posted desc
+    ]]></query>
+
+</hibernate-mapping>

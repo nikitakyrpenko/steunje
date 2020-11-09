@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean id="mailingStateDao" parent="abstractDao">
+		<property name="proxyInterfaces">
+			<value>
+				com.negeso.module.newsletter.dao.MailingStateDao
+			</value>
+		</property>
+		<property name="target">
+			<bean parent="abstractDaoTarget">
+				<constructor-arg>
+					<value>
+						com.negeso.module.newsletter.bo.MailingState
+					</value>
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="publ2ArticleDao" parent="abstractDao">
+		<property name="proxyInterfaces">
+			<value>
+				com.negeso.module.newsletter.dao.Publ2ArticleDao
+			</value>
+		</property>
+		<property name="target">
+			<bean parent="abstractDaoTarget">
+				<constructor-arg>
+					<value>
+						com.negeso.module.newsletter.bo.Publ2Article
+					</value>
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="subscriberAttributeTypeDao" parent="abstractDao">
+		<property name="proxyInterfaces">
+			<value>
+				com.negeso.module.newsletter.dao.SubscriberAttributeTypeDao
+			</value>
+		</property>
+		<property name="target">
+			<bean parent="abstractDaoTarget">
+				<constructor-arg>
+					<value>
+						com.negeso.module.newsletter.bo.SubscriberAttributeType
+					</value>
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+    <bean id="subscriberDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.negeso.module.newsletter.dao.SubscriberDao</value>
+        </property>
+        <property name="target">
+            <bean parent="subscriberCriteriaDao">
+                <!--constructor-arg>
+                    <value>com.negeso.module.newsletter.bo.Subscriber</value>
+                </constructor-arg-->
+            </bean>
+        </property>    
+    </bean>
+	
+	<bean id="subscriberCriteriaDao" class="com.negeso.module.newsletter.dao.impl.SubscriberDaoHibernateImpl" abstract="true">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+        <property name="namingStrategy">
+            <ref bean="simpleFinderNamingStrategy" />
+        </property>
+        <property name="argumentTypeFactory">
+            <ref bean="simpleFinderArgumentTypeFactory" />
+        </property>
+    </bean>
+    
+    <bean id="subscriberGroupDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.negeso.module.newsletter.dao.SubscriberGroupDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.negeso.module.newsletter.bo.SubscriberGroup</value>
+                </constructor-arg>
+            </bean>
+        </property>    
+    </bean>
+    
+    <bean id="mailTemplateDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.negeso.module.newsletter.dao.MailTemplateDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.negeso.module.newsletter.bo.MailTemplate</value>
+                </constructor-arg>
+            </bean>
+        </property>    
+    </bean>
+    
+    <bean id="mailingDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.negeso.module.newsletter.dao.MailingDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.negeso.module.newsletter.bo.Mailing</value>
+                </constructor-arg>
+            </bean>
+        </property>    
+    </bean>
+    
+    <bean id="statisticsDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.negeso.module.newsletter.dao.StatisticsDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.negeso.module.newsletter.bo.Mailing</value>
+                </constructor-arg>
+            </bean>
+        </property>    
+    </bean>
+
+    <bean id="subscriptionCategoryDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>
+                com.negeso.module.newsletter.dao.SubscriptionCategoryDao
+            </value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>
+                        com.negeso.module.newsletter.bo.SubscriptionCategory
+                    </value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="publicationStateDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>
+                com.negeso.module.newsletter.dao.PublicationStateDao
+            </value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>
+                        com.negeso.module.newsletter.bo.PublicationState
+                    </value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="publicationDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>
+                com.negeso.module.newsletter.dao.PublicationDao
+            </value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>
+                        com.negeso.module.newsletter.bo.Publication
+                    </value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+
+</beans>

@@ -1,0 +1,10 @@
+<project name="WebCMS-Flip-Book" basedir="../.." default="compile-module">
+
+	<property name="module.version" value="3.2.0.RC1"/>
+	
+	<property name="module.key" value="flipbook"/>
+	<property name="module.title" value="Flip Book Module"/>
+	<path id="module.classpath"/>
+	<import file="../../ant/compile.xml"/>
+
+</project>

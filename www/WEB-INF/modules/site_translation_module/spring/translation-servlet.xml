@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean id="messageSource"
+		class="com.negeso.framework.i18n.DatabaseResourceBundleMessageSource">
+		<property name="basename"
+			value="dict_common.xsl, site_translation_module, core" />
+	</bean>
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix"
+			value="/WEB-INF/modules/site_translation_module/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<bean id="handlerMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<bean
+					class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+					<property name="paramName"
+						value="interfaceLanguage" />
+				</bean>
+			</list>
+		</property>
+		<property name="mappings">
+			<props>
+				<prop key="/admin/stm_settings.html">translationManagementController</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="translationManagementController" class="com.negeso.module.translator.web.controller.TranslationManagementController">
+	   <property name="methodNameResolver">
+			<bean
+				class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+				<property name="paramName">
+					<value>method</value>
+				</property>
+				<property name="defaultMethodName" value="handleCommonRequests" />
+			</bean>
+		</property>
+	   <property name="menuService" ref="menuService"/>
+	   <property name="i18nCorePropertyService" ref="i18nCorePropertyService"/>
+	   <property name="logService" ref="logService"/>
+	</bean>
+
+</beans>

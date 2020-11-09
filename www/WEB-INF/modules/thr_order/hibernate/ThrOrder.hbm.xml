@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.negeso.module.thr.bo.ThrOrder" table="thr_order">
+		<id name="id" type="long">
+			<generator class="sequence">
+				<param name="sequence">thr_order_id_seq</param>
+			</generator>
+		</id>
+		<property name="orderNumber" column="order_number" />
+		<property name="login" />
+		<property name="password" />
+		<property name="appVersion" column="app_version" />
+		<property name="osVersion" column="os_version" />
+		<property name="apiVersion" column="api_version" />
+		<property name="device" />
+		<property name="model" />
+		<property name="product" />
+		<property name="width" type="integer"/>
+		<property name="height" type="integer"/>
+		<property name="date" type="timestamp"/>
+		<property name="productsCount" column="products_count" type="integer"/>
+		<property name="nonorderableCount" column="nonorderable_count" type="integer"/>
+		<property name="total" type="double"/>
+		<bag name="products" order-by="id" cascade="all-delete-orphan" inverse="true">
+            <key column="order_id" foreign-key="thr_order_item_2_order"/>
+            <one-to-many class="com.negeso.module.thr.bo.OrderItem"/>
+        </bag>
+	</class>
+	
+	<class name="com.negeso.module.thr.bo.OrderItem" table="thr_order_item">
+		<id name="id" type="long">
+			<generator class="sequence">
+				<param name="sequence">thr_order_item_id_seq</param>
+			</generator>
+		</id>
+		 <many-to-one name="order" class="com.negeso.module.thr.bo.ThrOrder" >
+       		<column name="order_id"/>
+  		</many-to-one>
+		<property name="barCode" column="code"/>
+		<property name="count" type="integer"/>
+		<component name="productInfo" class="com.negeso.module.thr.bo.ProductInfo">
+			<property name="available" type="boolean"/>
+			<property name="stock"/>
+			<property name="image"/>
+			<property name="description"/>
+			<property name="price" type="double"/>
+			<property name="purchasePrice" column="purchase_price" type="double"/>
+			<property name="mincount" type="integer"/>
+			<property name="increment" type="integer"/>
+			<property name="lockedmincount" column="locked_mincount" type="boolean"/>
+			<property name="alternativeid" column="alternative_id"/>
+		</component>
+	</class>
+	
+    <query name="ThrOrder.listLogins"><![CDATA[
+       	select distinct login from ThrOrder order by login asc
+   	]]></query>
+</hibernate-mapping>

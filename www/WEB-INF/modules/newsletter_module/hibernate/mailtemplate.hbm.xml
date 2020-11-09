@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.negeso.module.newsletter.bo">
+
+  <class name="MailTemplate" table="nl_mail_template">
+    <id name="id" type="long">
+        <generator class="sequence">
+             <param name="sequence">nl_mail_template_id_seq</param>
+        </generator>            
+    </id>
+    <property name="i18n" type="boolean" />
+    <property name="confirmationText" type="boolean" column="confirmation_text"/>
+    <property name="siteId" type="long" column="site_id" not-null="false"/>
+    <map name="customFields" cascade="all-delete-orphan" inverse="true">
+        <key column="mail_template_id" not-null="true"/>
+        <map-key type="long" column="lang_id"/>
+        <one-to-many class="MailTemplateI18nFields" />
+    </map>
+  </class>
+
+  <class name="MailTemplateI18nFields" table="nl_mail_template_i18n_fields">
+    <id name="id" type="long">
+        <generator class="sequence">
+             <param name="sequence">nl_mail_template_i18n_fields_id_seq</param>
+        </generator>            
+    </id>
+    <property name="title" type="string"/>
+    <property name="text" type="string"/>
+    <property name="langId" column="lang_id" type="long"/>
+    <many-to-one name="mailTemplate" class="com.negeso.module.newsletter.bo.MailTemplate" 
+        column="mail_template_id" not-null="true" cascade="save-update"
+        foreign-key="fk_nl_mail_template_i18n_fields_mail_template" />    
+  </class>
+  
+  <query name="MailTemplate.findByTitle"><![CDATA[
+        select m from MailTemplate as m left join m.customFields as fields where fields.title = ? 
+        and fields.langId = ?
+    ]]></query>  
+
+  <query name="MailTemplate.listAllMailTemplates"><![CDATA[
+        select m from MailTemplate as m where m.confirmationText = false
+    ]]></query>  
+    
+    <query name="MailTemplate.findConfirmationText"><![CDATA[
+        select m from MailTemplate as m where m.confirmationText = true
+    ]]></query>  
+  <query name="MailTemplate.countLinkedPublication"><![CDATA[
+        select count(p) from Publication as p join p.mailTemplate as mt where mt.id = ?         
+    ]]></query>  
+
+  
+</hibernate-mapping>

@@ -1,0 +1,19 @@
+/* ------  Site  ------ */
+body, td, th {
+	font-size: 13px ;
+}
+ul.menu, ul.menu ul {
+	font-size:14px;
+}
+ul.menu ul {
+	font-size: 13px;
+}
+/* ------  Main  ------ */
+/*News container on home above webpoll*/
+.pollMargin,.shortNews h1,.newsShortSel h1{
+	font-size:13px;
+}
+/*Poll styles Start*/
+.PollResQuestion,.PollTotal,.PollYesNumbers,.PollNoNumbers,.PollNeutralNumbers  {
+	font-size: 14px;
+}

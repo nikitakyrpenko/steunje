@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.negeso.module.newsletter.bo">
+
+  <class name="Attachment" table="nl_attachment">
+    <id name="id" type="long">
+        <generator class="sequence">
+             <param name="sequence">nl_attachment_id_seq</param>
+        </generator>            
+    </id>
+
+    <property name="link"/>
+    <property name="embedded" column="is_embedded"/>
+    
+    <many-to-one name="publication" 
+    		class="com.negeso.module.newsletter.bo.Publication" column="publication_id" not-null="true"
+            foreign-key="fk_nl_attachment_publication"/>
+    
+  </class>
+  
+</hibernate-mapping>

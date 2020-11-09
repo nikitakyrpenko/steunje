@@ -1,0 +1,66 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>{#negeso_google_map.title}</title>
+	<script language="javascript" type="text/javascript" src="../../tiny_mce_popup.js"></script>
+	<script language="javascript" type="text/javascript" src="js/google_map.js">/**/</script>
+	
+	
+	
+	<script language="javascript" type="text/javascript" src="../../utils/mctabs.js"></script>
+	<script language="javascript" type="text/javascript" src="../../utils/form_utils.js"></script>
+	
+	 
+	<base target="_self" />
+</head>
+<body style="display: none; margin: 0; padding: 6px" onload="tinyMCEPopup.executeOnLoad('init();');">
+    
+    <form onsubmit="insertTwitterWidget();return false;" action="#">
+		<div class="tabs">
+			<ul>
+				<li id="general_tab" class="current"><span><a href="javascript:mcTabs.displayTab('general_tab','general_panel');" onmousedown="return false;">{#negeso_google_map.general}</a></span></li>
+			</ul>
+		</div>
+
+		
+
+		<div class="panel_wrapper">
+			<div id="general_panel" class="panel current" style="height: 110px;">
+				<fieldset>
+					<legend>{#negeso_google_map.options}</legend>
+
+					
+					<table border="0" cellpadding="4" cellspacing="0">
+							<tr>
+								<td nowrap="nowrap"><label>{#negeso_google_map.link}</label></td>
+								<td nowrap="nowrap"><input id="link" type="text" value=""  style="width: 330px;"/></td>
+							</tr>
+							
+							<tr>
+								<td nowrap="nowrap"><label>{#negeso_google_map.height}</label></td>
+								<td nowrap="nowrap"><input id="height" type="text" value="200" size="4"/></td>
+							</tr>
+
+							<tr>
+								<td nowrap="nowrap"><label>{#negeso_google_map.width}</label></td>
+								<td nowrap="nowrap"><input id="width" type="text" value="300" size="4"/></td>
+							</tr>
+					</table>
+				</fieldset>
+			</div>
+		</div>
+	
+		<div class="mceActionPanel" style="padding-bottom: 20px">
+			<div style="float: left">
+				<input type="button" id="insert" name="insert" value="{#insert}" onclick="insertData();" />
+			</div>
+
+			<div style="float: right">
+				<input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="tinyMCEPopup.close();" />
+			</div>
+		</div>
+	</form>
+</body>
+
+
+</html>

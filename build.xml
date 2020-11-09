@@ -1,0 +1,44 @@
+<project name="WebCMS-Main" default="help" basedir=".">
+
+    <target name="clean">
+        <ant antfile="ant/compile.xml" inheritAll="false" target="clean" />
+    </target>
+	
+	<target name="build-jar" depends="clean">
+		<ant antfile="ant/compile.xml" inheritAll="false" target="build-jar" />
+	</target>
+	
+	<target name="build-custom-jar" depends="clean">
+		<ant antfile="ant/compile.xml" inheritAll="false" target="build-custom-jar" />
+	</target>
+	
+	<target name="build-all-jars" depends="clean">
+        <ant antfile="ant/compile.xml" inheritAll="false" target="build-all-jars" />
+	</target>
+
+    <target name="build-all-dumps" depends="clean">
+        <ant antfile="ant/db.xml" inheritAll="false" target="build-all-dumps" />
+    </target>
+	
+    <target name="teambuild">
+        <ant antfile="ant/cc.xml" inheritAll="false" target="cruise" />
+    </target>
+
+    <target name="help">
+        <echo message="${ant.project.name}" />
+        <echo message="-----------------------------------" />
+        <echo message="Resolved targets are:" />
+        <echo message="-----------------------------------" />
+        <echo message="build-jar" />
+        <echo message="build-custom-jar" />
+        <echo message="build-all-jars" />
+        <echo message="build-all-dumps" />
+        <echo message="teambuild" />
+        <echo message="clean" />
+        
+        <ant antfile="ant/compile.xml" inheritAll="false" />
+        <ant antfile="ant/db.xml" inheritAll="false" />
+        <ant antfile="ant/cc.xml" inheritAll="false" />
+    </target>
+	
+</project>

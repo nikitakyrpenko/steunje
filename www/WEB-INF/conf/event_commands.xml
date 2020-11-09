@@ -1,0 +1,11 @@
+<command name="create-event-category-command" class="com.negeso.module.event.command.CreateCategoryCommand"/>
+<command name="create-event-command" class="com.negeso.module.event.command.CreateEventCommand"/>
+<command name="delete-event-category-command" class="com.negeso.module.event.command.DeleteCategoryCommand"/>
+<command name="delete-event-command" class="com.negeso.module.event.command.DeleteEventCommand"/>
+<command name="get-event-category-command" class="com.negeso.module.event.command.GetCategoryCommand"/>
+<command name="get-event-categories-command" class="com.negeso.module.event.command.GetEventCategoriesCommand"/>
+<command name="get-event-command" class="com.negeso.module.event.command.GetEventCommand"/>
+<command name="get-event-schedule-command" class="com.negeso.module.event.command.GetEventScheduleCommand"/>
+<command name="search-events-command" class="com.negeso.module.event.command.SearchEventsCommand"/>
+<command name="update-event-category-command" class="com.negeso.module.event.command.UpdateCategoryCommand"/>
+<command name="update-event-command" class="com.negeso.module.event.command.UpdateEventCommand"/>

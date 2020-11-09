@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+  <class name="com.negeso.module.translator.domain.Log" table="tr_log">
+    <id name="id" type="long">
+        <generator class="sequence">
+             <param name="sequence">tr_log_id_seq</param>
+        </generator>            
+    </id>
+    <property name="fromLangCode" column="from_lang_code" />
+    <property name="toLangCode" column="to_lang_code" />
+    <property name="charsNumber" column="chars_number" type="long"/>
+    <property name="date" type="timestamp"/>
+    <property name="url"/>
+    <property name="nameOfTranslator" column="name_of_translator"/>
+  </class>  
+  
+  <query name="Log.listOrderById"><![CDATA[
+        from Log order by id
+    ]]></query>
+
+  
+</hibernate-mapping>

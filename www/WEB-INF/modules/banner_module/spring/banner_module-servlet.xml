@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <bean id="messageSource" class="com.negeso.framework.i18n.DatabaseResourceBundleMessageSource">
+        <property name="basename" value="dict_common.xsl, dict_banner_module.xsl"/>
+    </bean>
+    
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="10000000"/>
+    </bean>
+
+    <bean id="exceptionResolver" class="com.negeso.framework.ExceptionHandler">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.Exception">friendlyError</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/modules/banner_module/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    
+    <bean id="handlerMapping1" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">        
+        <property name="interceptors">
+            <list>
+                <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+                    <property name="paramName" value="interfaceLanguage"/>
+                </bean>
+                <bean class="com.negeso.framework.security.BannerSecurityInterceptor"/>
+            </list>
+        </property>
+        <property name="mappings">
+            <props> 
+                <prop key="/admin/back.html">backController</prop>
+                <prop key="/admin/bm_categorylist.html">bannerCategoryListController</prop>
+                <prop key="/admin/bm_category.html">bannerCategoryController</prop>
+                <prop key="/admin/bm_bannerlist.html">bannerListController</prop>
+                <prop key="/admin/bm_banner.html">bannerController</prop>
+                <prop key="/admin/bm_typelist.html">typeListController</prop>
+                <prop key="/admin/bm_type.html">typeController</prop>
+                <prop key="/admin/bm_redirect.html">bannerRedirectController</prop>
+                <prop key="/admin/bm_product_pages.html">bannerProductPageChooserController</prop>
+                <prop key="/bm_redirect.html">bannerRedirectController</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <!-- Validators -->
+
+    <bean id="bannerCategoryValidator" class="com.negeso.module.banner_module.validators.BannerCategoryValidator" >
+    	<property name="bannerCategoryService" ref="bannerCategoryService"/>
+    </bean>
+    
+    <bean id="bannerTypeValidator" class="com.negeso.module.banner_module.validators.BannerTypeValidator" >
+    	<property name="bannerService" ref="bannerService"/>
+    	<property name="bannerTypeService" ref="bannerTypeService"/>
+    </bean> 
+
+	<!-- Validators -->
+
+	<bean id="bannerProductPageChooserController" class="com.negeso.module.banner_module.web.controller.BannerProductPageChooserController" >
+		<property name="methodNameResolver">
+            <bean class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">  
+                <property name="paramName">
+                    <value>action</value>
+                </property>
+            </bean>
+        </property>
+        <property name="bannerService" ref="bannerService" />
+	</bean>
+
+    <bean id="bannerRedirectController" class="com.negeso.module.banner_module.web.controller.BannerRedirectController">
+        <property name="methodNameResolver">
+            <bean class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">  
+                <property name="paramName">
+                    <value>action</value>
+                </property>
+            </bean>
+        </property>
+        <property name="bannerService" ref="bannerService" />
+    </bean>
+
+    <bean id="bannerListController" class="com.negeso.module.banner_module.web.controller.BannerListController">
+        <property name="methodNameResolver">
+            <bean class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">  
+                <property name="paramName">
+                    <value>action</value>
+                </property>
+            </bean>
+        </property>
+        
+        <property name="bannerService" ref="bannerService" />
+        <property name="bannerTypeService" ref="bannerTypeService" />
+    </bean>
+    
+    <bean id="bannerController" class="com.negeso.module.banner_module.web.controller.BannerController">
+        <property name="bannerService" ref="bannerService" />
+        <property name="bannerTypeService" ref="bannerTypeService"/>
+        <property name="commandName"><value>banner</value></property>
+        <property name="commandClass"><value>com.negeso.module.banner_module.bo.Banner</value></property>
+    </bean>
+
+    <bean id="bannerCategoryListController" class="com.negeso.module.banner_module.web.controller.BannerCategoryListController">
+        <property name="methodNameResolver">
+            <bean class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">  
+                <property name="paramName">
+                    <value>action</value>
+                </property>
+                <property name="defaultMethodName">
+                    <value>categoryContent</value>
+                </property>
+            </bean>
+        </property>
+        <property name="bannerCategoryService" ref="bannerCategoryService" />
+        <property name="bannerService" ref="bannerService" />
+    </bean>
+
+    <bean id="bannerCategoryController" class="com.negeso.module.banner_module.web.controller.BannerCategoryController">
+        <property name="bannerCategoryService" ref="bannerCategoryService" />
+        
+        <property name="commandName"><value>category</value></property>
+        <property name="commandClass"><value>com.negeso.module.banner_module.bo.BannerCategory</value></property>
+        <property name="formView"><value>bm_editcategory</value></property>
+        <property name="validator" ref="bannerCategoryValidator" />
+    </bean>
+    
+    <bean id="typeListController" class="com.negeso.module.banner_module.web.controller.TypeListController">
+        <property name="methodNameResolver">
+            <bean class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">  
+                <property name="paramName">
+                    <value>action</value>
+                </property>
+                <property name="defaultMethodName">
+                    <value>showTypeList</value>
+                </property>
+            </bean>
+        </property>
+        <property name="bannerService" ref="bannerService" />
+        <property name="bannerTypeService" ref="bannerTypeService" />
+    </bean>
+
+    <bean id="typeController" class="com.negeso.module.banner_module.web.controller.TypeController">
+        <property name="bannerTypeService" ref="bannerTypeService" />
+        
+        <property name="commandClass"><value>com.negeso.module.banner_module.bo.BannerType</value></property>
+        <property name="formView"><value>bm_edittype</value></property>
+        <property name="validator" ref="bannerTypeValidator" />
+    </bean>
+
+    <bean id="backController" class="com.negeso.framework.navigation.BackController"/> 
+	
+</beans>

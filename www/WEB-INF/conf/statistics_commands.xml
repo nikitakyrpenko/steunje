@@ -1,0 +1,7 @@
+<command name="statistics-list" class="com.negeso.module.statistics.command.ChooseStatisticsCommand"/> 
+<command name="statistics-user-page" class="com.negeso.module.statistics.command.UserPageStatisticsCommand"/>
+<command name="statistics-page" class="com.negeso.module.statistics.command.PageStatisticsCommand"/>
+<command name="statistics-select-user" class="com.negeso.module.statistics.command.SelectUserCommand"/>
+
+<command name="manage-counters-command" class="com.negeso.module.statistics.command.ManageCountersCommand"/>
+<command name="get-menu-tree-command" class="com.negeso.module.statistics.command.GetMenuTreeCommand"/>

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping auto-import="false">
+
+	<class name="com.negeso.module.job.domain.Region" table="job_region">
+		<id name="id" type="long">
+			<generator class="sequence">
+				<param name="sequence">job_region_id_seq</param>
+			</generator>
+		</id>
+
+		<property name="title" />
+		<property name="orderNumber" column="order_number" type="long" />
+		<bag name="vacancies" table="job_vacancies" cascade="none" inverse="true">
+            <key column="region_id" foreign-key="fk_vacancy_2_region"/>
+			<one-to-many class="com.negeso.module.job.domain.Vacancy"/>
+		</bag>
+	</class>
+
+	<class name="com.negeso.module.job.domain.Vacancy" table="job_vacancies">
+		<id name="id" type="long">
+			<generator class="sequence">
+				<param name="sequence">job_vacancies_id_seq</param>
+			</generator>
+		</id>
+
+		<property name="title" />
+		<property name="position" />
+		<property name="articleId" column="article_id" type="long" />
+		<property name="salary" />
+		<property name="needed" type="long" />
+		<property name="publishDate" column="publish_date" type="timestamp" />
+		<property name="expireDate" column="expire_date" type="timestamp" />
+		<property name="type" />
+		<property name="departmentId" column="department_id" type="long" />
+	</class>
+
+</hibernate-mapping>

@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+  <class name="com.negeso.module.picture_frame.domain.Image" table="pf_image">
+    <id name="id"  type="long" >
+      <generator class="sequence">
+        <param name="sequence">pf_image_id_seq</param>
+      </generator>
+    </id>
+    <property name="imageSetId"  column="images_set_id"/>
+    <property name="src"/>
+    <property name="alt"/>
+    <property name="maxWidth"	column="max_width"/>
+    <property name="maxHeight" 	column="max_height"/>
+    <property name="minHeight" 	column="min_height"/>
+    <property name="minWidth" 	column="min_width"/>
+    <property name="width"  	column="required_width"/>
+    <property name="height"  	column="required_height"/>
+    <property name="order"		column="_order"/>
+
+  </class>
+  
+  <class name="com.negeso.module.picture_frame.domain.ImageSet" table="pf_images_set">
+    <id name="id"  type="long" >
+      <generator class="sequence">
+        <param name="sequence">pf_images_set_id_seq</param>
+      </generator>
+    </id>
+    <property name="templateName" column="template_name"/>
+    <property name="templateType" column="template_type"/>
+    <property name="maxWidth"  column="max_width"/>
+    <property name="maxHeight" column="max_height"/>
+    <property name="minHeight" column="min_height"/>
+    <property name="minWidth" column="min_width"/>
+    <property name="requiredWidth" column="required_width"/>
+    <property name="requiredHeight" column="required_height"/>
+    <property name="numberOfImages" column="number_of_images"/>
+
+    <bag name="images" order-by="id">
+      <key column="images_set_id"/>
+        <one-to-many  class="com.negeso.module.picture_frame.domain.Image"/>
+    </bag>   
+
+  </class>
+
+</hibernate-mapping>

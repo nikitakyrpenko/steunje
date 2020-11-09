@@ -1,0 +1,65 @@
+<matcher uri="/admin/translate" command-name="get-dictionary-files-command">
+    <parameter name="interface_type" value="translator"/>
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="DICTIONARY_FILES_LIST_XSL"/>
+    </bind>
+</matcher>
+
+<matcher uri="/admin/dictionary" command-name="get-dictionary-files-command">
+    <parameter name="interface_type" value="developer"/>
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="DICTIONARY_FILES_LIST_XSL"/>
+    </bind>
+</matcher>
+
+<command name="get-dictionary-files-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="DICTIONARY_FILES_LIST_XSL"/>
+    </bind>
+</command>
+
+<command name="get-dictionary-file-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="DICTIONARY_FILE_XSL"/>
+    </bind>
+</command>
+
+<command name="update-dictionary-file-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="DICTIONARY_FILES_LIST_XSL"/>
+    </bind>
+</command>
+
+<command name="delete-dictionary-file-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="DICTIONARY_FILES_LIST_XSL"/>
+    </bind>
+</command>
+
+<command name="get-dictionary-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="DICTIONARY_XSL"/>
+    </bind>
+</command>
+
+<command name="update-dictionary-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="DICTIONARY_XSL"/>
+    </bind>
+</command>
+
+<command name="manage-dictionary-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="DICTIONARY_STRUCTURE_XSL"/>
+    </bind>
+</command>
+
+<command name="get-languages-list-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="DICTIONARY_LANGUAGES_LIST_XSL"/>
+    </bind>
+</command>
+
+<command name="download-dictionary-command">
+    <bind result="success" view="get-file-view"/>
+</command>

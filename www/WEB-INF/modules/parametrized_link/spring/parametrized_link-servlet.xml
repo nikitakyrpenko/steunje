@@ -1,0 +1,77 @@
+<beans xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-2.0.xsd"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx">
+	<tx:annotation-driven transaction-manager="hibernateTransactionManager" />
+	<bean id="messageSource" class="com.negeso.framework.i18n.DatabaseResourceBundleMessageSource">
+        	<property name="basename" value="dict_common.xsl, parametrized_link.jsp"/>
+   	</bean>
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10000000"/>
+	</bean>
+
+	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">friendlyExpired</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+		<property name="prefix" value="/WEB-INF/modules/parametrized_link/jsp/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+
+	<bean id="handlerMapping1" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+					<property name="paramName" value="interfaceLanguage"/>
+				</bean>
+				
+				<bean class="com.negeso.framework.security.SecurityInterceptor"/>
+				
+				<ref bean="openSessionInViewInterceptor"  />
+			</list>
+		</property>
+		<property name="mappings">
+			<props> 
+				<prop key="/admin/parametrized_links.html">parametrizedLinkController</prop>
+				<prop key="/admin/pl_details.html">parametrizedLinkController</prop>
+   			</props>
+		</property>
+	</bean>
+	
+	<bean name="openSessionInViewInterceptor"  
+    	class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
+       <property name="sessionFactory"><ref bean="sessionFactory"/></property>
+      <property name="flushMode">
+         <bean id="org.springframework.orm.hibernate3.HibernateAccessor.FLUSH_AUTO"
+            class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean"/>
+      </property>
+
+ 	 </bean>
+
+	<bean id="controller1" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="index"/>
+	</bean>
+	
+	<bean id="parametrizedLinkService" class="com.negeso.module.parametrized_link.ParametrizedLinkService">   
+		<property name="sessionFactory"><ref bean="sessionFactory"/></property> 	
+	</bean> 
+
+
+	<bean id="parametrizedLinkController" class="com.negeso.module.parametrized_link.ParametrizedLinkController">   
+		<property name="parametrizedLinkService"><ref bean="parametrizedLinkService"/></property> 
+	</bean> 
+
+</beans>
+
+

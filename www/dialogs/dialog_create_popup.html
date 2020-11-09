@@ -1,0 +1,500 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <title>Negeso W/CMS</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" type="text/css" href="/css/admin_style.css"/>
+ 
+ <script type="text/javascript" language="JavaScript" src="/script/jquery.min.js"></script> 
+ <script type="text/javascript" src="/script/cufon-yui.js"></script>
+ <script type="text/javascript" src="/script/Orator_Std_400.font.js"></script>
+ <script type="text/javascript" src="/script/conf.js"></script>
+  <script type="text/javascript" language="JavaScript" src="/script/common_functions.js"></script>
+  <script type="text/javascript" language="JavaScript" src="/script/calendar_picker.js"></script>
+  <script type="text/javascript" language="JavaScript" src="/script/security.js"></script>
+ 
+  <script type="text/javascript" id="localization"></script>
+  <script type="text/javascript" language="JavaScript">
+      document.getElementById("localization").src =
+          "/dictionaries/dict_dialogs_" + getInterfaceLanguage() + ".js";
+  
+      var s_PageNameCannotBeEmpty = "";
+      var s_PageNameCannotConsistOfSpacesAlone = "";
+      var s_FileNameCannotBeEmpty = "";
+      var s_FileNameIsTooLong = "";
+      var s_MaximumCharacters = "";
+      var s_InvalidFileName = "";
+      var s_SpacesAreNotAllowed = "";
+  </script>
+
+  <script type="text/javascript">
+    var today = new Date();
+      var yesterday = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 2);
+      
+      function showPage(){
+          document.getElementById("expire").value = "";
+          document.getElementById("publish").value = 
+              prependZero(yesterday.getDate()) + "-" + 
+              prependZero(yesterday.getMonth() + 1) + "-" + 
+              prependZero(yesterday.getFullYear());
+      }
+
+      function hidePage(){
+          expire.value = 
+              prependZero(yesterday.getDate()) + "-" +
+              prependZero(yesterday.getMonth() + 1) + "-" +
+              prependZero(yesterday.getFullYear());
+          publish.value = "";
+      }
+  
+
+        //var caller = window.dialogArguments;
+        var caller = window.opener;
+        document.onkeypress = function(e) {
+          var ev=window.event?window.event:e?e:null;
+          if (ev && ev.keyCode == 27) returnCancel();
+        }
+        
+        window.onload = function(){
+            document.getElementById("buttonYes").blur();
+            document.getElementById("buttonCancel").blur();
+        }
+        
+        function returnYes() {
+            /* check if page title is empty */
+            var pageTitle = document.getElementById("title").value;
+            if(pageTitle.length < 1){
+                alert(s_PageNameCannotBeEmpty);
+                title.focus();
+                return false;
+            }
+            
+            var onlySpaces = true;
+            for(i = 0; i < pageTitle.length; i++){
+                if(pageTitle.charAt(i) != ' '){
+                    onlySpaces = false;
+                    break;
+                }
+            }
+           
+            if(onlySpaces) {
+                alert(s_PageNameCannotConsistOfSpacesAlone);
+                document.getElementById("title").focus();
+                return false;
+            }
+            
+            /* check page filename*/
+            caller.create_mi_linktype =
+                  (document.getElementById("template").value == "popup") ? "popup" : "page";
+           
+            var name = document.getElementById("link_filename").value;
+            if(name.length < 1){
+                alert(s_FileNameCannotBeEmpty);
+                return false;
+            }
+            
+            if(name.length > 26){
+                alert(s_FileNameIsTooLong + ".\n" + s_MaximumCharacters);
+                return false;
+            }
+            
+            for(var i=0; i < name.length; i++){
+                if( "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_:"
+                        .indexOf(name.charAt(i)) == -1 ){
+                    alert(s_InvalidFileName + "_ - :'\n" + s_SpacesAreNotAllowed);
+                    document.getElementById("link_filename").focus();
+                    return false;
+                }
+            }
+            caller.create_mi_filename = document.getElementById("link_filename").value + 
+                                        "_" + caller.currentLanguage + 
+                                        ".html";
+            caller.create_mi_publish =
+                getCanonicalDate(
+                     document.getElementById("publish").value.substring(0, 2),
+                     document.getElementById("publish").value.substring(3, 5),
+                     document.getElementById("publish").value.substring(6, 10)
+                    );
+            
+            caller.create_mi_expire =
+                getCanonicalDate(
+                    document.getElementById("expire").value.substring(0, 2),
+                    document.getElementById("expire").value.substring(3, 5),
+                    document.getElementById("expire").value.substring(6, 10)
+                    );
+            
+            caller.create_mi_link = "";
+            caller.create_mi_title = document.getElementById("title").value;
+            caller.create_mi_container_id = document.getElementById("container").value;
+      caller.create_page_template = document.getElementById("template").value;
+      try {
+        if(caller.metatags) {
+          caller.create_mi_metadescr = document.getElementById("pgMetaDescr").value;
+                caller.create_mi_metakeywords = document.getElementById("pgMetaKeywords").value;
+                if(caller.curPagePropertyName && document.getElementById("pgPropertyValue")) {
+                  caller.create_mi_property_value = document.getElementById("pgPropertyValue").value;
+                }
+        }
+      }
+      catch(e) {}
+      try {
+        if(caller.google_script_enabled) {
+          caller.create_mi_google_script = document.getElementById("pgGoogleScript").value;
+        }
+      }
+      catch(e) {}
+      caller.create_mi_isSearch = document.getElementById("isSearch").checked ? "true" : "false";
+      caller.create_mi_multi_language = document.getElementById("multiLanguage").checked ? "true" : "false";  
+      caller.tryToCreateMenuItemCallback();
+            window.close();
+        }
+        
+        function returnCancel(){
+            //window.returnValue='cancel';
+            window.close();
+        }
+        
+        /** Returns XSD canonical date representation (CCYY-MM-DDThh:mm:ssZ) */
+        function getCanonicalDate(d, m, y){
+            if(d == "" || m == "" || y == ""){
+                return "";
+            }
+            return y + "-" + m + "-" + d + "T00:00:00Z";
+        }
+        
+        // Choose container: Begin
+        /*
+        function setSecurity(){
+            var choice = Security.selectContainerDialog(
+                document.all.container.value, 'manager');
+            if(choice != null && choice.resCode == "OK"){
+                document.getElementById("container").value = choice.containerId;
+                document.getElementById("containerTitle").value = choice.containerTitle;
+            }
+        }
+        */
+    function setSecurity(){
+      NewSecurity.setContainer = setSecurity_responseOK;
+      NewSecurity.selectContainerDialog(document.getElementById("container").value, "manager");
+    }
+    
+    function setSecurity_responseOK() {
+      document.getElementById("container").value = NewSecurity.return_value.containerId;
+      document.getElementById("containerTitle").value = NewSecurity.return_value.containerTitle;    
+    }
+    // Choose container: End
+
+    function selectTemplate() {
+      showModalDialog(
+              "?command=select-page-template-command&special=",
+              null,
+              "resizable:on;scroll:on;status:off;dialogWidth:605px;dialogHeight:351px").then(function(choice){
+                if(choice != null && choice.resCode == "OK"){
+                    document.getElementById("template").value = choice.templateId;
+                    document.getElementById("templateTitle").value = choice.templateTitle;
+                }
+              });
+        }
+        /** Returns '1' as '01', ..., '9' as '09'. Values beyond these bounds
+        * are returned unchanged.
+        */
+        function prependZero(num){
+            return num > 9 ? num : "0" + num;
+        }
+
+        var today = new Date();
+        var yesterday = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 2);
+        //attachEvent ("onload", resizeDialogWindow); //resize dialog window height
+
+        function showPage() {
+            document.getElementById("expire").value = "";
+            document.getElementById("publish").value =
+                prependZero(yesterday.getDate()) + "-" +
+                prependZero(yesterday.getMonth() + 1) + "-" +
+                prependZero(yesterday.getFullYear());
+        }
+
+        function hidePage() {
+            document.getElementById("expire").value =
+                prependZero(yesterday.getDate()) + "-" +
+                prependZero(yesterday.getMonth() + 1) + "-" +
+                prependZero(yesterday.getFullYear());
+            document.getElementById("publish").value = "";
+        }
+        
+        /** Constructs tags <OPTION...> for numeric values, from minVal to
+         * maxVal. selectedVal (if set) is marked as 'selected'
+         */
+        function writeOptions(minVal, maxVal, selectedVal){
+            for(var i = minVal; i <= maxVal; i++){
+                var checked = i == selectedVal ? " selected" : "";
+                document.write("<option value='" + prependZero(i) + "'" + checked + ">" + prependZero(i) );
+            }
+        }
+        
+        var today = new Date();
+        var twoDaysAgo = new Date(today.getYear(), today.getMonth(), today.getDate() - 2);
+        //attachEvent("onload", resizeDialogWindow); //resize dialog window height        
+    </script>
+
+</head>
+<body class="dialogSmall">
+  <table class="admMain"  align="center" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+          <td class="admConnerLeft"></td>
+          <td class="admTopBtn"></td>
+          <td class="admConnerRight"></td>
+      </tr>
+      <tr>
+          <td class="admMainLeft">
+              <img src="/images/left_bot.png" alt="" />
+          </td>
+          <td>
+              <table align="center" border="0" cellpadding="0" cellspacing="0" class="admTable">
+                  <!-- BEGIN CONTENT -->
+                  <tr>
+                      <td class="admNavPanelFont" align="center" colspan="3">
+                          <script type="text/javascript">document.write(Strings.CREATING_SPECIAL_PAGE);</script>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td class="admTableTDLast admRight" id="TITLE_LABEL">
+                      </td>
+                      <td class="admTableTDLast">
+                          <input type="text" id="title" value="" class="admTextArea"/>
+                      </td>
+                      <td class="admTableTDLast">&nbsp;</td>
+                  </tr>
+                  <tr>
+                      <td class="admTableTDLast admRight" id="FILE_NAME"></td>
+                      <td class="admTableTDLast" colspan="2">
+                          <input type="text" id="link_filename" value="" class="admTextArea"/>
+                          <script type="text/javascript">document.write('_' + caller.currentLanguage + '.html')</script>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td class="admTableTDLast admRight" id="PUBLISH_ON"></td>
+
+                      <td  class="admTableTDLast" colspan="2">
+                        <div style="float:left; padding:5px 0 0 0;">
+                          <input style="width: 80px;" type="text" id="publish" readonly="true"/>
+                          <img class="admHand" src="/images/calendar.gif" width="16" height="16" hspace="7" vspace="2" 
+                                onclick="loadNewCalendar('/dialogs/dialog_calendar_picker.html','publish','ddmmyyyy',false)" 
+                                align="absmiddle" onfocus="blur()"/><span class="admLocation">(dd-mm-yyyy)</span>
+                        </div>
+                           <div class="admNavPanelInp" style="padding:0; float:left;">
+                                            <div class="imgL"></div>
+                                            <div align="center">
+                                                <a class="admNavPanelInp" style="width:83px;" focus="blur()" href="#" onclick="showPage();return false;" id="buttonShow" onfocus="blur()"></a>
+                                            </div>
+                                          
+                                            <div class="imgR"></div>
+                                  </div>
+                      
+
+                      </td>
+                      
+                      
+                  </tr>
+                  <tr>
+                      <td class="admTableTDLast admRight" id="EXPIRES_ON"></td>
+
+                      <td colspan="2" class="admTableTDLast">
+                       <div style="float:left; padding:5px 0 0 0;">  
+                          <input style="width: 80px;" type="text" id="expire" readonly="true"/>
+                          <script>
+                            document.getElementById("expire").value =
+                            prependZero(twoDaysAgo.getDate()) + "-" +
+                            prependZero(twoDaysAgo.getMonth() + 1) + "-" +
+                            twoDaysAgo.getYear();
+                          </script>
+                          <img class="admHand" src="/images/calendar.gif" width="16" height="16" hspace="7" vspace="2" 
+                               onclick="loadNewCalendar('/dialogs/dialog_calendar_picker.html','expire','ddmmyyyy',false)" 
+                               align="absmiddle"/><span class="admLocation">(dd-mm-yyyy)</span>
+                          </div>
+                          <div class="admNavPanelInp" style="padding:0;float:left;">
+                               <div class="imgL"></div>
+                               <div align="center">
+                                    <a class="admNavPanelInp" focus="blur()" style="width:83px;" href="#" onclick="hidePage(); return false;" id="buttonHide" onfocus="blur()"></a>
+                               </div>
+                               <div class="imgR"></div>
+                           </div>
+                          
+
+                      </td>
+                  </tr>
+                  <tr>
+                      <td class="admTableTDLast admRight" id="PAGE_META_DESCRIPTION" width="180"></td>
+                      <td colspan="2" class="admTableTDLast">
+                          <script type="text/javascript">
+                            try {
+                                if (caller.metatags == 'true') {
+                                    document.write('<textarea id="pgMetaDescr" class="admTextArea" rows="3">' + caller.newPageMetaDescr + '</textarea>');
+                                } else {
+                                    document.write('<textarea id="pgMetaDescr" class="admTextArea" rows="3" disabled="true" readonly="true">' + caller.newPageMetaDescr + '</textarea>');
+                                }
+                            } catch (e) { }
+                          </script>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td class="admTableTDLast admRight" id="PAGE_META_KEYWORDS" width="180"></td>
+                      <td colspan="2" class="admTableTDLast">
+                          <script type="text/javascript">
+                               try {
+                                   if (caller.metatags == 'true') {
+                                       document.write('<textarea id="pgMetaKeywords" class="admTextArea" rows="3">' + caller.newPageMetaKeywords + '</textarea>');
+                                   } else {
+                                       document.write('<textarea id="pgMetaKeywords" class="admTextArea" rows="3" disabled="true" readonly="true">' + caller.newPageMetaKeywords + '</textarea>');
+                                   }
+                               } catch (e) { }
+                          </script>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td class="admTableTDLast admRight" id="PAGE_GOOGLE_SCRIPT" width="180"></td>
+                            <script type="text/javascript">
+                                   try {
+                                       if (caller.google_script_enabled != 'true')
+                                       document.getElementById('PAGE_GOOGLE_SCRIPT').className = 'disable_field ' + document.getElementById('PAGE_GOOGLE_SCRIPT').className;
+                                   } catch (e) { }
+                           </script>
+                        <td colspan="2" class="admTableTDLast">
+                            <script type="text/javascript">
+                               try {
+                                   if (caller.google_script_enabled == 'true') {
+                                       document.write('<textarea id="pgGoogleScript" class="admTextArea" rows="3">' + caller.newPageGoogleScript + '</textarea>');
+                                   } else {
+                                       document.write('<textarea id="pgGoogleScript" class="admTextArea" rows="3" disabled="true" readonly="true">' + caller.newPageGoogleScript + '</textarea>');
+                                   }
+                               } catch (e) { }
+                            </script>
+                      </td>
+                  </tr>
+                  <script type="text/javascript">
+                      try {
+                          if (caller.metatags) {
+                              if (caller.curPagePropertyName != null && caller.curPagePropertyName != "") {
+                                  document.write('<tr><td class="admTableTDLast admRight" width="180">' + caller.curPagePropertyName + '</td>' +
+                                '<td colspan="2" class="admTableTDLast"><textarea id="pgPropertyValue" class="admTextArea" rows="3">' +
+                                caller.newPagePropertyValue + '</textarea></td></tr>');
+                              }
+                          }
+                      } catch (e) { }
+                  </script>
+                  <tr>
+                      <td class="admTableTDLast admRight" id="container"></td>
+                        <script type="text/javascript">
+                            try {
+                                 if (caller.google_script_enabled != 'true')
+                                  document.getElementById('container').className = 'disable_field ' + document.getElementById('PAGE_GOOGLE_SCRIPT').className;
+                            } catch (e) { }
+                        </script>
+                      <td class="admTableTDLast" colspan="2">
+                          <select style="width: 165px" id="sel_container">
+                             <script language="JavaScript" type="text/javascript">
+                                 for (i = 0; i < caller.arrCont.length; i++) {
+                                     if ("" + caller.arrCont[i][0] == "" + caller.newContainer) opt_sel = 'selected';
+                                     else opt_sel = '';
+                                     document.write('<option ' + opt_sel + ' value="' + caller.arrCont[i][0] + '" >' + caller.arrCont[i][1] + '</option>');
+                                 }
+                                 if (caller.arrCont.length == 1)
+                                     document.getElementById('sel_container').disabled = "true";
+                              </script>
+                          </select>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td class="admTableTDLast admRight" id="PAGE_TEMPLATE"></td>
+                      <td class="admTableTDLast" colspan="2">
+                          <input type="hidden" id="template" value="special" />                          
+                          <input type="text" id="templateTitle" readonly="true" value="Special page" class="admTextField" />
+                          <input type="button" id="templateSelection" value="..." style="width: 24px; height: 21px;"
+                              onclick="selectTemplate()" />
+                      </td>
+                  </tr>
+                  <tr>
+                      <td class="admTableTDLast admRight" id="MULTI_LANGUAGE"></td>
+                      <td colspan="2" class="admTableTDLast">
+                          <input type="checkbox" id="multiLanguage" class="radio" style="disabled: false;"/>
+                          <script type="text/javascript">
+                              if (caller.new_cntLanguage == 1)
+                                  document.getElementById('multiLanguage').disabled = 'true';
+                          </script>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td class="admTableTDLast admRight" id="IS_SEARCH"></td>
+                      <td colspan="2" class="admTableTDLast">
+                          <input type="checkbox" id="isSearch" value="on" class="radio" checked="checked"/>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td class="admTableTDLast" colspan="3">
+                          <div class="admNavPanelInp" style="padding-left: 210px;">
+                              <div class="imgL"></div>
+                              <div>
+                                  <input type="button" onclick="returnYes()" id="buttonYes" value="OK" onfocus="blur()" /></div>
+                              <div class="imgR"></div>
+                          </div>
+                          <div class="admNavPanelInp">
+                              <div class="imgL"></div>
+                              <div>
+                                  <input type="button" onclick="returnCancel()" id="buttonCancel" value="Cancel" onfocus="blur()" /></div>
+                              <div class="imgR"></div>
+                          </div>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td class="admTableFooter" colspan="3">&#160;</td>
+                  </tr>
+              </table>
+          </td>
+          <td class="admMaiRight">
+              <img src="/images/right_bot.png" alt="" />
+          </td>
+      </tr>
+  </table>
+
+
+<script type="text/javascript">
+    s_PageNameCannotBeEmpty = Strings.PAGE_NAME_CANNOT_BE_EMPTY;
+    s_PageNameCannotConsistOfSpacesAlone = Strings.PAGE_NAME_CANNOT_CONSIST_OF_SPACES_ALONE;
+    s_FileNameCannotBeEmpty = Strings.FILE_NAME_CANNOT_BE_EMPTY;
+    s_FileNameIsTooLong = Strings.FILE_NAME_IS_TOO_LONG;
+    s_MaximumCharacters = Strings.MAXIMUM_CHARACTERS;
+    s_InvalidFileName = Strings.INVALID_FILE_NAME;
+    s_SpacesAreNotAllowed = Strings.SPACES_ARE_NOT_ALLOWED;
+
+    window.document.getElementById("TITLE_LABEL").innerHTML = Strings.TITLE + "&nbsp;";
+    window.document.getElementById("title").title = Strings.ENTER_PAGE_TITLE;
+    window.document.getElementById("FILE_NAME").innerHTML = Strings.FILE_NAME + "&nbsp;";
+    window.document.getElementById("link_filename").title = Strings.INVENT_FILENAME;
+    window.document.getElementById("PUBLISH_ON").innerHTML = Strings.PUBLISH_ON + "&nbsp;";
+    window.document.getElementById("EXPIRES_ON").innerHTML = Strings.EXPIRES_ON + "&nbsp;";
+    window.document.getElementById("container").innerHTML = Strings.CONTAINER + "&nbsp;";
+    window.document.getElementById("PAGE_TEMPLATE").innerHTML = Strings.PAGE_TEMPLATE + "&nbsp;";  
+    //TODO translate multilanguage
+    window.document.getElementById("MULTI_LANGUAGE").innerHTML = 'Multilanguage';
+    window.document.getElementById("IS_SEARCH").innerHTML = "Include this<br>page in search&nbsp;";
+    window.document.getElementById("buttonYes").value = Strings.OK;
+    window.document.getElementById("buttonCancel").value = Strings.CANCEL;
+
+
+    window.document.getElementById("buttonShow").innerHTML = Strings.SHOW_PAGE;
+  window.document.getElementById("buttonShow").title = Strings.SET_PUBLICATION_DATE_TO;
+
+  window.document.getElementById("buttonHide").innerHTML =Strings.HIDE_PAGE ;
+    window.document.getElementById("buttonHide").title = Strings.SET_EXPIRATION_DATE_TO;
+
+    // Not stable
+     //window.onload=function(){window.resizeTo(document.body.clientWidth + 10,document.body.clientHeight+100);}
+     //window.onload=function(){window.resizeTo(420,680);}
+  
+    window.document.getElementById("PAGE_META_DESCRIPTION").innerHTML = Strings.PAGE_META_DESCRIPTION;
+    window.document.getElementById("PAGE_META_KEYWORDS").innerHTML = Strings.PAGE_META_KEYWORDS;
+    window.document.getElementById("PAGE_GOOGLE_SCRIPT").innerHTML = Strings.PAGE_GOOGLE_SCRIPT;
+</script>
+
+</body>
+</html>

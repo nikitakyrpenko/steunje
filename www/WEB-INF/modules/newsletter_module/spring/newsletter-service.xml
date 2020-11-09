@@ -1,0 +1,120 @@
+<beans xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-2.0.xsd"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx">
+
+	<tx:annotation-driven transaction-manager="hibernateTransactionManager" />
+
+	<bean id="subscriptionCategoryService"
+		class="com.negeso.module.newsletter.service.SubscriptionCategoryService">
+		<property name="subscriptionCategoryDao"
+			ref="subscriptionCategoryDao" />
+		<property name="orderHelper">
+			<bean
+				class="com.negeso.framework.domain.OrderControlHelper">
+				<constructor-arg>
+					<value>nl_subscription_category</value>
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="publicationService"
+		class="com.negeso.module.newsletter.service.NewPublicationService">
+		<property name="publicationDao" ref="publicationDao" />
+		<property name="mailingStateDao" ref="mailingStateDao" />
+		<property name="mailingDao" ref="mailingDao" />
+		<property name="publicationStateDao" ref="publicationStateDao" />
+		<property name="publ2ArticleDao" ref="publ2ArticleDao" />
+		<property name="subscriberAttributeTypeDao" ref="subscriberAttributeTypeDao"/>
+		<property name="pageService" ref="pageService"/>
+	</bean>
+
+	<bean id="subscriberGroupService"
+		class="com.negeso.module.newsletter.service.SubscriberGroupService">
+		<property name="subscriberGroupDao" ref="subscriberGroupDao" />
+		<property name="orderHelper">
+			<bean
+				class="com.negeso.framework.domain.OrderControlHelper">
+				<constructor-arg>
+					<value>nl_group</value>
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="subscriberService"
+		class="com.negeso.module.newsletter.service.SubscriberService">
+		<property name="subscriberDao" ref="subscriberDao" />
+		<property name="subscriberAttributeTypeDao"
+			ref="subscriberAttributeTypeDao" />
+		<property name="subscriberGroupDao" ref="subscriberGroupDao" />
+	</bean>
+
+	<bean id="mailTemplateService"
+		class="com.negeso.module.newsletter.service.MailTemplateService">
+		<property name="mailTemplateDao" ref="mailTemplateDao" />
+	</bean>
+
+    <bean id="publicationSchedulerService" class="com.negeso.module.newsletter.service.PublicationSchedulerService">
+        <property name="mailingService" ref="mailingService"/>
+        <property name="publicationService" ref="publicationService"/>
+        <property name="sessionTemplate" ref="sessionTemplate"/>
+    </bean>
+    
+    <bean id="mailingService" class="com.negeso.module.newsletter.service.MailingService">
+        <property name="mailingDao" ref="mailingDao"/>
+        <property name="subscriberGroupService" ref="subscriberGroupService"/>
+        <property name="stateService" ref="stateService"/>
+        <property name="publicationService" ref="publicationService"/>
+        <property name="limitationService" ref="limitationService"/>
+        <property name="subscriberService" ref="subscriberService"/>
+        <property name="sessionTemplate" ref="sessionTemplate"/>
+        <property name="mailTemplateService" ref="mailTemplateService" />
+        <property name="mailingStateDao" ref="mailingStateDao" />
+        <property name="mutexProvider" ref="mutexProvider"/>
+    </bean>
+    
+    <bean name="mutexProvider" class="com.negeso.module.newsletter.service.synchronization.IdMutexProvider"/>
+
+	<bean id="statisticsService"
+		class="com.negeso.module.newsletter.service.StatisticsService">
+		<property name="statisticsDao" ref="statisticsDao" />
+		<property name="publicationDao" ref="publicationDao" />
+		<property name="mailingStateDao" ref="mailingStateDao" />
+		<property name="subscriptionCategoryDao" ref="subscriptionCategoryDao" />
+	</bean>
+
+    <bean id="limitationService" class="com.negeso.module.newsletter.service.NewsletterLimitationService">
+    </bean>
+
+	<bean id="newsletterInitializerService"
+		class="com.negeso.module.newsletter.service.NewsletterInitializerService"
+		init-method="startup" destroy-method="shutdown">
+		<property name="publicationSchedulerService"
+			ref="publicationSchedulerService" />
+		<property name="mailBounceService" ref="mailBounceService" />
+		<property name="mailingService" ref="mailingService" />
+	</bean>
+
+	<bean id="mailBounceService"
+		class="com.negeso.module.newsletter.service.MailBounceService">
+		<property name="stateService" ref="stateService" />
+	</bean>
+
+	<bean id="stateService"
+		class="com.negeso.module.newsletter.service.StateService">
+		<!--<property name="publicationService" ref="publicationService" />-->
+		<property name="mailingDao" ref="mailingDao" />
+		<!--<property name="mailingStateDao" ref="mailingStateDao" />-->
+	</bean>
+	
+	<bean id="pageService" class="com.negeso.wcms.page.service.PageService">
+		<property name="menuService" ref="menuService"/>
+	</bean>
+
+</beans>

@@ -1,0 +1,10 @@
+<project name="maxmind" basedir="../.." default="compile-module">
+    <property file="ant/compile.properties" />
+	<property name="module.version" value="1.0.0"/>
+
+	<property name="module.key" value="maxmind"/>
+	<property name="module.title" value="maxmind"/>
+
+    <path id="module.classpath"/>
+	<import file="../../ant/compile.xml"/>
+</project>

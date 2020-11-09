@@ -1,0 +1,36 @@
+{
+  "name": "admin",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "array-includes": "^3.0.3",
+    "autosuggest-highlight": "^3.1.1",
+    "axios": "^0.16.2",
+    "dateformat": "^3.0.2",
+    "material-ui": "^1.0.0-beta.11",
+    "material-ui-icons": "^1.0.0-beta.10",
+    "react": "^15.6.1",
+    "react-autosuggest": "^9.3.2",
+    "react-dom": "^15.6.1",
+    "react-form-validator-core": "^0.1.0",
+    "react-material-ui-form-validator": "^2.0.0-beta.1",
+    "react-number-format": "^2.0.3",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.1.2",
+    "react-scripts": "1.0.11",
+    "react-transition-group": "^1.2.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "proxy": {
+    "/webshop/api/": {
+      "target": "http://baten:8082",
+      "changeOrigin": true,
+      "auth": "admin:chaiCh1Y"
+    }
+  }
+}

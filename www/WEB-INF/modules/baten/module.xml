@@ -1,0 +1,8 @@
+<module id="baten" name="Baten main module">
+  <extension point="core">	
+	<mapping-url>/article-info</mapping-url>
+	<mapping-url>/addtocart</mapping-url>
+	<mapping-url>/article-info-url</mapping-url>
+	<mapping-url>/admin/webshop_products.html</mapping-url>
+  </extension>
+</module>

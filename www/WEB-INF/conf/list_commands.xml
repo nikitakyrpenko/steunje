@@ -1,0 +1,26 @@
+<!-- New module -->
+<command name="get-list-command" class="com.negeso.framework.list.command.GetListCommand"/>
+<command name="create-list-item-command" class="com.negeso.framework.list.command.CreateListItemCommand"/>
+<command name="get-list-item-command" class="com.negeso.framework.list.command.GetListItemCommand"/>
+<command name="update-list-item-command" class="com.negeso.framework.list.command.UpdateListItemCommand"/>
+<command name="delete-list-item-command" class="com.negeso.framework.list.command.DeleteListItemCommand"/>
+<command name="copy-list-item-command" class="com.negeso.framework.list.command.CopyListItemCommand"/>
+<command name="change-order-command" class="com.negeso.framework.list.command.ChangeOrderCommand"/>
+<command name="set-list-path-command" class="com.negeso.framework.list.command.SetListPathCommand"/>
+<command name="create-links-command" class="com.negeso.framework.list.command.CreateLinksCommand"/>
+<command name="unlink-command" class="com.negeso.framework.list.command.UnlinkCommand"/>
+<command name="set-list-container-command" class="com.negeso.framework.list.command.SetListContainerCommand"/>
+<command name="set-list-item-container-command" class="com.negeso.framework.list.command.SetListItemContainerCommand"/>
+<command name="set-list-item-visibility-command" class="com.negeso.framework.list.command.SetListItemVisibilityCommand"/>
+<command name="get-list-roll-command" class="com.negeso.framework.list.command.GetListRollCommand"/>
+
+<!-- Archive -->
+<command name="archive-list-item-command" class="com.negeso.framework.list.command.ArchiveListItemCommand"/>
+<command name="get-archive-command" class="com.negeso.module.archive.command.GetArchiveCommand"/>
+<command name="get-archived-list-item-command" class="com.negeso.module.archive.command.GetArchivedListItemCommand"/>
+<command name="delete-from-archive-command" class="com.negeso.module.archive.command.DeleteFromArchiveCommand"/>
+<command name="restore-from-archive-command" class="com.negeso.module.archive.command.RestoreFromArchiveCommand"/>
+
+<!-- Web poll -->
+<command name="create-poll-option-command" class="com.negeso.module.webpoll.command.CreatePollOptionCommand"/>
+<command name="create-poll-command" class="com.negeso.module.webpoll.command.CreatePollCommand"/>

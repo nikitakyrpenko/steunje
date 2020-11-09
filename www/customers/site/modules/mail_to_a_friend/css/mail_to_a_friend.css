@@ -1,0 +1,47 @@
+.mtfSmall{
+	font-size: 9px;
+}
+
+.mtf tr {
+	height: 30px;
+}
+
+.mtf tr td {
+	vertical-align: top;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.mtf tr td.bl-middle {
+	vertical-align: middle;
+}
+
+.mtf {
+	border: 1px solid #b4b4b4; 
+	margin-bottom: 20px;
+	background-color: #FFFFFF;
+	width: 919px;
+}
+
+.mtfBody{
+	background-color: #EBEBEB;
+	border-top:3px solid #FFFFFF;
+	border-bottom:3px solid #FFFFFF;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	width:100%;
+	heigth:100%;
+}
+
+.mtfBody td{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+
+.mtfBodyTop {
+	margin:15px;
+	margin-right:0px;
+	margin-bottom:0px;
+}
+
+.mtfWidth_150{
+	width: 150px;
+}

@@ -1,0 +1,59 @@
+.component-enter {
+    transform: translateY(100%);
+}
+  
+.component-enter.component-enter-active {
+    transform: translateY(0);
+    transition: transform .2s ease-in;
+}
+
+.component-leave {
+    transform: translateY(0);
+}
+
+.component-leave.component-leave-active {
+    transform: translateY(100%);
+    transition: transform .4s ease-out;
+}
+.component-appear {
+    transform: translateY(100%);
+}
+
+.component-appear.component-appear-active {
+    transform: translateY(0);
+    transition: transform .2s ease-in;
+}
+
+
+
+.fab-enter {
+    transform: rotate(45deg);
+}
+  
+.fab-enter.fab-enter-active {
+    transform: rotate(0deg);
+    transition: transform .2s ease-in;
+}
+.fab-leave {
+    transform: rotate(45deg);
+}
+
+.fab-leave.fab-leave-active{
+    transform: rotate(0deg);
+    transition: transform .2s ease-in;
+}
+.fab-appear {
+    transform: rotate(45deg);
+}
+
+.fab-appear.fab-leave-appear{
+    transform: rotate(0deg);
+    transition: transform .2s ease-in;
+}
+
+.fab{
+    position: absolute !important;
+    top: -28px;
+    right: 25px;
+    z-index: 10
+}

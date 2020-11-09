@@ -1,0 +1,7 @@
+<module id="form_manager" name="Form manager">
+  <extension point="core">
+    <mapping-url>/admin/forms_archive</mapping-url>
+    <page-components>
+    </page-components>
+  </extension>
+</module>

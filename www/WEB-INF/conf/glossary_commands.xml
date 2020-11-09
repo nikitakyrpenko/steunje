@@ -1,0 +1,2 @@
+<command name="d-manage-glossary" class="com.negeso.module.glossary.command.ManageGlossary"/>
+<command name="d-manage-categories" class="com.negeso.module.glossary.command.ManageCategories"/>

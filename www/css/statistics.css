@@ -1,0 +1,47 @@
+.tdGreen{
+	background-color: #008040;
+}
+
+.tdBlue{
+	background-color: #0080FF;
+}
+
+.tdCyan{
+	background-color: #00E0FF;
+}
+
+.tdYellow{
+	background-color: #FFFF00;
+}
+
+.tdOrange{
+	background-color: #FF8000;
+}
+
+.tdRed{
+	background-color: #FF0000;
+}
+
+.textGreen{
+	color: #008040;
+}
+
+.textBlue{
+	color: #0080FF;
+}
+
+.textCyan{
+	color: #00E0FF;
+}
+
+.textYellow{
+	color: #FFFF00;
+}
+
+.textOrange{
+	color: #FF8000;
+}
+
+.textRed{
+	color: #FF0000;
+}

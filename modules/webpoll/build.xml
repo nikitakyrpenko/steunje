@@ -1,0 +1,10 @@
+<project name="WebCMS-Webpoll" basedir="../.." default="compile-module">
+
+	<property name="module.version" value="3.2.0.RC1"/>
+	
+	<property name="module.key" value="webpoll"/>
+	<property name="module.title" value="Webpoll Module"/>
+	<path id="module.classpath"/>
+	<import file="../../ant/compile.xml"/>
+
+</project>

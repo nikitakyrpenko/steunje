@@ -1,0 +1,74 @@
+.contentStyle, .shortNews
+{
+	font: 11px Arial, sans-serif;
+	color: #555555;
+	background-color: #ffffff;
+	margin-top: 0px;
+}
+
+.contentStyle p
+{
+	margin-top: 10px;
+}
+
+.shortNews p {
+	margin: 0px;
+}
+
+.contentStyle input
+{
+	background-color: white;
+	border: 1 solid black;
+	cursor: text;
+	font-family: arial;
+	font-size: x-small;
+	font-weight: normal;
+	color: black;
+}
+
+.contentStyle table, .shortNews table
+{
+	font: 11px Arial, sans-serif;
+	color: #555555;
+}
+
+.contentStyle img
+{
+
+}
+
+.contentStyle a, .shortNews a
+{
+	font: 11px Arial, sans-serif;
+	color: #FF0000;
+	text-decoration: none;
+}
+
+.contentStyle a:hover, .shortNews  a:hover
+{
+	text-decoration: underline;
+}
+
+.contentStyle select
+{
+	font: 11px Arial, sans-serif;
+	color: #555555;
+}
+
+.contentStyle textarea
+{
+	font: 11px Arial, sans-serif;
+	color: #555555;
+}
+
+.contentStyle .form_checkbox
+{
+	border: 0;
+	cursor: hand;
+	background-color: white;
+}
+
+.contentStyle .form_submit
+{
+	cursor: hand;
+}

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.negeso.module.social.bo">
+    
+    <class name="SocialNetwork" table="core_social_network">
+        <id name="id" type="long">
+	        <generator class="sequence">
+	             <param name="sequence">core_social_network_id_seq</param>
+	        </generator>            
+	    </id>
+	    <property name="siteId" column="site_id" type="long" />
+	    <property name="title"/>
+	    <map name="params" cascade="all-delete-orphan" inverse="true" order-by="id">
+	        <key column="social_network_id" not-null="true" foreign-key="fk_core_social_network_params_2_sn"/>
+	        <map-key type="string" column="code"/>
+	        <one-to-many class="SocialNetworkParam" />
+	    </map>
+    </class>
+
+
+  <class name="SocialNetworkParam" table="core_social_network_params">
+    <id name="id" type="long">
+        <generator class="sequence">
+             <param name="sequence">core_social_network_params_id_seq</param>
+        </generator>            
+    </id>
+    <property name="i18n" type="boolean" />
+    <property name="code"/>
+    <many-to-one name="socialNetwork" class="com.negeso.module.social.bo.SocialNetwork" 
+        column="social_network_id" not-null="true" cascade="save-update"
+        foreign-key="fk_core_social_network_params_2_sn" />
+        
+    <map name="customFields" cascade="all-delete-orphan" inverse="true">
+        <key column="social_network_param_id" not-null="true" foreign-key="fk_core_social_network_i18n_param_2_snp"/>
+        <map-key type="long" column="lang_id"/>
+        <one-to-many class="SocialNetworkI18nValue" />
+    </map>
+  </class>
+
+  <class name="SocialNetworkI18nValue" table="core_social_network_i18n_param">
+    <id name="id" type="long">
+        <generator class="sequence">
+             <param name="sequence">core_social_network_i18n_param_id_seq</param>
+        </generator>            
+    </id>
+    <property name="value" type="string"/>
+    <property name="langId" column="lang_id" type="long"/>
+    <many-to-one name="socialNetworkParam" class="com.negeso.module.social.bo.SocialNetworkParam" 
+        column="social_network_param_id" not-null="true" cascade="save-update"
+        foreign-key="fk_core_social_network_i18n_param_2_snp" />
+  </class>
+
+</hibernate-mapping>

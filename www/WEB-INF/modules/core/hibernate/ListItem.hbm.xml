@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.negeso.framework.list.domain.ListItem" table="list_item">
+        <id name="id" type="long">
+            <generator class="sequence">
+                 <param name="sequence">list_item_id_seq</param>
+            </generator>            
+        </id>
+        <property name="listId" column="list_id" type="long" />
+        <property name="title" />
+        <property name="orderNumber" column="order_number" type="integer" />
+        <property name="teaserId" column="teaser_id" type="long" />
+        <property name="articleId" column="article_id" type="long" />
+        <property name="link" />
+        <property name="imageLink" column="image_link" />
+        <property name="documentLink" column="document_link" />
+        <property name="thumbnailLink" column="thumbnail_link" />
+        <property name="listItemLink" column="list_item_link" type="long" />
+        <property name="viewDate" column="view_date" type="timestamp" />
+        <property name="publishDate" column="publish_date" type="timestamp" />
+        <property name="expiredDate" column="expired_date" type="timestamp" />
+        <property name="createdBy" column="created_by" type="long" />
+        <property name="createdDate" column="created_date" type="timestamp" />
+        <property name="lastModifiedBy" column="last_modified_by" type="long" />
+        <property name="lastModifiedDate" column="last_modified_date" type="timestamp" />
+        <property name="parameters" />
+        <property name="containerId" column="container_id" type="long"/>
+        <property name="perLangId" column="per_lang_id" type="long"/>
+        
+        <set name="publishedTo" table="list_item2social_network" inverse="false" lazy="true" fetch="select" cascade="all" >
+            <key column="list_item_id" not-null="true" foreign-key="fk_list_item2social_network_li"/>
+            <many-to-many entity-name="com.negeso.module.social.bo.SocialNetwork" foreign-key="fk_list_item2social_network_sn">
+                <column name="social_network_id" not-null="true" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

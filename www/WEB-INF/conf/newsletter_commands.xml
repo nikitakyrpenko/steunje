@@ -1,0 +1,22 @@
+
+<command name="nl-browse-category" class="com.negeso.module.newsletter.command.BrowseCategoryCommand"/>
+<command name="nl-delete-category" class="com.negeso.module.newsletter.command.DeleteCategoryCommand"/>
+<command name="nl-reorder-category" class="com.negeso.module.newsletter.command.ReorderCategoryCommand"/>
+<command name="nl-get-edit-category-page" class="com.negeso.module.newsletter.command.GetEditCategoryPageCommand"/>
+<command name="nl-update-category" class="com.negeso.module.newsletter.command.UpdateCategoryCommand"/>
+<command name="nl-get-edit-publication-page" class="com.negeso.module.newsletter.command.GetEditPublicationPageCommand"/>
+<command name="nl-update-publication" class="com.negeso.module.newsletter.command.UpdatePublicationCommand"/>
+<command name="nl-delete-publication" class="com.negeso.module.newsletter.command.DeletePublicationCommand"/>
+<command name="nl-browse-request" class="com.negeso.module.newsletter.command.BrowseRequestCommand"/>
+<command name="nl-delete-request" class="com.negeso.module.newsletter.command.DeleteRequestCommand"/>
+<command name="nl-browse-subscriber" class="com.negeso.module.newsletter.command.BrowseSubscriberCommand"/>
+<command name="nl-get-edit-subscriber-page" class="com.negeso.module.newsletter.command.GetEditSubscriberPageCommand"/>
+<command name="nl-delete-subscriber" class="com.negeso.module.newsletter.command.DeleteSubscriberCommand"/>
+<command name="nl-delete-subscription" class="com.negeso.module.newsletter.command.DeleteSubscriptionCommand"/>
+<command name="nl-browse-template" class="com.negeso.module.newsletter.command.BrowseTemplateCommand"/>
+<command name="nl-get-edit-template-page" class="com.negeso.module.newsletter.command.GetEditTemplatePageCommand"/>
+<command name="nl-update-template" class="com.negeso.module.newsletter.command.UpdateTemplateCommand"/>
+<command name="nl-delete-template" class="com.negeso.module.newsletter.command.DeleteTemplateCommand"/>
+<command name="nl-browse-schedule" class="com.negeso.module.newsletter.command.BrowseScheduleCommand"/>
+<command name="nl-import" class="com.negeso.module.newsletter.command.ImportCommand"/>
+<command name="nl-import-xml" class="com.negeso.module.newsletter.command.ImportCommand"/>

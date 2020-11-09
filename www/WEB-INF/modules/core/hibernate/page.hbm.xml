@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.negeso.framework.page">
+	<class name="PageH" table="page">
+		<id name="id" type="long">
+			<generator class="sequence">
+				<param name="sequence">page_id_seq</param>
+			</generator>
+		</id>
+		<property name="langId" column="lang_id" type="long" />
+		<property name="siteId" column="site_id" type="long" />
+		<property name="filename" />
+		<property name="title" />
+		<property name="metaTitle" column="meta_title" />
+		<property name="metaDescription" column="meta_description" />
+		<property name="metaKeywords" column="meta_keywords" />
+		<property name="propertyValue" column="property_value" />
+		<property name="googleScript" column="google_script" />
+		<property name="contents" column="contents" />
+		<property name="class_" column="class" />
+		<property name="category" />
+		<property name="lastModified" column="last_modified" type="timestamp" />
+		<property name="publishDate" column="publish_date" type="timestamp" />
+		<property name="expiredDate" column="expired_date" type="timestamp" />
+		<property name="editDate" column="edit_date" type="timestamp" />
+		<property name="editUser" column="edit_user" />
+		<property name="protected_" column="protected" />
+		<property name="visible"  />
+		<property name="containerId" column="container_id" type="long" />
+		<property name="attributeSetId" column="attribute_set_id" type="long" />
+		<property name="search" column="is_search"/>
+		
+		<property name="sitemap" column="is_sitemap" type="boolean"/>
+		<property name="sitemapPrior" column="sitemap_prior"/>
+		<property name="sitemapFreq" column="sitemap_freq"/>
+		
+		<property name="inMenu" formula="( SELECT (count(*) > 0) FROM menu m WHERE m.page_id = id)"/>
+		<property name="metaAuthor" column="meta_author"/>
+		
+	</class>
+	
+		
+	<query name="PageH.findById"><![CDATA[
+        from PageH p  where p.id = ? and p.siteId = ?
+    ]]></query>	
+		
+	<query name="PageH.listAll"><![CDATA[
+        from PageH p  where p.siteId = ?
+    ]]></query>	
+
+	<query name="PageH.listByClass"><![CDATA[
+        from PageH p  where p.class_ = ? and p.langId = ? and p.siteId = ?
+    ]]></query>	
+
+	<query name="PageH.listUnlinkedPages"><![CDATA[
+        from PageH p  where p.siteId = ? and p.inMenu = false
+    ]]></query>	
+			
+	<query name="PageH.listUnlinkedPagesByLang"><![CDATA[
+        from PageH p  where p.langId = ? and p.siteId = ? and  p.inMenu = false 
+    ]]></query>	
+			
+	<query name="PageH.findByFileName"><![CDATA[
+        from PageH p  where lower(p.filename) = lower(?) and p.siteId = ?
+    ]]></query>
+	
+	<query name="PageH.findByFileNameAndLang"><![CDATA[
+        from PageH p  where lower(p.filename) = lower(?) and p.langId = ? and p.siteId = ?
+    ]]></query>
+	
+	<query name="PageH.listByLanguage"><![CDATA[
+        from PageH p  where p.langId = ? and p.siteId = ?
+    ]]></query>
+	
+	<query name="PageH.listByCategory"><![CDATA[
+        from PageH p where p.category = ? and p.langId = ? and p.siteId = ?
+    ]]></query>
+	
+</hibernate-mapping>

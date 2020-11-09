@@ -1,0 +1,73 @@
+<beans
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-2.0.xsd"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx">
+
+	<bean id="messageSource" class="com.negeso.framework.i18n.DatabaseResourceBundleMessageSource">
+		<property name="basename" value="dict_common.xsl, thr_order" />
+	</bean>
+
+	<bean id="exceptionResolver" class="com.negeso.framework.ExceptionHandler">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">friendlyError</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/modules/thr_order/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+					<property name="paramName" value="interfaceLanguage" />
+				</bean>
+				<bean class="com.negeso.framework.security.SecurityInterceptor" />
+			</list>
+		</property>
+		<property name="mappings">
+			<props>
+				<prop key="/admin/orders.html">thrOrderController</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="handlerMapping2" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/save_order">importThrOrderController</prop>
+				<prop key="/thr_generate_pdf">labelsPdfGeteratingController</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<bean id="importThrOrderController" class="com.negeso.module.thr.web.controller.ImportThrOrderController">
+		<property name="thrOrderService" ref="thrOrderService" />
+	</bean>
+	
+	<bean id="labelsPdfGeteratingController" class="com.negeso.module.thr.web.controller.LabelsPdfGeteratingController">
+	</bean>
+	
+	<bean id="thrOrderController" class="com.negeso.module.thr.web.controller.ThrOrderController">
+		<property name="methodNameResolver">
+			<bean class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+				<property name="paramName" value="action" />
+				<property name="defaultMethodName" value="list" />
+			</bean>
+		</property>
+		<property name="thrOrderService" ref="thrOrderService" />
+	</bean>
+
+
+</beans>

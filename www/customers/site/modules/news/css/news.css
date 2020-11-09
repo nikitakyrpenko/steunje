@@ -1,0 +1,15 @@
+/*Short news*/
+.b-newsShort{}
+.b-newsShort h1{}
+.b-newsShort div.contentStyle{}
+
+
+/*Detailed news*/
+.b-newsDetails{}
+.b-newsDetails h1{}
+.b-newsDetails div.contentStyle{}
+
+/*Search news*/
+.b-newsSearch{}
+.b-newsSearch h1{}
+.b-newsSearch div.contentStyle{}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    
+    <bean id="logDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.negeso.module.translator.dao.LogDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.negeso.module.translator.domain.Log</value>
+                </constructor-arg>
+            </bean>
+        </property>    
+    </bean>
+
+</beans>

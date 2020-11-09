@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean id="messageSource"
+		class="com.negeso.framework.i18n.DatabaseResourceBundleMessageSource">
+		<property name="basename"
+			value="dict_common.xsl, dict_product.xsl, dict_newsletter.xsl, dict_rte.js, dict_modules.xsl" />
+	</bean>
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10000000" />
+	</bean>
+
+	<bean id="exceptionResolver"
+		class="com.negeso.framework.ExceptionHandler">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">friendlyError</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix"
+			value="/WEB-INF/modules/newsletter_module/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<bean id="handlerMapping1"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<bean
+					class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+					<property name="paramName"
+						value="interfaceLanguage" />
+				</bean>
+				<bean
+					class="com.negeso.module.newsletter.NewsletterSecurityInterceptor" />
+			</list>
+		</property>
+		<property name="mappings">
+			<props>
+				<prop key="/admin/nl_categorylist">
+					subscriptionCategoryListController
+				</prop>
+				<prop key="/admin/nl_editcategory">
+					subscriptionCategoryController
+				</prop>
+				<prop key="/admin/nl_publicationlist">
+					publicationListController
+				</prop>
+				<prop key="/admin/nl_editpublication">
+					publicationController
+				</prop>
+				<prop key="/admin/nl_grouplist">
+					subscriberGroupListController
+				</prop>
+				<prop key="/admin/nl_editgroup">
+					subscriberGroupController
+				</prop>
+				<prop key="/admin/nl_subscriberslist">
+					subscriberListController
+				</prop>
+				<prop key="/admin/nl_editsubscriber">
+					subscriberController
+				</prop>
+				<prop key="/admin/nl_import">importController</prop>
+				<prop key="/admin/nl_mailtemplates">
+					mailTemplateListController
+				</prop>
+				<prop key="/admin/nl_statistics">
+					statisticsController
+				</prop>
+				<prop key="/admin/nl_editmailtemplate">
+					mailTemplateController
+				</prop>
+				<prop key="/nl_read_notify.gif">
+					readNotificationController
+				</prop>
+				<prop key="/admin/nl_settings">settingsController</prop>
+				<prop key="/admin/nl_export_subscribers">exportController</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="subscriptionCategoryListController"
+		class="com.negeso.module.newsletter.web.controller.SubscriptionCategoryListController">
+		<property name="methodNameResolver">
+			<bean
+				class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+				<property name="paramName" value="action" />
+				<property name="defaultMethodName"
+					value="subscriptionCategoryList" />
+			</bean>
+		</property>
+		<property name="subscriptionCategoryService"
+			ref="subscriptionCategoryService" />
+	</bean>
+
+	<bean id="publicationListController"
+		class="com.negeso.module.newsletter.web.controller.PublicationListController">
+		<property name="methodNameResolver">
+			<bean
+				class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+				<property name="paramName" value="action" />
+				<property name="defaultMethodName"
+					value="showPublications" />
+			</bean>
+		</property>
+		<property name="subscriptionCategoryService"
+			ref="subscriptionCategoryService" />
+		<property name="publicationService" ref="publicationService" />
+		<property name="mailTemplateService" ref="mailTemplateService" />
+		<property name="subscriberGroupService"
+			ref="subscriberGroupService" />
+		<property name="mailingService" ref="mailingService" />
+	</bean>
+
+	<bean id="subscriberGroupListController"
+		class="com.negeso.module.newsletter.web.controller.SubscriberGroupListController">
+		<property name="methodNameResolver">
+			<bean
+				class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+				<property name="paramName" value="action" />
+				<property name="defaultMethodName" value="showGroups" />
+			</bean>
+		</property>
+		<property name="subscriberGroupService"
+			ref="subscriberGroupService" />
+	</bean>
+
+	<bean id="subscriberListController"
+		class="com.negeso.module.newsletter.web.controller.SubscriberListController">
+		<property name="methodNameResolver">
+			<bean
+				class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+				<property name="paramName" value="action" />
+				<property name="defaultMethodName"
+					value="showSubscribers" />
+			</bean>
+		</property>
+		<property name="subscriberService" ref="subscriberService" />
+		<property name="subscriberGroupService"
+			ref="subscriberGroupService" />
+	</bean>
+
+	<bean id="statisticsController"
+		class="com.negeso.module.newsletter.web.controller.StatisticsController">
+		<property name="methodNameResolver">
+			<bean
+				class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+				<property name="paramName" value="action" />
+				<property name="defaultMethodName"
+					value="showStatistics" />
+			</bean>
+		</property>
+		<property name="subscriberService" ref="subscriberService" />
+		<property name="statisticsService" ref="statisticsService" />
+	</bean>
+
+	<bean id="importController"
+		class="com.negeso.module.newsletter.web.controller.ImportController">
+		<property name="commandName" value="category" />
+		<property name="commandClass"
+			value="com.negeso.module.newsletter.bo.ImportSubscribersForm" />
+		<property name="formView" value="nl_import" />
+		<property name="subscriberGroupService"
+			ref="subscriberGroupService" />
+	</bean>
+
+	<bean id="subscriptionCategoryController"
+		class="com.negeso.module.newsletter.web.controller.SubscriptionCategoryController">
+		<property name="commandName" value="category" />
+		<property name="commandClass"
+			value="com.negeso.module.newsletter.bo.SubscriptionCategory" />
+		<property name="formView" value="nl_editcategory" />
+		<property name="validator" ref="subscriptionCategoryValidator" />
+		<property name="subscriptionCategoryService"
+			ref="subscriptionCategoryService" />
+	</bean>
+
+	<bean id="subscriberGroupController"
+		class="com.negeso.module.newsletter.web.controller.SubscriberGroupController">
+		<property name="commandName" value="group" />
+		<property name="commandClass"
+			value="com.negeso.module.newsletter.bo.SubscriberGroup" />
+		<property name="formView" value="nl_editgroup" />
+		<property name="validator" ref="subscriberGroupValidator" />
+		<property name="sessionForm" value="true" />
+
+		<property name="subscriberGroupService"
+			ref="subscriberGroupService" />
+	</bean>
+
+	<bean id="publicationController"
+		class="com.negeso.module.newsletter.web.controller.PublicationController">
+		<property name="commandName" value="publication" />
+		<property name="commandClass"
+			value="com.negeso.module.newsletter.bo.Publication" />
+		<property name="formView" value="nl_editpublication" />
+		<property name="sessionForm" value="true" />
+		<property name="validator" ref="publicationValidator" />
+
+		<property name="publicationService" ref="publicationService" />
+		<property name="subscriberGroupService"
+			ref="subscriberGroupService" />
+		<property name="subscriptionCategoryService"
+			ref="subscriptionCategoryService" />
+		<property name="mailTemplateService" ref="mailTemplateService" />
+		<property name="publicationSchedulerService"
+			ref="publicationSchedulerService" />
+		<property name="mailingService" ref="mailingService" />
+	</bean>
+
+	<bean id="subscriberController"
+		class="com.negeso.module.newsletter.web.controller.SubscriberController">
+		<property name="commandName" value="subscriber" />
+		<property name="commandClass"
+			value="com.negeso.module.newsletter.bo.Subscriber" />
+		<property name="formView" value="nl_editsubscriber" />
+		<property name="sessionForm" value="true" />
+
+		<property name="subscriberGroupService"
+			ref="subscriberGroupService" />
+		<property name="subscriberService" ref="subscriberService" />
+	</bean>
+
+	<bean id="mailTemplateListController"
+		class="com.negeso.module.newsletter.web.controller.MailTemplateListController">
+		<property name="methodNameResolver">
+			<bean
+				class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+				<property name="paramName" value="action" />
+				<property name="defaultMethodName" value="list" />
+			</bean>
+		</property>
+		<property name="mailTemplateService" ref="mailTemplateService" />
+	</bean>
+
+	<bean id="settingsController"
+		class="com.negeso.module.newsletter.web.controller.SettingsController">
+		<property name="methodNameResolver">
+			<bean
+				class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+				<property name="paramName" value="action" />
+				<property name="defaultMethodName"
+					value="showParameters" />
+			</bean>
+		</property>
+		<property name="subscriberService" ref="subscriberService"></property>
+		<property name="mailTemplateService" ref="mailTemplateService"></property>
+	</bean>
+
+	<bean id="mailTemplateController"
+		class="com.negeso.module.newsletter.web.controller.MailTemplateController">
+		<property name="commandName" value="mailTemplate" />
+		<property name="commandClass"
+			value="com.negeso.module.newsletter.bo.MailTemplate" />
+		<property name="formView" value="nl_editmailtemplate" />
+		<property name="successView"
+			value="redirect:/admin/nl_mailtemplates" />
+		<property name="validator" ref="mailTemplateValidator" />
+		<property name="sessionForm" value="true" />
+		<property name="mailTemplateService" ref="mailTemplateService" />
+	</bean>
+
+	<bean id="readNotificationController"
+		class="com.negeso.module.newsletter.web.controller.ReadNotificationController">
+		<property name="methodNameResolver">
+			<bean
+				class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+				<property name="paramName" value="action" />
+				<property name="defaultMethodName" value="notify" />
+			</bean>
+		</property>
+		<property name="stateService" ref="stateService" />
+	</bean>
+
+	<bean id="exportController" class="com.negeso.module.newsletter.web.controller.ExportController" >
+	   <property name="subscriberService"
+            ref="subscriberService" />
+	</bean>
+
+	<bean id="subscriptionCategoryValidator"
+		class="com.negeso.module.newsletter.web.validator.SubscriptionCategoryValidator">
+		<property name="subscriptionCategoryService"
+			ref="subscriptionCategoryService" />
+	</bean>
+
+	<bean id="mailTemplateValidator"
+		class="com.negeso.module.newsletter.web.validator.MailTemplateValidator">
+		<property name="mailTemplateService" ref="mailTemplateService" />
+	</bean>
+
+	<bean id="subscriberGroupValidator"
+		class="com.negeso.module.newsletter.web.validator.SubscriberGroupValidator">
+		<property name="subscriberGroupService"
+			ref="subscriberGroupService" />
+	</bean>
+
+	<bean id="publicationValidator"
+		class="com.negeso.module.newsletter.web.validator.PublicationValidator">
+		<property name="publicationService" ref="publicationService" />
+		<!--<property name="statisticsService" ref="statisticsService" />-->
+	</bean>
+
+</beans>

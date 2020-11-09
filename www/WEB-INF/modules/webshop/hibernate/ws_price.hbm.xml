@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.negeso.module.webshop.entity.PriceList" table="ws_price_list">
+        <id name="group" type="string" column="price_list_group"/>
+    </class>
+
+    <class name="com.negeso.module.webshop.entity.PriceListProduct" table="ws_price_list_product">
+        <composite-id>
+            <key-many-to-one name="listGroup" class="com.negeso.module.webshop.entity.PriceList" column="price_list_id" />
+            <key-many-to-one name="productId" class="com.negeso.module.webshop.entity.Product" column="product_id"/>
+            <key-property name="since" type="integer" column="since_count"/>
+        </composite-id>
+        <property name="productTitle" type="string" column="product_title"/>
+        <property name="availableFrom" type="timestamp" column="available_from"/>
+        <property name="discount" type="big_decimal" column="discount"/>
+        <property name="explanation" type="string"/>
+        <property name="actions" type="boolean"/>
+    </class>
+
+    <class name="com.negeso.module.webshop.entity.PriceListStandard" table="ws_price_list_standard">
+        <composite-id>
+            <key-many-to-one name="priceGroup" class="com.negeso.module.webshop.entity.PriceList" column="price_list_id" />
+            <key-many-to-one name="productGroup" class="com.negeso.module.webshop.entity.ProductGroup" column="product_group"/>
+            <key-property name="sinceCount" type="integer" column="since_count"/>
+        </composite-id>
+        <property name="definition" type="string"/>
+        <property name="from" type="timestamp" column="available_from"/>
+        <property name="discount" type="big_decimal" column="discount"/>
+        <property name="explanation" type="string"/>
+        <property name="actions" type="boolean"/>
+    </class>
+
+    <class name="com.negeso.module.webshop.entity.PriceListProductGroup2Customer" table="ws_price_list_product_group2customer">
+        <composite-id>
+            <key-many-to-one name="productGroup" class="com.negeso.module.webshop.entity.ProductGroup" column="product_group_id" />
+            <key-many-to-one name="customer" class="com.negeso.module.webshop.entity.Customer" column="customer_id" />
+            <key-property name="sinceCount" type="integer" column="since_count"/>
+        </composite-id>
+        <property name="availableFrom" type="timestamp" column="available_from"/>
+        <property name="discount" type="big_decimal" column="discount"/>
+        <property name="explanation" type="string"/>
+        <property name="actions" type="boolean"/>
+    </class>
+
+    <class name="com.negeso.module.webshop.entity.PriceListProduct2Customer" table="ws_price_list_product2customer">
+        <composite-id>
+            <key-many-to-one name="customer" class="com.negeso.module.webshop.entity.Customer" column="customer_id" />
+            <key-property name="productId" column="product_id" />
+            <key-property name="sinceCount" column="since_count" type="integer"/>
+        </composite-id>
+        <property name="availableFrom" type="timestamp" column="available_from"/>
+        <property name="availableTo" type="timestamp" column="available_to"/>
+        <property name="discount" type="big_decimal" column="discount"/>
+        <property name="explanation" type="string"/>
+        <property name="actions" type="boolean"/>
+    </class>
+
+</hibernate-mapping>

@@ -1,0 +1,74 @@
+.b-login h2 {
+	text-align: center;
+}
+.b-login .login-form {
+	max-width: 370px;
+	width: 100%;
+	margin: auto;
+}
+.b-login .login-form #ulogin,
+.b-login .login-form #p,
+.b-login .submit {
+	box-sizing: border-box;
+	font-family: 'Lato', Arial, Helvetica, sans-serif;
+	font-weight: 300;
+	font-size: 16px;
+	margin: 0 auto 30px;
+	display: block;
+	height: 50px;
+	line-height: 50px;
+	vertical-align: top;
+	position: relative;
+	z-index: 1;
+	width: 100%;
+}
+.b-login .login-form #ulogin,
+.b-login .login-form #p {
+	background-color: #f1f2f4;
+	border: 1px solid #d2d2dd;
+	color: #010101;
+	padding: 0 10px 0 60px;
+}
+.b-login .submit {
+	background: #fab420;
+	border: 0 none;
+	cursor: pointer;
+	color: #ffffff;
+	padding: 0;
+	max-width: 370px;
+	margin: auto;
+	font-weight: 400;
+	font-size: 22px;
+}
+.b-login .submit:hover {
+	background: #920629;
+}
+.b-login .login-form .ulogin,
+.b-login .login-form .password{
+	position: relative;
+	display: block;
+}
+.b-login .login-form .ulogin:before,
+.b-login .login-form .password:before {
+	position: absolute;
+	z-index: 2;
+	content: "";
+	top: 50%;
+	left: 20px;
+	transform: translateY(-50%);
+}
+.b-login .login-form .ulogin:before {
+	background: url(../images/gebruikersnaam.png) no-repeat;
+	width: 26px;
+	height: 30px;
+}
+.login-form .password:before {
+	background: url(../images/wachtwoord.png) no-repeat;
+	width: 26px;
+	height: 30px;
+}
+/*Empty login*/
+.b-loginEmpty{
+	color:red;
+	text-align: center;
+}

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.negeso.module.webshop.entity.Product" table="ws_products" dynamic-update="true">
+        <id name="id" type="string" column="order_code"/>
+
+        <property name="productNumber" type="string" column="product_number"/>
+        <property name="title" type="string"/>
+        <property name="ean" type="string"/>
+        <many-to-one name="articleGroup" class="com.negeso.module.webshop.entity.ProductGroup" column="article_group" cascade="merge"/>
+        <property name="priceIncludeVat" type="big_decimal" column="price_inc"/>
+        <property name="priceExcludeVat" type="big_decimal" column="price_exc"/>
+        <property name="stock" type="integer" />
+        <property name="stockMin" column="stock_min" type="integer" />
+        <property name="visible" type="boolean" />
+        <property name="retailPriceExcludeVat" type="big_decimal" column="retail_price_exc"/>
+        <property name="content" type="string"/>
+        <property name="color" type="string" />
+
+        <many-to-one name="category" class="com.negeso.module.webshop.entity.ProductCategory" column="category_name" cascade="merge"/>
+
+        <property name="brand" type="string" />
+        <property name="keepStock" type="boolean" column="keep_stock"/>
+        <property name="multipleOf" type="integer" column="multiple_of"/>
+        <many-to-one name="matrixCategory" class="com.negeso.module.webshop.entity.MatrixCategory" column="matrix_category_title" cascade="merge"/>
+        <property name="matrixValue" type="string" column="matrix_category_value"/>
+        <bag name="priceListProduct" table="ws_products" cascade="none" inverse="true">
+            <key column="product_id"/>
+            <one-to-many class="com.negeso.module.webshop.entity.PriceListProduct"/>
+        </bag>
+        <property name="sale" type="boolean" update="false"/>
+        <property name="description" type="string"/>
+        <property name="orderNumber" type="integer" column="order_number"/>
+        <property name="packingUnit" type="string" column="packing_unit"/>
+        <property name="keywords" type="string" column="keywords"/>
+    </class>
+
+    <class name="com.negeso.module.webshop.entity.MatrixCategory" table="ws_products_matrix">
+        <id name="title" type="string" column="title"/>
+        <bag name="products" table="ws_products" cascade="none" inverse="true">
+            <key column="matrix_category_title"/>
+            <one-to-many class="com.negeso.module.webshop.entity.Product"/>
+        </bag>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,105 @@
+<command name="create-event-category-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="EVENT_CATEGORY_XSL"/>
+    </bind>
+</command>
+
+<command name="create-event-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="EVENT_EDIT_EVENT_XSL"/>
+    </bind>
+</command>
+
+<command name="delete-event-category-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="EVENT_CATEGORIES_XSL"/>
+    </bind>
+</command>
+
+<command name="delete-event-command">
+    <bind result="MONTH" view="html-view">
+        <parameter name="xsl" value="EVENT_SCHEDULE_XSL"/>
+    </bind>
+    <bind result="WEEK" view="html-view">
+        <parameter name="xsl" value="EVENT_SCHEDULE_XSL"/>
+    </bind>
+    <bind result="DAY" view="html-view">
+        <parameter name="xsl" value="EVENT_DAILY_XSL"/>
+    </bind>
+    <bind result="YEAR" view="html-view">
+        <parameter name="xsl" value="EVENT_YEARLY_XSL"/>
+    </bind>
+    <bind result="LIST" view="html-view">
+        <parameter name="xsl" value="EVENT_LIST_XSL"/>
+    </bind>
+</command>
+
+<command name="get-event-category-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="EVENT_CATEGORY_XSL"/>
+    </bind>
+</command>
+
+<command name="get-event-categories-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="EVENT_CATEGORIES_XSL"/>
+    </bind>
+</command>
+
+<command name="get-event-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="EVENT_EDIT_EVENT_XSL"/>
+    </bind>
+</command>
+
+<command name="get-event-schedule-command">
+<!--    <bind result="success" view="xml-view"/> -->
+    <bind result="MONTH" view="html-view">
+        <parameter name="xsl" value="EVENT_SCHEDULE_XSL"/>
+    </bind>
+    <bind result="WEEK" view="html-view">
+        <parameter name="xsl" value="EVENT_SCHEDULE_XSL"/>
+    </bind>
+    <bind result="DAY" view="html-view">
+        <parameter name="xsl" value="EVENT_DAILY_XSL"/>
+    </bind>
+    <bind result="YEAR" view="html-view">
+        <parameter name="xsl" value="EVENT_YEARLY_XSL"/>
+    </bind>
+    <bind result="LIST" view="html-view">
+        <parameter name="xsl" value="EVENT_LIST_XSL"/>
+    </bind>
+</command>
+
+<command name="search-events-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="EVENT_SEARCH_XSL"/>
+    </bind>
+</command>
+
+<command name="update-event-category-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="EVENT_CATEGORY_XSL"/>
+    </bind>
+</command>
+
+<command name="update-event-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="EVENT_EDIT_EVENT_XSL"/>
+    </bind>
+    <bind result="MONTH" view="html-view">
+        <parameter name="xsl" value="EVENT_SCHEDULE_XSL"/>
+    </bind>
+    <bind result="WEEK" view="html-view">
+        <parameter name="xsl" value="EVENT_SCHEDULE_XSL"/>
+    </bind>
+    <bind result="DAY" view="html-view">
+        <parameter name="xsl" value="EVENT_DAILY_XSL"/>
+    </bind>
+    <bind result="YEAR" view="html-view">
+        <parameter name="xsl" value="EVENT_YEARLY_XSL"/>
+    </bind>
+    <bind result="LIST" view="html-view">
+        <parameter name="xsl" value="EVENT_LIST_XSL"/>
+    </bind>
+</command>

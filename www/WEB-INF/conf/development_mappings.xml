@@ -1,0 +1,4 @@
+
+<command name="set-log-level-command">
+    <bind result="success" view="xml-view"/>
+</command>

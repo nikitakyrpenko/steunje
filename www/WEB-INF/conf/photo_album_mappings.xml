@@ -1,0 +1,75 @@
+<command name="add-photos-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="PHOTO_ALBUM_XSL"/>
+    </bind>
+</command>
+
+<command name="copy-photos-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="PHOTO_ALBUM_XSL"/>
+    </bind>
+</command>
+
+<command name="create-album-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="PHOTO_ALBUM_XSL"/>
+    </bind>
+</command>
+
+<command name="create-secured-album-command">
+    <bind result="create" view="html-view">
+        <parameter name="xsl" value="PHOTO_ALBUM_CREATE_XSL"/>
+    </bind>
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="PHOTO_ALBUM_XSL"/>
+    </bind>
+</command>
+
+<command name="delete-photo-album-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="PHOTO_ALBUM_XSL"/>
+    </bind>
+</command>
+
+<command name="get-albums-tree-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="PHOTO_ALBUMS_TREE_XSL"/>
+    </bind>
+</command>
+
+<command name="get-photo-album-command">
+    <!--<bind result="success" view="xml-view"/> -->
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="PHOTO_ALBUM_XSL"/>
+    </bind>
+</command>
+
+<command name="get-photo-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="PHOTO_ALBUM_PHOTO_XSL"/>
+    </bind>
+</command>
+
+<command name="get-album-description-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="PHOTO_ALBUM_DESCRIPTION_XSL"/>
+    </bind>
+</command>
+
+<command name="update-photo-description-command">
+    <bind result="ALBUM" view="html-view">
+        <parameter name="xsl" value="PHOTO_ALBUM_XSL"/>
+    </bind>
+    <bind result="ALBUM_DESCRIPTION" view="html-view">
+        <parameter name="xsl" value="PHOTO_ALBUM_DESCRIPTION_XSL"/>
+    </bind>
+    <bind result="PHOTO" view="html-view">
+        <parameter name="xsl" value="PHOTO_ALBUM_PHOTO_XSL"/>
+    </bind>
+</command>
+
+<command name="change-album-container-command">
+    <bind result="success" view="html-view">
+        <parameter name="xsl" value="PHOTO_ALBUM_XSL"/>
+    </bind>
+</command>
